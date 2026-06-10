@@ -1,0 +1,1253 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Wapiti scan report</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+</head>
+<body>
+    <div id="page">
+        <header style="text-align: center">
+        <h2 class="title" style="text-align: center">Wapiti vulnerability report</h2>
+        <h3>Target: https://antam.com/</h3>
+        <p>Date of the scan: Wed, 10 Jun 2026 12:02:08 +0000. Scope of the scan: folder. Crawled pages: 26</p>
+        </header>
+        <hr />
+
+        <h4>Summary</h4>
+        <table class="summary-table" style="background: url('logo_clear.png') no-repeat center;">
+            <thead>
+                <tr>
+                    <th>Category</th>
+                    <th>Number of vulnerabilities found</th>
+                </tr>
+            </thead>
+            <tbody id="summary">
+                    <tr>
+                        <td class="small">
+                            Backup file
+                        </td>
+                        <td class="small text-centered">0</td>
+                    </tr>
+                    <tr>
+                        <td class="small">
+                            Cleartext Submission of Password
+                        </td>
+                        <td class="small text-centered">0</td>
+                    </tr>
+                    <tr>
+                        <td class="small">
+                            Weak credentials
+                        </td>
+                        <td class="small text-centered">0</td>
+                    </tr>
+                    <tr>
+                        <td class="small">
+                            CRLF Injection
+                        </td>
+                        <td class="small text-centered">0</td>
+                    </tr>
+                    <tr>
+                        <td class="small">
+                            <a href="#vuln_type_4">Content Security Policy Configuration</a>
+                        </td>
+                        <td class="small text-centered">4</td>
+                    </tr>
+                    <tr>
+                        <td class="small">
+                            Cross Site Request Forgery
+                        </td>
+                        <td class="small text-centered">0</td>
+                    </tr>
+                    <tr>
+                        <td class="small">
+                            Potentially dangerous file
+                        </td>
+                        <td class="small text-centered">0</td>
+                    </tr>
+                    <tr>
+                        <td class="small">
+                            Command execution
+                        </td>
+                        <td class="small text-centered">0</td>
+                    </tr>
+                    <tr>
+                        <td class="small">
+                            Path Traversal
+                        </td>
+                        <td class="small text-centered">0</td>
+                    </tr>
+                    <tr>
+                        <td class="small">
+                            Fingerprint web application framework
+                        </td>
+                        <td class="small text-centered">0</td>
+                    </tr>
+                    <tr>
+                        <td class="small">
+                            Fingerprint web server
+                        </td>
+                        <td class="small text-centered">0</td>
+                    </tr>
+                    <tr>
+                        <td class="small">
+                            Htaccess Bypass
+                        </td>
+                        <td class="small text-centered">0</td>
+                    </tr>
+                    <tr>
+                        <td class="small">
+                            HTML Injection
+                        </td>
+                        <td class="small text-centered">0</td>
+                    </tr>
+                    <tr>
+                        <td class="small">
+                            <a href="#vuln_type_13">Clickjacking Protection</a>
+                        </td>
+                        <td class="small text-centered">1</td>
+                    </tr>
+                    <tr>
+                        <td class="small">
+                            <a href="#vuln_type_14">HTTP Strict Transport Security (HSTS)</a>
+                        </td>
+                        <td class="small text-centered">1</td>
+                    </tr>
+                    <tr>
+                        <td class="small">
+                            <a href="#vuln_type_15">MIME Type Confusion</a>
+                        </td>
+                        <td class="small text-centered">1</td>
+                    </tr>
+                    <tr>
+                        <td class="small">
+                            <a href="#vuln_type_16">HttpOnly Flag cookie</a>
+                        </td>
+                        <td class="small text-centered">1</td>
+                    </tr>
+                    <tr>
+                        <td class="small">
+                            Unencrypted Channels
+                        </td>
+                        <td class="small text-centered">0</td>
+                    </tr>
+                    <tr>
+                        <td class="small">
+                            Inconsistent Redirection
+                        </td>
+                        <td class="small text-centered">0</td>
+                    </tr>
+                    <tr>
+                        <td class="small">
+                            Information Disclosure - Full Path
+                        </td>
+                        <td class="small text-centered">0</td>
+                    </tr>
+                    <tr>
+                        <td class="small">
+                            LDAP Injection
+                        </td>
+                        <td class="small text-centered">0</td>
+                    </tr>
+                    <tr>
+                        <td class="small">
+                            Log4Shell
+                        </td>
+                        <td class="small text-centered">0</td>
+                    </tr>
+                    <tr>
+                        <td class="small">
+                            NS takeover
+                        </td>
+                        <td class="small text-centered">0</td>
+                    </tr>
+                    <tr>
+                        <td class="small">
+                            Open Redirect
+                        </td>
+                        <td class="small text-centered">0</td>
+                    </tr>
+                    <tr>
+                        <td class="small">
+                            Reflected Cross Site Scripting
+                        </td>
+                        <td class="small text-centered">0</td>
+                    </tr>
+                    <tr>
+                        <td class="small">
+                            <a href="#vuln_type_25">Secure Flag cookie</a>
+                        </td>
+                        <td class="small text-centered">1</td>
+                    </tr>
+                    <tr>
+                        <td class="small">
+                            Spring4Shell
+                        </td>
+                        <td class="small text-centered">0</td>
+                    </tr>
+                    <tr>
+                        <td class="small">
+                            SQL Injection
+                        </td>
+                        <td class="small text-centered">0</td>
+                    </tr>
+                    <tr>
+                        <td class="small">
+                            <a href="#vuln_type_28">TLS/SSL misconfigurations</a>
+                        </td>
+                        <td class="small text-centered">6</td>
+                    </tr>
+                    <tr>
+                        <td class="small">
+                            Server Side Request Forgery
+                        </td>
+                        <td class="small text-centered">0</td>
+                    </tr>
+                    <tr>
+                        <td class="small">
+                            Stored HTML Injection
+                        </td>
+                        <td class="small text-centered">0</td>
+                    </tr>
+                    <tr>
+                        <td class="small">
+                            Stored Cross Site Scripting
+                        </td>
+                        <td class="small text-centered">0</td>
+                    </tr>
+                    <tr>
+                        <td class="small">
+                            Subdomain takeover
+                        </td>
+                        <td class="small text-centered">0</td>
+                    </tr>
+                    <tr>
+                        <td class="small">
+                            Blind SQL Injection
+                        </td>
+                        <td class="small text-centered">0</td>
+                    </tr>
+                    <tr>
+                        <td class="small">
+                            Unrestricted File Upload
+                        </td>
+                        <td class="small text-centered">0</td>
+                    </tr>
+                    <tr>
+                        <td class="small">
+                            Vulnerable software
+                        </td>
+                        <td class="small text-centered">0</td>
+                    </tr>
+                    <tr>
+                        <td class="small">
+                            Internal Server Error
+                        </td>
+                        <td class="small text-centered">0</td>
+                    </tr>
+                    <tr>
+                        <td class="small">
+                            Resource consumption
+                        </td>
+                        <td class="small text-centered">0</td>
+                    </tr>
+                    <tr>
+                        <td class="small">
+                            Review Webserver Metafiles for Information Leakage
+                        </td>
+                        <td class="small text-centered">0</td>
+                    </tr>
+                    <tr>
+                        <td class="small">
+                            Fingerprint web technology
+                        </td>
+                        <td class="small text-centered">0</td>
+                    </tr>
+                    <tr>
+                        <td class="small">
+                            HTTP Methods
+                        </td>
+                        <td class="small text-centered">0</td>
+                    </tr>
+                    <tr>
+                        <td class="small">
+                            <a href="#addition_type_3">TLS/SSL misconfigurations</a>
+                        </td>
+                        <td class="small text-centered">8</td>
+                    </tr>
+            </tbody>
+        </table>
+        <hr />
+        <div id="details">
+                <h3 id="vuln_type_4">Content Security Policy Configuration</h3>
+                <dl>
+                    <dt>Description</dt>
+                    <dd>Content Security Policy (CSP) is an added layer of security that helps to detect and mitigate certain types of attacks, including Cross Site Scripting (XSS) and data injection attacks.</dd>
+                </dl>
+
+                    <div class="tab-container">
+                        <h4><span class="severity severity-low"></span> Vulnerability found in /en</h4>
+                        <nav class="tab-nav">
+                            <a href="#tab-vuln-4-0-1" class="tab-link active">Description</a>
+                            <a href="#tab-vuln-4-0-2" class="tab-link">HTTP Request</a>
+                            <a href="#tab-vuln-4-0-4" class="tab-link">cURL command line</a>
+                            <a href="#tab-vuln-4-0-5" class="tab-link">WSTG Code</a>
+                        </nav>
+                        <section id="tab-vuln-4-0-1" class="tab-content" style="min-height: 124px;">
+                            <pre>CSP attribute &#34;default-src&#34; is missing for URL: https://antam.com/en</pre>
+                        </section>
+                        <section id="tab-vuln-4-0-2" class="tab-content" style="min-height: 124px; display: none;">
+                            <pre style="white-space: normal;">
+                                    GET /en HTTP/1.1
+                                    <br>
+                                    host: antam.com
+                                    <br>
+                                    connection: keep-alive
+                                    <br>
+                                    user-agent: Mozilla/5.0 (Windows NT 6.1; rv:45.0) Gecko/20100101 Firefox/45.0
+                                    <br>
+                                    accept-language: en-US
+                                    <br>
+                                    accept-encoding: gzip, deflate, br
+                                    <br>
+                                    accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+                                    <br>
+                                    cookie: NEXT_LOCALE=en
+                                    <br>
+                            </pre>
+                        </section>
+                        <section id="tab-vuln-4-0-4" class="tab-content" style="min-height: 124px; display: none;">
+                            <pre>curl &#34;https://antam.com/en&#34;</pre>
+                        </section>
+                        <section id="tab-vuln-4-0-5" class="tab-content" style="min-height: 124px; display: none;">
+                            <pre>[&#39;WSTG-CONF-12&#39;, &#39;OSHP-Content-Security-Policy&#39;]</pre>
+                        </section>
+                    </div>
+                    <div class="tab-container">
+                        <h4><span class="severity severity-medium"></span> Vulnerability found in /en</h4>
+                        <nav class="tab-nav">
+                            <a href="#tab-vuln-4-1-1" class="tab-link active">Description</a>
+                            <a href="#tab-vuln-4-1-2" class="tab-link">HTTP Request</a>
+                            <a href="#tab-vuln-4-1-4" class="tab-link">cURL command line</a>
+                            <a href="#tab-vuln-4-1-5" class="tab-link">WSTG Code</a>
+                        </nav>
+                        <section id="tab-vuln-4-1-1" class="tab-content" style="min-height: 124px;">
+                            <pre>CSP attribute &#34;script-src&#34; is missing for URL: https://antam.com/en</pre>
+                        </section>
+                        <section id="tab-vuln-4-1-2" class="tab-content" style="min-height: 124px; display: none;">
+                            <pre style="white-space: normal;">
+                                    GET /en HTTP/1.1
+                                    <br>
+                                    host: antam.com
+                                    <br>
+                                    connection: keep-alive
+                                    <br>
+                                    user-agent: Mozilla/5.0 (Windows NT 6.1; rv:45.0) Gecko/20100101 Firefox/45.0
+                                    <br>
+                                    accept-language: en-US
+                                    <br>
+                                    accept-encoding: gzip, deflate, br
+                                    <br>
+                                    accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+                                    <br>
+                                    cookie: NEXT_LOCALE=en
+                                    <br>
+                            </pre>
+                        </section>
+                        <section id="tab-vuln-4-1-4" class="tab-content" style="min-height: 124px; display: none;">
+                            <pre>curl &#34;https://antam.com/en&#34;</pre>
+                        </section>
+                        <section id="tab-vuln-4-1-5" class="tab-content" style="min-height: 124px; display: none;">
+                            <pre>[&#39;WSTG-CONF-12&#39;, &#39;OSHP-Content-Security-Policy&#39;]</pre>
+                        </section>
+                    </div>
+                    <div class="tab-container">
+                        <h4><span class="severity severity-medium"></span> Vulnerability found in /en</h4>
+                        <nav class="tab-nav">
+                            <a href="#tab-vuln-4-2-1" class="tab-link active">Description</a>
+                            <a href="#tab-vuln-4-2-2" class="tab-link">HTTP Request</a>
+                            <a href="#tab-vuln-4-2-4" class="tab-link">cURL command line</a>
+                            <a href="#tab-vuln-4-2-5" class="tab-link">WSTG Code</a>
+                        </nav>
+                        <section id="tab-vuln-4-2-1" class="tab-content" style="min-height: 124px;">
+                            <pre>CSP attribute &#34;object-src&#34; is missing for URL: https://antam.com/en</pre>
+                        </section>
+                        <section id="tab-vuln-4-2-2" class="tab-content" style="min-height: 124px; display: none;">
+                            <pre style="white-space: normal;">
+                                    GET /en HTTP/1.1
+                                    <br>
+                                    host: antam.com
+                                    <br>
+                                    connection: keep-alive
+                                    <br>
+                                    user-agent: Mozilla/5.0 (Windows NT 6.1; rv:45.0) Gecko/20100101 Firefox/45.0
+                                    <br>
+                                    accept-language: en-US
+                                    <br>
+                                    accept-encoding: gzip, deflate, br
+                                    <br>
+                                    accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+                                    <br>
+                                    cookie: NEXT_LOCALE=en
+                                    <br>
+                            </pre>
+                        </section>
+                        <section id="tab-vuln-4-2-4" class="tab-content" style="min-height: 124px; display: none;">
+                            <pre>curl &#34;https://antam.com/en&#34;</pre>
+                        </section>
+                        <section id="tab-vuln-4-2-5" class="tab-content" style="min-height: 124px; display: none;">
+                            <pre>[&#39;WSTG-CONF-12&#39;, &#39;OSHP-Content-Security-Policy&#39;]</pre>
+                        </section>
+                    </div>
+                    <div class="tab-container">
+                        <h4><span class="severity severity-medium"></span> Vulnerability found in /en</h4>
+                        <nav class="tab-nav">
+                            <a href="#tab-vuln-4-3-1" class="tab-link active">Description</a>
+                            <a href="#tab-vuln-4-3-2" class="tab-link">HTTP Request</a>
+                            <a href="#tab-vuln-4-3-4" class="tab-link">cURL command line</a>
+                            <a href="#tab-vuln-4-3-5" class="tab-link">WSTG Code</a>
+                        </nav>
+                        <section id="tab-vuln-4-3-1" class="tab-content" style="min-height: 124px;">
+                            <pre>CSP attribute &#34;base-uri&#34; is missing for URL: https://antam.com/en</pre>
+                        </section>
+                        <section id="tab-vuln-4-3-2" class="tab-content" style="min-height: 124px; display: none;">
+                            <pre style="white-space: normal;">
+                                    GET /en HTTP/1.1
+                                    <br>
+                                    host: antam.com
+                                    <br>
+                                    connection: keep-alive
+                                    <br>
+                                    user-agent: Mozilla/5.0 (Windows NT 6.1; rv:45.0) Gecko/20100101 Firefox/45.0
+                                    <br>
+                                    accept-language: en-US
+                                    <br>
+                                    accept-encoding: gzip, deflate, br
+                                    <br>
+                                    accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+                                    <br>
+                                    cookie: NEXT_LOCALE=en
+                                    <br>
+                            </pre>
+                        </section>
+                        <section id="tab-vuln-4-3-4" class="tab-content" style="min-height: 124px; display: none;">
+                            <pre>curl &#34;https://antam.com/en&#34;</pre>
+                        </section>
+                        <section id="tab-vuln-4-3-5" class="tab-content" style="min-height: 124px; display: none;">
+                            <pre>[&#39;WSTG-CONF-12&#39;, &#39;OSHP-Content-Security-Policy&#39;]</pre>
+                        </section>
+                    </div>
+
+                <dl><dt>Solutions</dt><dd>Configuring Content Security Policy involves adding the Content-Security-Policy HTTP header to a web page and giving it values to control what resources the user agent is allowed to load for that page.</dd></dl>
+                <h5>References</h5>
+                <ul>
+                    <li><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP">Mozilla: Content Security Policy (CSP)</a></li>
+                    <li><a href="https://cheatsheetseries.owasp.org/cheatsheets/Content_Security_Policy_Cheat_Sheet.html">OWASP: Content Security Policy Cheat Sheet</a></li>
+                    <li><a href="https://owasp.org/www-pdf-archive/2019-02-22_-_How_do_I_Content_Security_Policy_-_Print.pdf">OWASP: How to do Content Security Policy (PDF)</a></li>
+                    <li><a href="https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/12-Test_for_Content_Security_Policy">OWASP: Content Security Policy</a></li>
+                </ul>
+                <br />
+                <hr>
+                <h3 id="vuln_type_13">Clickjacking Protection</h3>
+                <dl>
+                    <dt>Description</dt>
+                    <dd>Clickjacking is a technique that tricks a user into clicking something different from what the user perceives, potentially revealing confidential information or taking control of their computer.</dd>
+                </dl>
+
+                    <div class="tab-container">
+                        <h4><span class="severity severity-low"></span> Vulnerability found in /</h4>
+                        <nav class="tab-nav">
+                            <a href="#tab-vuln-13-0-1" class="tab-link active">Description</a>
+                            <a href="#tab-vuln-13-0-2" class="tab-link">HTTP Request</a>
+                            <a href="#tab-vuln-13-0-4" class="tab-link">cURL command line</a>
+                            <a href="#tab-vuln-13-0-5" class="tab-link">WSTG Code</a>
+                        </nav>
+                        <section id="tab-vuln-13-0-1" class="tab-content" style="min-height: 124px;">
+                            <pre>X-Frame-Options has an invalid value (&#39;deny&#39; or &#39;sameorigin&#39; or not found)</pre>
+                        </section>
+                        <section id="tab-vuln-13-0-2" class="tab-content" style="min-height: 124px; display: none;">
+                            <pre style="white-space: normal;">
+                                    GET / HTTP/1.1
+                                    <br>
+                                    host: antam.com
+                                    <br>
+                                    connection: keep-alive
+                                    <br>
+                                    user-agent: Mozilla/5.0 (Windows NT 6.1; rv:45.0) Gecko/20100101 Firefox/45.0
+                                    <br>
+                                    accept-language: en-US
+                                    <br>
+                                    accept-encoding: gzip, deflate, br
+                                    <br>
+                                    accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+                                    <br>
+                            </pre>
+                        </section>
+                        <section id="tab-vuln-13-0-4" class="tab-content" style="min-height: 124px; display: none;">
+                            <pre>curl &#34;https://antam.com/&#34;</pre>
+                        </section>
+                        <section id="tab-vuln-13-0-5" class="tab-content" style="min-height: 124px; display: none;">
+                            <pre>[&#39;OSHP-X-Frame-Options&#39;]</pre>
+                        </section>
+                    </div>
+
+                <dl><dt>Solutions</dt><dd>Implement X-Frame-Options or Content Security Policy (CSP) frame-ancestors directive.</dd></dl>
+                <h5>References</h5>
+                <ul>
+                    <li><a href="https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/11-Client-side_Testing/09-Testing_for_Clickjacking">OWASP: Clickjacking</a></li>
+                    <li><a href="https://www.keycdn.com/support/prevent-clickjacking">KeyCDN: Preventing Clickjacking</a></li>
+                </ul>
+                <br />
+                <hr>
+                <h3 id="vuln_type_14">HTTP Strict Transport Security (HSTS)</h3>
+                <dl>
+                    <dt>Description</dt>
+                    <dd>HSTS is a web security policy mechanism that helps to protect websites against man-in-the-middle attacks such as protocol downgrade attacks and cookie hijacking.</dd>
+                </dl>
+
+                    <div class="tab-container">
+                        <h4><span class="severity severity-low"></span> Vulnerability found in /</h4>
+                        <nav class="tab-nav">
+                            <a href="#tab-vuln-14-0-1" class="tab-link active">Description</a>
+                            <a href="#tab-vuln-14-0-2" class="tab-link">HTTP Request</a>
+                            <a href="#tab-vuln-14-0-4" class="tab-link">cURL command line</a>
+                            <a href="#tab-vuln-14-0-5" class="tab-link">WSTG Code</a>
+                        </nav>
+                        <section id="tab-vuln-14-0-1" class="tab-content" style="min-height: 124px;">
+                            <pre>Strict-Transport-Security is not set</pre>
+                        </section>
+                        <section id="tab-vuln-14-0-2" class="tab-content" style="min-height: 124px; display: none;">
+                            <pre style="white-space: normal;">
+                                    GET / HTTP/1.1
+                                    <br>
+                                    host: antam.com
+                                    <br>
+                                    connection: keep-alive
+                                    <br>
+                                    user-agent: Mozilla/5.0 (Windows NT 6.1; rv:45.0) Gecko/20100101 Firefox/45.0
+                                    <br>
+                                    accept-language: en-US
+                                    <br>
+                                    accept-encoding: gzip, deflate, br
+                                    <br>
+                                    accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+                                    <br>
+                            </pre>
+                        </section>
+                        <section id="tab-vuln-14-0-4" class="tab-content" style="min-height: 124px; display: none;">
+                            <pre>curl &#34;https://antam.com/&#34;</pre>
+                        </section>
+                        <section id="tab-vuln-14-0-5" class="tab-content" style="min-height: 124px; display: none;">
+                            <pre>[&#39;WSTG-CONF-07&#39;, &#39;OSHP-HTTP-Strict-Transport-Security&#39;]</pre>
+                        </section>
+                    </div>
+
+                <dl><dt>Solutions</dt><dd>Implement the HTTP Strict Transport Security header to enforce secure connections to the server.</dd></dl>
+                <h5>References</h5>
+                <ul>
+                    <li><a href="https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/07-Test_HTTP_Strict_Transport_Security">OWASP: HTTP Strict Transport Security</a></li>
+                    <li><a href="https://www.keycdn.com/support/hsts">KeyCDN: Enabling HSTS</a></li>
+                </ul>
+                <br />
+                <hr>
+                <h3 id="vuln_type_15">MIME Type Confusion</h3>
+                <dl>
+                    <dt>Description</dt>
+                    <dd>MIME type confusion can occur when a browser interprets files as a different type than intended, which could lead to security vulnerabilities like cross-site scripting (XSS).</dd>
+                </dl>
+
+                    <div class="tab-container">
+                        <h4><span class="severity severity-low"></span> Vulnerability found in /</h4>
+                        <nav class="tab-nav">
+                            <a href="#tab-vuln-15-0-1" class="tab-link active">Description</a>
+                            <a href="#tab-vuln-15-0-2" class="tab-link">HTTP Request</a>
+                            <a href="#tab-vuln-15-0-4" class="tab-link">cURL command line</a>
+                            <a href="#tab-vuln-15-0-5" class="tab-link">WSTG Code</a>
+                        </nav>
+                        <section id="tab-vuln-15-0-1" class="tab-content" style="min-height: 124px;">
+                            <pre>X-Content-Type-Options is not set</pre>
+                        </section>
+                        <section id="tab-vuln-15-0-2" class="tab-content" style="min-height: 124px; display: none;">
+                            <pre style="white-space: normal;">
+                                    GET / HTTP/1.1
+                                    <br>
+                                    host: antam.com
+                                    <br>
+                                    connection: keep-alive
+                                    <br>
+                                    user-agent: Mozilla/5.0 (Windows NT 6.1; rv:45.0) Gecko/20100101 Firefox/45.0
+                                    <br>
+                                    accept-language: en-US
+                                    <br>
+                                    accept-encoding: gzip, deflate, br
+                                    <br>
+                                    accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+                                    <br>
+                            </pre>
+                        </section>
+                        <section id="tab-vuln-15-0-4" class="tab-content" style="min-height: 124px; display: none;">
+                            <pre>curl &#34;https://antam.com/&#34;</pre>
+                        </section>
+                        <section id="tab-vuln-15-0-5" class="tab-content" style="min-height: 124px; display: none;">
+                            <pre>[&#39;OSHP-X-Content-Type-Options&#39;]</pre>
+                        </section>
+                    </div>
+
+                <dl><dt>Solutions</dt><dd>Implement X-Content-Type-Options to prevent MIME type sniffing.</dd></dl>
+                <h5>References</h5>
+                <ul>
+                    <li><a href="https://owasp.org/www-community/attacks/MIME_sniffing">OWASP: MIME Sniffing</a></li>
+                    <li><a href="https://www.keycdn.com/support/preventing-mime-type-sniffing">KeyCDN: Preventing MIME Type Sniffing</a></li>
+                </ul>
+                <br />
+                <hr>
+                <h3 id="vuln_type_16">HttpOnly Flag cookie</h3>
+                <dl>
+                    <dt>Description</dt>
+                    <dd>HttpOnly is an additional flag included in a Set-Cookie HTTP response header. Using the HttpOnly flag when generating a cookie helps mitigate the risk of client side script accessing the protected cookie (if the browser supports it).</dd>
+                </dl>
+
+                    <div class="tab-container">
+                        <h4><span class="severity severity-low"></span> Vulnerability found in /</h4>
+                        <nav class="tab-nav">
+                            <a href="#tab-vuln-16-0-1" class="tab-link active">Description</a>
+                            <a href="#tab-vuln-16-0-2" class="tab-link">HTTP Request</a>
+                            <a href="#tab-vuln-16-0-4" class="tab-link">cURL command line</a>
+                            <a href="#tab-vuln-16-0-5" class="tab-link">WSTG Code</a>
+                        </nav>
+                        <section id="tab-vuln-16-0-1" class="tab-content" style="min-height: 124px;">
+                            <pre>HttpOnly flag is not set on the cookie &#39;NEXT_LOCALE&#39; set at &#39;https://antam.com/&#39;</pre>
+                        </section>
+                        <section id="tab-vuln-16-0-2" class="tab-content" style="min-height: 124px; display: none;">
+                            <pre style="white-space: normal;">
+                                    GET / HTTP/1.1
+                                    <br>
+                                    host: antam.com
+                                    <br>
+                                    connection: keep-alive
+                                    <br>
+                                    user-agent: Mozilla/5.0 (Windows NT 6.1; rv:45.0) Gecko/20100101 Firefox/45.0
+                                    <br>
+                                    accept-language: en-US
+                                    <br>
+                                    accept-encoding: gzip, deflate, br
+                                    <br>
+                                    accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+                                    <br>
+                            </pre>
+                        </section>
+                        <section id="tab-vuln-16-0-4" class="tab-content" style="min-height: 124px; display: none;">
+                            <pre>curl &#34;https://antam.com/&#34;</pre>
+                        </section>
+                        <section id="tab-vuln-16-0-5" class="tab-content" style="min-height: 124px; display: none;">
+                            <pre>[&#39;WSTG-SESS-02&#39;]</pre>
+                        </section>
+                    </div>
+
+                <dl><dt>Solutions</dt><dd>While creation of the cookie, make sure to set the HttpOnly Flag to True.</dd></dl>
+                <h5>References</h5>
+                <ul>
+                    <li><a href="https://owasp.org/www-project-web-security-testing-guide/stable/4-Web_Application_Security_Testing/06-Session_Management_Testing/02-Testing_for_Cookies_Attributes.html">OWASP: Testing for Cookies Attributes</a></li>
+                    <li><a href="https://owasp.org/www-community/HttpOnly">OWASP: HttpOnly</a></li>
+                </ul>
+                <br />
+                <hr>
+                <h3 id="vuln_type_25">Secure Flag cookie</h3>
+                <dl>
+                    <dt>Description</dt>
+                    <dd>The secure flag is an option that can be set by the application server when sending a new cookie to the user within an HTTP Response. The purpose of the secure flag is to prevent cookies from being observed by unauthorized parties due to the transmission of a the cookie in clear text.</dd>
+                </dl>
+
+                    <div class="tab-container">
+                        <h4><span class="severity severity-low"></span> Vulnerability found in /</h4>
+                        <nav class="tab-nav">
+                            <a href="#tab-vuln-25-0-1" class="tab-link active">Description</a>
+                            <a href="#tab-vuln-25-0-2" class="tab-link">HTTP Request</a>
+                            <a href="#tab-vuln-25-0-4" class="tab-link">cURL command line</a>
+                            <a href="#tab-vuln-25-0-5" class="tab-link">WSTG Code</a>
+                        </nav>
+                        <section id="tab-vuln-25-0-1" class="tab-content" style="min-height: 124px;">
+                            <pre>Secure flag is not set on the cookie: &#39;NEXT_LOCALE&#39; set at &#39;https://antam.com/&#39;</pre>
+                        </section>
+                        <section id="tab-vuln-25-0-2" class="tab-content" style="min-height: 124px; display: none;">
+                            <pre style="white-space: normal;">
+                                    GET / HTTP/1.1
+                                    <br>
+                                    host: antam.com
+                                    <br>
+                                    connection: keep-alive
+                                    <br>
+                                    user-agent: Mozilla/5.0 (Windows NT 6.1; rv:45.0) Gecko/20100101 Firefox/45.0
+                                    <br>
+                                    accept-language: en-US
+                                    <br>
+                                    accept-encoding: gzip, deflate, br
+                                    <br>
+                                    accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+                                    <br>
+                            </pre>
+                        </section>
+                        <section id="tab-vuln-25-0-4" class="tab-content" style="min-height: 124px; display: none;">
+                            <pre>curl &#34;https://antam.com/&#34;</pre>
+                        </section>
+                        <section id="tab-vuln-25-0-5" class="tab-content" style="min-height: 124px; display: none;">
+                            <pre>[&#39;WSTG-SESS-02&#39;]</pre>
+                        </section>
+                    </div>
+
+                <dl><dt>Solutions</dt><dd>When generating the cookie, make sure to set the Secure Flag to True.</dd></dl>
+                <h5>References</h5>
+                <ul>
+                    <li><a href="https://owasp.org/www-project-web-security-testing-guide/stable/4-Web_Application_Security_Testing/06-Session_Management_Testing/02-Testing_for_Cookies_Attributes.html">OWASP: Testing for Cookies Attributes</a></li>
+                    <li><a href="https://owasp.org/www-community/controls/SecureCookieAttribute">OWASP: Secure Cookie Attribute</a></li>
+                </ul>
+                <br />
+                <hr>
+                <h3 id="vuln_type_28">TLS/SSL misconfigurations</h3>
+                <dl>
+                    <dt>Description</dt>
+                    <dd>The TLS protocol aims primarily to provide privacy and data integrity between two or more communicating computer applications. Over the years numerous vulnerabilities have been discovered in some SSL/TLS version or specific ciphers making the integrity of the communications at risk (eavesdropping, alteration...)</dd>
+                </dl>
+
+                    <div class="tab-container">
+                        <h4><span class="severity severity-medium"></span> Vulnerability found in /</h4>
+                        <nav class="tab-nav">
+                            <a href="#tab-vuln-28-0-1" class="tab-link active">Description</a>
+                            <a href="#tab-vuln-28-0-2" class="tab-link">HTTP Request</a>
+                            <a href="#tab-vuln-28-0-4" class="tab-link">cURL command line</a>
+                            <a href="#tab-vuln-28-0-5" class="tab-link">WSTG Code</a>
+                        </nav>
+                        <section id="tab-vuln-28-0-1" class="tab-content" style="min-height: 124px;">
+                            <pre>Certificate doesn&#39;t use Extended Validation</pre>
+                        </section>
+                        <section id="tab-vuln-28-0-2" class="tab-content" style="min-height: 124px; display: none;">
+                            <pre style="white-space: normal;">
+                                    GET / HTTP/1.1
+                                    <br>
+                                    host: antam.com
+                                    <br>
+                                    connection: keep-alive
+                                    <br>
+                                    user-agent: Mozilla/5.0 (Windows NT 6.1; rv:45.0) Gecko/20100101 Firefox/45.0
+                                    <br>
+                                    accept-language: en-US
+                                    <br>
+                                    accept-encoding: gzip, deflate, br
+                                    <br>
+                                    accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+                                    <br>
+                            </pre>
+                        </section>
+                        <section id="tab-vuln-28-0-4" class="tab-content" style="min-height: 124px; display: none;">
+                            <pre>curl &#34;https://antam.com/&#34;</pre>
+                        </section>
+                        <section id="tab-vuln-28-0-5" class="tab-content" style="min-height: 124px; display: none;">
+                            <pre>[&#39;WSTG-CRYP-01&#39;]</pre>
+                        </section>
+                    </div>
+                    <div class="tab-container">
+                        <h4><span class="severity severity-medium"></span> Vulnerability found in /</h4>
+                        <nav class="tab-nav">
+                            <a href="#tab-vuln-28-1-1" class="tab-link active">Description</a>
+                            <a href="#tab-vuln-28-1-2" class="tab-link">HTTP Request</a>
+                            <a href="#tab-vuln-28-1-4" class="tab-link">cURL command line</a>
+                            <a href="#tab-vuln-28-1-5" class="tab-link">WSTG Code</a>
+                        </nav>
+                        <section id="tab-vuln-28-1-1" class="tab-content" style="min-height: 124px;">
+                            <pre>OCSP Must-Staple extension is missing</pre>
+                        </section>
+                        <section id="tab-vuln-28-1-2" class="tab-content" style="min-height: 124px; display: none;">
+                            <pre style="white-space: normal;">
+                                    GET / HTTP/1.1
+                                    <br>
+                                    host: antam.com
+                                    <br>
+                                    connection: keep-alive
+                                    <br>
+                                    user-agent: Mozilla/5.0 (Windows NT 6.1; rv:45.0) Gecko/20100101 Firefox/45.0
+                                    <br>
+                                    accept-language: en-US
+                                    <br>
+                                    accept-encoding: gzip, deflate, br
+                                    <br>
+                                    accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+                                    <br>
+                            </pre>
+                        </section>
+                        <section id="tab-vuln-28-1-4" class="tab-content" style="min-height: 124px; display: none;">
+                            <pre>curl &#34;https://antam.com/&#34;</pre>
+                        </section>
+                        <section id="tab-vuln-28-1-5" class="tab-content" style="min-height: 124px; display: none;">
+                            <pre>[&#39;WSTG-CRYP-01&#39;]</pre>
+                        </section>
+                    </div>
+                    <div class="tab-container">
+                        <h4><span class="severity severity-high"></span> Vulnerability found in /</h4>
+                        <nav class="tab-nav">
+                            <a href="#tab-vuln-28-2-1" class="tab-link active">Description</a>
+                            <a href="#tab-vuln-28-2-2" class="tab-link">HTTP Request</a>
+                            <a href="#tab-vuln-28-2-4" class="tab-link">cURL command line</a>
+                            <a href="#tab-vuln-28-2-5" class="tab-link">WSTG Code</a>
+                        </nav>
+                        <section id="tab-vuln-28-2-1" class="tab-content" style="min-height: 124px;">
+                            <pre>Strict Transport Security (HSTS) is not set</pre>
+                        </section>
+                        <section id="tab-vuln-28-2-2" class="tab-content" style="min-height: 124px; display: none;">
+                            <pre style="white-space: normal;">
+                                    GET / HTTP/1.1
+                                    <br>
+                                    host: antam.com
+                                    <br>
+                                    connection: keep-alive
+                                    <br>
+                                    user-agent: Mozilla/5.0 (Windows NT 6.1; rv:45.0) Gecko/20100101 Firefox/45.0
+                                    <br>
+                                    accept-language: en-US
+                                    <br>
+                                    accept-encoding: gzip, deflate, br
+                                    <br>
+                                    accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+                                    <br>
+                            </pre>
+                        </section>
+                        <section id="tab-vuln-28-2-4" class="tab-content" style="min-height: 124px; display: none;">
+                            <pre>curl &#34;https://antam.com/&#34;</pre>
+                        </section>
+                        <section id="tab-vuln-28-2-5" class="tab-content" style="min-height: 124px; display: none;">
+                            <pre>[&#39;WSTG-CRYP-01&#39;]</pre>
+                        </section>
+                    </div>
+                    <div class="tab-container">
+                        <h4><span class="severity severity-critical"></span> Vulnerability found in /</h4>
+                        <nav class="tab-nav">
+                            <a href="#tab-vuln-28-3-1" class="tab-link active">Description</a>
+                            <a href="#tab-vuln-28-3-2" class="tab-link">HTTP Request</a>
+                            <a href="#tab-vuln-28-3-4" class="tab-link">cURL command line</a>
+                            <a href="#tab-vuln-28-3-5" class="tab-link">WSTG Code</a>
+                        </nav>
+                        <section id="tab-vuln-28-3-1" class="tab-content" style="min-height: 124px;">
+                            <pre>Server is vulnerable to OpenSSL CCS (CVE-2014-0224)</pre>
+                        </section>
+                        <section id="tab-vuln-28-3-2" class="tab-content" style="min-height: 124px; display: none;">
+                            <pre style="white-space: normal;">
+                                    GET / HTTP/1.1
+                                    <br>
+                                    host: antam.com
+                                    <br>
+                                    connection: keep-alive
+                                    <br>
+                                    user-agent: Mozilla/5.0 (Windows NT 6.1; rv:45.0) Gecko/20100101 Firefox/45.0
+                                    <br>
+                                    accept-language: en-US
+                                    <br>
+                                    accept-encoding: gzip, deflate, br
+                                    <br>
+                                    accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+                                    <br>
+                            </pre>
+                        </section>
+                        <section id="tab-vuln-28-3-4" class="tab-content" style="min-height: 124px; display: none;">
+                            <pre>curl &#34;https://antam.com/&#34;</pre>
+                        </section>
+                        <section id="tab-vuln-28-3-5" class="tab-content" style="min-height: 124px; display: none;">
+                            <pre>[&#39;WSTG-CRYP-01&#39;]</pre>
+                        </section>
+                    </div>
+                    <div class="tab-container">
+                        <h4><span class="severity severity-medium"></span> Vulnerability found in /</h4>
+                        <nav class="tab-nav">
+                            <a href="#tab-vuln-28-4-1" class="tab-link active">Description</a>
+                            <a href="#tab-vuln-28-4-2" class="tab-link">HTTP Request</a>
+                            <a href="#tab-vuln-28-4-4" class="tab-link">cURL command line</a>
+                            <a href="#tab-vuln-28-4-5" class="tab-link">WSTG Code</a>
+                        </nav>
+                        <section id="tab-vuln-28-4-1" class="tab-content" style="min-height: 124px;">
+                            <pre>Server doesn&#39;t support secure renegotiations</pre>
+                        </section>
+                        <section id="tab-vuln-28-4-2" class="tab-content" style="min-height: 124px; display: none;">
+                            <pre style="white-space: normal;">
+                                    GET / HTTP/1.1
+                                    <br>
+                                    host: antam.com
+                                    <br>
+                                    connection: keep-alive
+                                    <br>
+                                    user-agent: Mozilla/5.0 (Windows NT 6.1; rv:45.0) Gecko/20100101 Firefox/45.0
+                                    <br>
+                                    accept-language: en-US
+                                    <br>
+                                    accept-encoding: gzip, deflate, br
+                                    <br>
+                                    accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+                                    <br>
+                            </pre>
+                        </section>
+                        <section id="tab-vuln-28-4-4" class="tab-content" style="min-height: 124px; display: none;">
+                            <pre>curl &#34;https://antam.com/&#34;</pre>
+                        </section>
+                        <section id="tab-vuln-28-4-5" class="tab-content" style="min-height: 124px; display: none;">
+                            <pre>[&#39;WSTG-CRYP-01&#39;]</pre>
+                        </section>
+                    </div>
+                    <div class="tab-container">
+                        <h4><span class="severity severity-medium"></span> Vulnerability found in /</h4>
+                        <nav class="tab-nav">
+                            <a href="#tab-vuln-28-5-1" class="tab-link active">Description</a>
+                            <a href="#tab-vuln-28-5-2" class="tab-link">HTTP Request</a>
+                            <a href="#tab-vuln-28-5-4" class="tab-link">cURL command line</a>
+                            <a href="#tab-vuln-28-5-5" class="tab-link">WSTG Code</a>
+                        </nav>
+                        <section id="tab-vuln-28-5-1" class="tab-content" style="min-height: 124px;">
+                            <pre>The following ciphers are acceptable for TLSv1.2: TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA, TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256, TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA, TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384, TLS_RSA_WITH_AES_128_CBC_SHA, TLS_RSA_WITH_AES_128_CBC_SHA256, TLS_RSA_WITH_AES_128_GCM_SHA256, TLS_RSA_WITH_AES_256_CBC_SHA, TLS_RSA_WITH_AES_256_CBC_SHA256, TLS_RSA_WITH_AES_256_GCM_SHA384</pre>
+                        </section>
+                        <section id="tab-vuln-28-5-2" class="tab-content" style="min-height: 124px; display: none;">
+                            <pre style="white-space: normal;">
+                                    GET / HTTP/1.1
+                                    <br>
+                                    host: antam.com
+                                    <br>
+                                    connection: keep-alive
+                                    <br>
+                                    user-agent: Mozilla/5.0 (Windows NT 6.1; rv:45.0) Gecko/20100101 Firefox/45.0
+                                    <br>
+                                    accept-language: en-US
+                                    <br>
+                                    accept-encoding: gzip, deflate, br
+                                    <br>
+                                    accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+                                    <br>
+                            </pre>
+                        </section>
+                        <section id="tab-vuln-28-5-4" class="tab-content" style="min-height: 124px; display: none;">
+                            <pre>curl &#34;https://antam.com/&#34;</pre>
+                        </section>
+                        <section id="tab-vuln-28-5-5" class="tab-content" style="min-height: 124px; display: none;">
+                            <pre>[&#39;WSTG-CRYP-01&#39;]</pre>
+                        </section>
+                    </div>
+
+                <dl><dt>Solutions</dt><dd>To protect against SSL/TLS vulnerabilities, make sure that deprecated versions of the protocol are disabled. Refer to up-to-date recommendations to only allow modern versions of TLS with Perfect Forward Secrecy.</dd></dl>
+                <h5>References</h5>
+                <ul>
+                    <li><a href="https://github.com/ssllabs/research/wiki/SSL-and-TLS-Deployment-Best-Practices">SSL Labs: SSL and TLS Deployment Best Practices</a></li>
+                    <li><a href="https://wiki.mozilla.org/Security/Server_Side_TLS">Mozilla: Server Side TLS recommended configurations</a></li>
+                    <li><a href="https://beaglesecurity.com/blog/article/importance-of-tls-1-3-ssl-and-tls-vulnerabilities.html">Beagle Security: Importance of TLS 1.3, SSL and TLS Vulnerabilities</a></li>
+                    <li><a href="https://ciphersuite.info/">Security of TLS cipher suites</a></li>
+                    <li><a href="https://blog.trailofbits.com/2019/03/25/what-application-developers-need-to-know-about-tls-early-data-0rtt/">Trail of Bits: What Application Developers Need To Know About TLS Early Data (0RTT)</a></li>
+                    <li><a href="https://owasp.org/www-project-web-security-testing-guide/v41/4-Web_Application_Security_Testing/09-Testing_for_Weak_Cryptography/01-Testing_for_Weak_SSL_TLS_Ciphers_Insufficient_Transport_Layer_Protection">OWASP: Weak SSL TLS Ciphers Insufficient Transport Layer Protection</a></li>
+                </ul>
+                <br />
+                <hr>
+                <h3 id="addition_type_3">TLS/SSL misconfigurations</h3>
+                <dl>
+                    <dt>Description</dt>
+                    <dd>The TLS protocol aims primarily to provide privacy and data integrity between two or more communicating computer applications. Over the years numerous vulnerabilities have been discovered in some SSL/TLS version or specific ciphers making the integrity of the communications at risk (eavesdropping, alteration...)</dd>
+                </dl>
+
+                    <div class="tab-container">
+                        <h4><span class="severity severity-info"></span> Additional found in /</h4>
+                        <nav class="tab-nav">
+                            <a href="#tab-addition-3-0-1" class="tab-link active">Description</a>
+                            <a href="#tab-addition-3-0-2" class="tab-link">HTTP Request</a>
+                            <a href="#tab-addition-3-0-4" class="tab-link">cURL command line</a>
+                            <a href="#tab-addition-3-0-5" class="tab-link">WSTG Code</a>
+                        </nav>
+                        <section id="tab-addition-3-0-1" class="tab-content" style="min-height: 124px;">
+                            <pre>Certificate subject: *.antam.com</pre>
+                        </section>
+                        <section id="tab-addition-3-0-2" class="tab-content" style="min-height: 124px; display: none;">
+                            <pre style="white-space: normal">
+                                    GET / HTTP/1.1
+                                    <br>
+                                    host: antam.com
+                                    <br>
+                                    connection: keep-alive
+                                    <br>
+                                    user-agent: Mozilla/5.0 (Windows NT 6.1; rv:45.0) Gecko/20100101 Firefox/45.0
+                                    <br>
+                                    accept-language: en-US
+                                    <br>
+                                    accept-encoding: gzip, deflate, br
+                                    <br>
+                                    accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+                                    <br>
+                            </pre>
+                        </section>
+                        <section id="tab-addition-3-0-4" class="tab-content" style="min-height: 124px; display: none;">
+                            <pre>curl &#34;https://antam.com/&#34;</pre>
+                        </section>
+                        <section id="tab-addition-3-0-5" class="tab-content" style="min-height: 124px; display: none;">
+                            <pre>[&#39;WSTG-CRYP-01&#39;]</pre>
+                        </section>
+                    </div>
+                    <div class="tab-container">
+                        <h4><span class="severity severity-info"></span> Additional found in /</h4>
+                        <nav class="tab-nav">
+                            <a href="#tab-addition-3-1-1" class="tab-link active">Description</a>
+                            <a href="#tab-addition-3-1-2" class="tab-link">HTTP Request</a>
+                            <a href="#tab-addition-3-1-4" class="tab-link">cURL command line</a>
+                            <a href="#tab-addition-3-1-5" class="tab-link">WSTG Code</a>
+                        </nav>
+                        <section id="tab-addition-3-1-1" class="tab-content" style="min-height: 124px;">
+                            <pre>Alt. names: *.antam.com, antam.com</pre>
+                        </section>
+                        <section id="tab-addition-3-1-2" class="tab-content" style="min-height: 124px; display: none;">
+                            <pre style="white-space: normal">
+                                    GET / HTTP/1.1
+                                    <br>
+                                    host: antam.com
+                                    <br>
+                                    connection: keep-alive
+                                    <br>
+                                    user-agent: Mozilla/5.0 (Windows NT 6.1; rv:45.0) Gecko/20100101 Firefox/45.0
+                                    <br>
+                                    accept-language: en-US
+                                    <br>
+                                    accept-encoding: gzip, deflate, br
+                                    <br>
+                                    accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+                                    <br>
+                            </pre>
+                        </section>
+                        <section id="tab-addition-3-1-4" class="tab-content" style="min-height: 124px; display: none;">
+                            <pre>curl &#34;https://antam.com/&#34;</pre>
+                        </section>
+                        <section id="tab-addition-3-1-5" class="tab-content" style="min-height: 124px; display: none;">
+                            <pre>[&#39;WSTG-CRYP-01&#39;]</pre>
+                        </section>
+                    </div>
+                    <div class="tab-container">
+                        <h4><span class="severity severity-info"></span> Additional found in /</h4>
+                        <nav class="tab-nav">
+                            <a href="#tab-addition-3-2-1" class="tab-link active">Description</a>
+                            <a href="#tab-addition-3-2-2" class="tab-link">HTTP Request</a>
+                            <a href="#tab-addition-3-2-4" class="tab-link">cURL command line</a>
+                            <a href="#tab-addition-3-2-5" class="tab-link">WSTG Code</a>
+                        </nav>
+                        <section id="tab-addition-3-2-1" class="tab-content" style="min-height: 124px;">
+                            <pre>Issuer: GlobalSign GCC R3 DV TLS CA 2020</pre>
+                        </section>
+                        <section id="tab-addition-3-2-2" class="tab-content" style="min-height: 124px; display: none;">
+                            <pre style="white-space: normal">
+                                    GET / HTTP/1.1
+                                    <br>
+                                    host: antam.com
+                                    <br>
+                                    connection: keep-alive
+                                    <br>
+                                    user-agent: Mozilla/5.0 (Windows NT 6.1; rv:45.0) Gecko/20100101 Firefox/45.0
+                                    <br>
+                                    accept-language: en-US
+                                    <br>
+                                    accept-encoding: gzip, deflate, br
+                                    <br>
+                                    accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+                                    <br>
+                            </pre>
+                        </section>
+                        <section id="tab-addition-3-2-4" class="tab-content" style="min-height: 124px; display: none;">
+                            <pre>curl &#34;https://antam.com/&#34;</pre>
+                        </section>
+                        <section id="tab-addition-3-2-5" class="tab-content" style="min-height: 124px; display: none;">
+                            <pre>[&#39;WSTG-CRYP-01&#39;]</pre>
+                        </section>
+                    </div>
+                    <div class="tab-container">
+                        <h4><span class="severity severity-info"></span> Additional found in /</h4>
+                        <nav class="tab-nav">
+                            <a href="#tab-addition-3-3-1" class="tab-link active">Description</a>
+                            <a href="#tab-addition-3-3-2" class="tab-link">HTTP Request</a>
+                            <a href="#tab-addition-3-3-4" class="tab-link">cURL command line</a>
+                            <a href="#tab-addition-3-3-5" class="tab-link">WSTG Code</a>
+                        </nav>
+                        <section id="tab-addition-3-3-1" class="tab-content" style="min-height: 124px;">
+                            <pre>Key: RSA 4096 bits</pre>
+                        </section>
+                        <section id="tab-addition-3-3-2" class="tab-content" style="min-height: 124px; display: none;">
+                            <pre style="white-space: normal">
+                                    GET / HTTP/1.1
+                                    <br>
+                                    host: antam.com
+                                    <br>
+                                    connection: keep-alive
+                                    <br>
+                                    user-agent: Mozilla/5.0 (Windows NT 6.1; rv:45.0) Gecko/20100101 Firefox/45.0
+                                    <br>
+                                    accept-language: en-US
+                                    <br>
+                                    accept-encoding: gzip, deflate, br
+                                    <br>
+                                    accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+                                    <br>
+                            </pre>
+                        </section>
+                        <section id="tab-addition-3-3-4" class="tab-content" style="min-height: 124px; display: none;">
+                            <pre>curl &#34;https://antam.com/&#34;</pre>
+                        </section>
+                        <section id="tab-addition-3-3-5" class="tab-content" style="min-height: 124px; display: none;">
+                            <pre>[&#39;WSTG-CRYP-01&#39;]</pre>
+                        </section>
+                    </div>
+                    <div class="tab-container">
+                        <h4><span class="severity severity-info"></span> Additional found in /</h4>
+                        <nav class="tab-nav">
+                            <a href="#tab-addition-3-4-1" class="tab-link active">Description</a>
+                            <a href="#tab-addition-3-4-2" class="tab-link">HTTP Request</a>
+                            <a href="#tab-addition-3-4-4" class="tab-link">cURL command line</a>
+                            <a href="#tab-addition-3-4-5" class="tab-link">WSTG Code</a>
+                        </nav>
+                        <section id="tab-addition-3-4-1" class="tab-content" style="min-height: 124px;">
+                            <pre>Signature Algorithm: sha256WithRSAEncryption</pre>
+                        </section>
+                        <section id="tab-addition-3-4-2" class="tab-content" style="min-height: 124px; display: none;">
+                            <pre style="white-space: normal">
+                                    GET / HTTP/1.1
+                                    <br>
+                                    host: antam.com
+                                    <br>
+                                    connection: keep-alive
+                                    <br>
+                                    user-agent: Mozilla/5.0 (Windows NT 6.1; rv:45.0) Gecko/20100101 Firefox/45.0
+                                    <br>
+                                    accept-language: en-US
+                                    <br>
+                                    accept-encoding: gzip, deflate, br
+                                    <br>
+                                    accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+                                    <br>
+                            </pre>
+                        </section>
+                        <section id="tab-addition-3-4-4" class="tab-content" style="min-height: 124px; display: none;">
+                            <pre>curl &#34;https://antam.com/&#34;</pre>
+                        </section>
+                        <section id="tab-addition-3-4-5" class="tab-content" style="min-height: 124px; display: none;">
+                            <pre>[&#39;WSTG-CRYP-01&#39;]</pre>
+                        </section>
+                    </div>
+                    <div class="tab-container">
+                        <h4><span class="severity severity-info"></span> Additional found in /</h4>
+                        <nav class="tab-nav">
+                            <a href="#tab-addition-3-5-1" class="tab-link active">Description</a>
+                            <a href="#tab-addition-3-5-2" class="tab-link">HTTP Request</a>
+                            <a href="#tab-addition-3-5-4" class="tab-link">cURL command line</a>
+                            <a href="#tab-addition-3-5-5" class="tab-link">WSTG Code</a>
+                        </nav>
+                        <section id="tab-addition-3-5-1" class="tab-content" style="min-height: 124px;">
+                            <pre>Certificate expires in about 87 days and 54 minutes</pre>
+                        </section>
+                        <section id="tab-addition-3-5-2" class="tab-content" style="min-height: 124px; display: none;">
+                            <pre style="white-space: normal">
+                                    GET / HTTP/1.1
+                                    <br>
+                                    host: antam.com
+                                    <br>
+                                    connection: keep-alive
+                                    <br>
+                                    user-agent: Mozilla/5.0 (Windows NT 6.1; rv:45.0) Gecko/20100101 Firefox/45.0
+                                    <br>
+                                    accept-language: en-US
+                                    <br>
+                                    accept-encoding: gzip, deflate, br
+                                    <br>
+                                    accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+                                    <br>
+                            </pre>
+                        </section>
+                        <section id="tab-addition-3-5-4" class="tab-content" style="min-height: 124px; display: none;">
+                            <pre>curl &#34;https://antam.com/&#34;</pre>
+                        </section>
+                        <section id="tab-addition-3-5-5" class="tab-content" style="min-height: 124px; display: none;">
+                            <pre>[&#39;WSTG-CRYP-01&#39;]</pre>
+                        </section>
+                    </div>
+                    <div class="tab-container">
+                        <h4><span class="severity severity-info"></span> Additional found in /</h4>
+                        <nav class="tab-nav">
+                            <a href="#tab-addition-3-6-1" class="tab-link active">Description</a>
+                            <a href="#tab-addition-3-6-2" class="tab-link">HTTP Request</a>
+                            <a href="#tab-addition-3-6-4" class="tab-link">cURL command line</a>
+                            <a href="#tab-addition-3-6-5" class="tab-link">WSTG Code</a>
+                        </nav>
+                        <section id="tab-addition-3-6-1" class="tab-content" style="min-height: 124px;">
+                            <pre>The following ciphers are strong for TLSv1.3: TLS_AES_128_GCM_SHA256, TLS_AES_256_GCM_SHA384, TLS_CHACHA20_POLY1305_SHA256</pre>
+                        </section>
+                        <section id="tab-addition-3-6-2" class="tab-content" style="min-height: 124px; display: none;">
+                            <pre style="white-space: normal">
+                                    GET / HTTP/1.1
+                                    <br>
+                                    host: antam.com
+                                    <br>
+                                    connection: keep-alive
+                                    <br>
+                                    user-agent: Mozilla/5.0 (Windows NT 6.1; rv:45.0) Gecko/20100101 Firefox/45.0
+                                    <br>
+                                    accept-language: en-US
+                                    <br>
+                                    accept-encoding: gzip, deflate, br
+                                    <br>
+                                    accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+                                    <br>
+                            </pre>
+                        </section>
+                        <section id="tab-addition-3-6-4" class="tab-content" style="min-height: 124px; display: none;">
+                            <pre>curl &#34;https://antam.com/&#34;</pre>
+                        </section>
+                        <section id="tab-addition-3-6-5" class="tab-content" style="min-height: 124px; display: none;">
+                            <pre>[&#39;WSTG-CRYP-01&#39;]</pre>
+                        </section>
+                    </div>
+                    <div class="tab-container">
+                        <h4><span class="severity severity-info"></span> Additional found in /</h4>
+                        <nav class="tab-nav">
+                            <a href="#tab-addition-3-7-1" class="tab-link active">Description</a>
+                            <a href="#tab-addition-3-7-2" class="tab-link">HTTP Request</a>
+                            <a href="#tab-addition-3-7-4" class="tab-link">cURL command line</a>
+                            <a href="#tab-addition-3-7-5" class="tab-link">WSTG Code</a>
+                        </nav>
+                        <section id="tab-addition-3-7-1" class="tab-content" style="min-height: 124px;">
+                            <pre>The following ciphers are strong for TLSv1.2: TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256, TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384, TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256</pre>
+                        </section>
+                        <section id="tab-addition-3-7-2" class="tab-content" style="min-height: 124px; display: none;">
+                            <pre style="white-space: normal">
+                                    GET / HTTP/1.1
+                                    <br>
+                                    host: antam.com
+                                    <br>
+                                    connection: keep-alive
+                                    <br>
+                                    user-agent: Mozilla/5.0 (Windows NT 6.1; rv:45.0) Gecko/20100101 Firefox/45.0
+                                    <br>
+                                    accept-language: en-US
+                                    <br>
+                                    accept-encoding: gzip, deflate, br
+                                    <br>
+                                    accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+                                    <br>
+                            </pre>
+                        </section>
+                        <section id="tab-addition-3-7-4" class="tab-content" style="min-height: 124px; display: none;">
+                            <pre>curl &#34;https://antam.com/&#34;</pre>
+                        </section>
+                        <section id="tab-addition-3-7-5" class="tab-content" style="min-height: 124px; display: none;">
+                            <pre>[&#39;WSTG-CRYP-01&#39;]</pre>
+                        </section>
+                    </div>
+                <dl><dt>Solutions</dt><dd>To protect against SSL/TLS vulnerabilities, make sure that deprecated versions of the protocol are disabled. Refer to up-to-date recommendations to only allow modern versions of TLS with Perfect Forward Secrecy.</dd></dl>
+                <h5>References</h5>
+                <ul>
+                    <li><a href="https://github.com/ssllabs/research/wiki/SSL-and-TLS-Deployment-Best-Practices">SSL Labs: SSL and TLS Deployment Best Practices</a></li>
+                    <li><a href="https://wiki.mozilla.org/Security/Server_Side_TLS">Mozilla: Server Side TLS recommended configurations</a></li>
+                    <li><a href="https://beaglesecurity.com/blog/article/importance-of-tls-1-3-ssl-and-tls-vulnerabilities.html">Beagle Security: Importance of TLS 1.3, SSL and TLS Vulnerabilities</a></li>
+                    <li><a href="https://ciphersuite.info/">Security of TLS cipher suites</a></li>
+                    <li><a href="https://blog.trailofbits.com/2019/03/25/what-application-developers-need-to-know-about-tls-early-data-0rtt/">Trail of Bits: What Application Developers Need To Know About TLS Early Data (0RTT)</a></li>
+                    <li><a href="https://owasp.org/www-project-web-security-testing-guide/v41/4-Web_Application_Security_Testing/09-Testing_for_Weak_Cryptography/01-Testing_for_Weak_SSL_TLS_Ciphers_Insufficient_Transport_Layer_Protection">OWASP: Weak SSL TLS Ciphers Insufficient Transport Layer Protection</a></li>
+                </ul>
+                <br />
+                <hr>
+        </div>
+        <footer class="small" id="footer"><a href="https://wapiti-scanner.github.io/" id="wapiti_link">Wapiti 3.2.10</a> &copy; Nicolas SURRIBAS 2006-2025</footer>
+	</div>
+    <script type="text/javascript" src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+ <title>Nikto Report</title>
+ <style type="text/css">
+  .dataTable
+  {
+   font-family: tahoma, sans-serif;
+   font-size: 11pt; 
+   font-weight: normal; 
+   color: #000066;
+   background: #EEEEEE;
+   border: thin solid black;
+   width: 95%;
+  }
+  .headerTable
+  {
+   font-family: tahoma, sans-serif;
+   font-size: 15pt; 
+   font-weight: normal; 
+   color: white;
+   background: #000066;
+   border: thin solid black;
+   width: 300px;
+  }
+  .column-head
+  {
+   width: 15em;
+   font-weight:bold;
+   vertical-align: top;
+  }
+  .copyright
+  {
+   font-family: tahoma, sans-serif;
+   font-size: 10pt;
+   font-weight: normal;
+   font-style: italic;
+   color: black;
+  }
+  body
+  {
+   background: white;
+  }
+ </style>
+</head>
+<body>
+<div>
+<a name="1"></a>
+<table class="headerTable">
+ <tr>
+   <td>antam.com / 172.66.167.41 port 443</td>
+ </tr>
+</table>
+<table class="dataTable">
+ <tr>
+   <td class="column-head">Target IP</td>
+   <td>172.66.167.41</td>
+ </tr>
+ <tr>
+   <td class="column-head">Target hostname</td>
+   <td>antam.com</td>
+ </tr>
+  <tr>
+   <td class="column-head">Target Port</td>
+   <td>443</td>
+ </tr>
+  <tr>
+   <td class="column-head">HTTP Server</td>
+   <td>cloudflare</td>
+ </tr>
+ <tr>
+   <td class="column-head">Site Link (Name)</td>
+   <td><a href="https://antam.com:443">https://antam.com:443</a></td>
+ </tr>
+ <tr>
+   <td class="column-head">Site Link (IP)</td>
+   <td><a href="https://172.66.167.41:443/">https://172.66.167.41:443/</a></td>
+ </tr>
+<tr><td class="column-head">SSL Certificate Subject</td><td>/CN=*.antam.com</td></tr>
+<tr><td class="column-head">SSL Certificate CN</td><td>*.antam.com</td></tr>
+<tr><td class="column-head">SSL Certificate SAN</td><td>*.antam.com, antam.com</td></tr>
+<tr><td class="column-head">SSL Ciphers</td><td>TLS_AES_256_GCM_SHA384</td></tr>
+<tr><td class="column-head">SSL Certificate Issuer</td><td>/C=BE/O=GlobalSign nv-sa/CN=GlobalSign GCC R3 DV TLS CA 2020</td></tr>
+ </table>
+</div>
+<p></p>
+
+<table class="dataTable">
+  <tr>
+    <td class="column-head">URI</td>
+    <td>/</td>
+  </tr>
+  <tr>
+    <td class="column-head">HTTP Method</td>
+    <td>GET</td>
+  </tr>
+  <tr>
+    <td class="column-head">Description</td>
+    <td>/: Cookie NEXT_LOCALE created without the secure flag.</td>
+  </tr>
+  <tr>
+    <td class="column-head">Link</td>
+    <td>
+      <a href="https://antam.com:443/">https://antam.com:443/</a><br>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="column-head">Reference(s)</td>
+    <td><a href='https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies'>https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies</a></td>
+  </tr>
+</table>
+
+<table class="dataTable">
+  <tr>
+    <td class="column-head">URI</td>
+    <td>/</td>
+  </tr>
+  <tr>
+    <td class="column-head">HTTP Method</td>
+    <td>GET</td>
+  </tr>
+  <tr>
+    <td class="column-head">Description</td>
+    <td>/: Cookie NEXT_LOCALE created without the httponly flag.</td>
+  </tr>
+  <tr>
+    <td class="column-head">Link</td>
+    <td>
+      <a href="https://antam.com:443/">https://antam.com:443/</a><br>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="column-head">Reference(s)</td>
+    <td><a href='https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies'>https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies</a></td>
+  </tr>
+</table>
+
+<table class="dataTable">
+  <tr>
+    <td class="column-head">URI</td>
+    <td>/</td>
+  </tr>
+  <tr>
+    <td class="column-head">HTTP Method</td>
+    <td>GET</td>
+  </tr>
+  <tr>
+    <td class="column-head">Description</td>
+    <td>/: Link header(s) found with value(s): &lt;https://antam.com/en&gt;; rel=&quot;alternate&quot;; hreflang=&quot;en&quot;, &lt;https://antam.com/id&gt;; rel=&quot;alternate&quot;; hreflang=&quot;id&quot;, &lt;https://antam.com/&gt;; rel=&quot;alternate&quot;; hreflang=&quot;x-default&quot;.</td>
+  </tr>
+  <tr>
+    <td class="column-head">Link</td>
+    <td>
+      <a href="https://antam.com:443/">https://antam.com:443/</a><br>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="column-head">Reference(s)</td>
+    <td><a href='https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Link'>https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Link</a></td>
+  </tr>
+</table>
+
+<table class="dataTable">
+  <tr>
+    <td class="column-head">URI</td>
+    <td>/</td>
+  </tr>
+  <tr>
+    <td class="column-head">HTTP Method</td>
+    <td>GET</td>
+  </tr>
+  <tr>
+    <td class="column-head">Description</td>
+    <td>/: Cloudflare detected via cf-ray header. Recommend proxying via Burp or mitmproxy to avoid TLS fingerprint blocks.</td>
+  </tr>
+  <tr>
+    <td class="column-head">Link</td>
+    <td>
+      <a href="https://antam.com:443/">https://antam.com:443/</a><br>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="column-head">Reference(s)</td>
+    <td><a href='https://github.com/sullo/nikto/wiki/Using-a-Proxy'>https://github.com/sullo/nikto/wiki/Using-a-Proxy</a></td>
+  </tr>
+</table>
+
+<table class="dataTable">
+  <tr>
+    <td class="column-head">URI</td>
+    <td>/icons/</td>
+  </tr>
+  <tr>
+    <td class="column-head">HTTP Method</td>
+    <td>GET</td>
+  </tr>
+  <tr>
+    <td class="column-head">Description</td>
+    <td>/icons/: Uncommon header(s) &#x27;refresh&#x27; found, with contents: 0;url=/icons.</td>
+  </tr>
+  <tr>
+    <td class="column-head">Link</td>
+    <td>
+      <a href="https://antam.com:443/icons/">https://antam.com:443/icons/</a><br>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="column-head">Reference(s)</td>
+    <td></td>
+  </tr>
+</table>
+
+<table class="dataTable">
+  <tr>
+    <td class="column-head">URI</td>
+    <td>/trace.axd</td>
+  </tr>
+  <tr>
+    <td class="column-head">HTTP Method</td>
+    <td>GET</td>
+  </tr>
+  <tr>
+    <td class="column-head">Description</td>
+    <td>/trace.axd: Retrieved x-powered-by header: Next.js.</td>
+  </tr>
+  <tr>
+    <td class="column-head">Link</td>
+    <td>
+      <a href="https://antam.com:443/trace.axd">https://antam.com:443/trace.axd</a><br>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="column-head">Reference(s)</td>
+    <td></td>
+  </tr>
+</table>
+
+<table class="dataTable">
+  <tr>
+    <td class="column-head">URI</td>
+    <td>/en</td>
+  </tr>
+  <tr>
+    <td class="column-head">HTTP Method</td>
+    <td>GET</td>
+  </tr>
+  <tr>
+    <td class="column-head">Description</td>
+    <td>/en: Uncommon header(s) &#x27;x-middleware-rewrite&#x27; found, with contents: /en.</td>
+  </tr>
+  <tr>
+    <td class="column-head">Link</td>
+    <td>
+      <a href="https://antam.com:443/en">https://antam.com:443/en</a><br>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="column-head">Reference(s)</td>
+    <td></td>
+  </tr>
+</table>
+
+<table class="dataTable">
+  <tr>
+    <td class="column-head">URI</td>
+    <td>/robots.txt</td>
+  </tr>
+  <tr>
+    <td class="column-head">HTTP Method</td>
+    <td>GET</td>
+  </tr>
+  <tr>
+    <td class="column-head">Description</td>
+    <td>/robots.txt: contains 11 entries which should be manually viewed.</td>
+  </tr>
+  <tr>
+    <td class="column-head">Link</td>
+    <td>
+      <a href="https://antam.com:443/robots.txt">https://antam.com:443/robots.txt</a><br>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="column-head">Reference(s)</td>
+    <td><a href='https://developer.mozilla.org/en-US/docs/Glossary/Robots.txt'>https://developer.mozilla.org/en-US/docs/Glossary/Robots.txt</a></td>
+  </tr>
+</table>
+
+<div>
+<p></p>
+<table class="headerTable">
+ <tr>
+  <td>Host Summary</td>
+ </tr>
+</table>
+<table  class="dataTable">
+ <tr>
+  <td class="column-head">Start Time</td>
+  <td>2026-06-10 07:44:54</td>
+ </tr>
+ <tr>
+  <td class="column-head">End Time</td>
+  <td>2026-06-10 07:50:03</td>
+ </tr>
+ <tr>
+  <td class="column-head">Elapsed Time</td>
+  <td>309 seconds</td>
+ </tr>
+ <tr>
+  <td class="column-head">Statistics</td>
+  <td>100 requests, 20 errors, 8 findings</td>
+ </tr>
+</table>
+</div>
+<p></p>
+
+<p></p>
+<table class="headerTable">
+  <tr>
+    <td>Scan Summary</td>
+  </tr>
+</table>
+<table class="dataTable">
+  <tr>
+    <td class="column-head">Software Details</td>
+    <td><a href="http://cirt.net/">Nikto 2.6.0</a></td>
+  <tr>
+    <td class="column-head">CLI Options</td>
+    <td>-h https://antam.com -ssl -Format html -o hasil_nikto.html</td>
+  </tr>
+  <tr>
+    <td class="column-head">Hosts Tested</td>
+    <td>1</td>
+  </tr>
+  <tr>
+    <td class="column-head">Start Time</td>
+    <td>Wed Jun 10 07:44:37 2026</td>
+  </tr>
+  <tr>
+    <td class="column-head">End Time</td>
+    <td>Wed Jun 10 07:50:03 2026</td>
+  </tr>
+  <tr>
+    <td class="column-head">Elapsed Time</td>
+    <td>326 seconds</td>
+  </tr>
+</table>
+<p></p>
+<p class="copyright">&copy; 2008 Chris Sullo</p>
+
+<!-- (c) 2008 Chris Sullo -->
+
+</body>
+</html>
+

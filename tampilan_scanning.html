@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Security Dashboard | antam.com</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: #0a0c10;
+            color: #e5e7eb;
+            padding: 1.5rem;
+            line-height: 1.5;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        .header {
+            margin-bottom: 2rem;
+            border-bottom: 1px solid #2d3748;
+            padding-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .title h1 {
+            font-size: 1.8rem;
+            background: linear-gradient(135deg, #3b82f6, #a855f7);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: -0.5px;
+        }
+
+        .title .domain {
+            font-family: monospace;
+            background: #1e293b;
+            padding: 0.25rem 0.8rem;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            margin-top: 0.4rem;
+            display: inline-block;
+        }
+
+        .scan-meta {
+            text-align: right;
+            font-size: 0.75rem;
+            color: #9ca3af;
+        }
+
+        /* Grid */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .card {
+            background: #11161f;
+            border-radius: 20px;
+            border: 1px solid #1f2a3e;
+            overflow: hidden;
+            transition: all 0.2s;
+        }
+
+        .card:hover {
+            border-color: #3b4a62;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+
+        .card-header {
+            background: #0c111a;
+            padding: 1rem 1.2rem;
+            border-bottom: 1px solid #1f2a3e;
+            font-weight: 600;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .card-header i {
+            font-size: 1.2rem;
+        }
+
+        .card-content {
+            padding: 1.2rem;
+        }
+
+        /* Tabel */
+        .data-table {
+            width: 100%;
+            font-size: 0.8rem;
+            border-collapse: collapse;
+        }
+
+        .data-table th {
+            text-align: left;
+            padding: 0.5rem 0.2rem;
+            color: #9ca3af;
+            font-weight: 500;
+            border-bottom: 1px solid #1f2a3e;
+        }
+
+        .data-table td {
+            padding: 0.5rem 0.2rem;
+            border-bottom: 1px solid #1a2533;
+            vertical-align: top;
+            word-break: break-word;
+        }
+
+        .badge {
+            background: #1e3a5f;
+            color: #7cb8ff;
+            border-radius: 20px;
+            padding: 0.2rem 0.6rem;
+            font-size: 0.7rem;
+            font-weight: 500;
+            display: inline-block;
+            margin-right: 0.3rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .risk-badge {
+            background: #7f1a1a;
+            color: #fca5a5;
+        }
+
+        .warning-badge {
+            background: #854d0e;
+            color: #fde047;
+        }
+
+        .info-badge {
+            background: #1e3a5f;
+            color: #93c5fd;
+        }
+
+        .subdomain-item {
+            background: #0a0f18;
+            border-radius: 10px;
+            padding: 0.4rem 0.6rem;
+            margin-bottom: 0.5rem;
+            font-size: 0.75rem;
+            font-family: monospace;
+            border-left: 3px solid #3b82f6;
+        }
+
+        .scrollable {
+            max-height: 350px;
+            overflow-y: auto;
+            padding-right: 0.3rem;
+        }
+
+        .recommendation {
+            background: #0f1722;
+            border-left: 4px solid #f59e0b;
+            padding: 0.8rem;
+            border-radius: 12px;
+            margin-top: 0.8rem;
+        }
+
+        hr {
+            border-color: #1f2a3e;
+            margin: 0.8rem 0;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid #1f2a3e;
+            font-size: 0.7rem;
+            color: #6b7280;
+        }
+
+        @media (max-width: 700px) {
+            body {
+                padding: 1rem;
+            }
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+            .data-table {
+                font-size: 0.7rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <div class="title">
+            <h1>🛡️ Security Reconnaissance Dashboard</h1>
+            <div class="domain">🎯 Target: antam.com</div>
+            <div style="font-size:0.7rem; margin-top:0.3rem;">Scan: 10 Juni 2026 | Tools: whois, dig, DNSDumpster, Shodan, Nikto, WhatWeb, wafw00f, Nmap</div>
+        </div>
+        <div class="scan-meta">
+            📅 Generated: 2026-06-10<br>
+            🔍 Passive + Active Reconnaissance
+        </div>
+    </div>
+
+    <!-- Ringkasan dari Excel (Summary) -->
+    <div class="dashboard-grid">
+        <div class="card">
+            <div class="card-header">
+                <span>📊</span> Top Banners
+            </div>
+            <div class="card-content">
+                <table class="data-table">
+                    <tr><th>Service/Banner</th><th>Count</th></tr>
+                    <tr><td>cloudflare</td><td>17</td></tr>
+                    <tr><td>UploadServer</td><td>2</td></tr>
+                    <tr><td>ZGS</td><td>1</td></tr>
+                </table>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <span>🌍</span> Top ASN & Countries
+            </div>
+            <div class="card-content">
+                <table class="data-table">
+                    <tr><th>ASN</th><th>Organization</th><th>Count</th></tr>
+                    <tr><td>13335</td><td>Cloudflare, Inc.</td><td>8</td></tr>
+                    <tr><td>8075</td><td>Microsoft Corporation</td><td>2</td></tr>
+                    <tr><td>15169</td><td>Google LLC</td><td>1</td></tr>
+                    <tr><td>2639</td><td>ZOHO</td><td>1</td></tr>
+                    <tr><td>200484</td><td>Sendinblue SAS</td><td>1</td></tr>
+                </table>
+                <hr>
+                <div><strong>Top Countries:</strong> United States (2), Singapore (2), France (2)</div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <span>🔐</span> WHOIS & DNS Summary
+            </div>
+            <div class="card-content">
+                <table class="data-table">
+                    <tr><td>Registrar</td><td>PT Biznet GIO Nusantara</td></tr>
+                    <tr><td>Creation Date</td><td>1997-08-21</td></tr>
+                    <tr><td>Expiry Date</td><td>2029-08-20</td></tr>
+                    <tr><td>Name Servers</td><td>arushi.ns.cloudflare.com, clark.ns.cloudflare.com</td></tr>
+                    <tr><td>DNSSEC</td><td><span class="badge risk-badge">unsigned</span> (rentan cache poisoning)</td></tr>
+                    <tr><td>SPF Record</td><td>v=spf1 include:amazonses.com include:spf.protection.outlook.com -all (strict)</td></tr>
+                    <tr><td>MX Record</td><td>0 antam-com.mail.protection.outlook.com (Microsoft 365)</td></tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Subdomain Tabel (DNSDumpster A Records) -->
+    <div class="card" style="margin-bottom: 1.5rem;">
+        <div class="card-header">
+            <span>🔍</span> Subdomain Discovery (DNSDumpster / A Records)
+        </div>
+        <div class="card-content scrollable">
+            <table class="data-table">
+                <thead>
+                    <tr><th>Host</th><th>IP Address</th><th>ASN / Owner</th><th>Open Services / Banners</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>contents.antam.com</td><td>142.250.189.251</td><td>AS15169 (Google LLC)</td><td>UploadServer (HTTP/HTTPS)</td></tr>
+                    <tr><td>eproc.antam.com</td><td>172.66.167.41</td><td>AS13335 (Cloudflare)</td><td>cloudflare - Direct IP access not allowed</td></tr>
+                    <tr><td>gaspol.antam.com</td><td>172.66.0.145</td><td>Cloudflare</td><td>cloudflare - "Just a moment..."</td></tr>
+                    <tr><td>gastrip.antam.com</td><td>20.212.64.7</td><td>Microsoft (Singapore)</td><td>Azure Web App - Error 404</td></tr>
+                    <tr><td>ictcare.antam.com</td><td>136.143.186.127</td><td>ZOHO (US)</td><td>ZGS - 400 Bad Request</td></tr>
+                    <tr><td>mailer.antam.com</td><td>212.146.235.108</td><td>Sendinblue (France)</td><td>SMTP server</td></tr>
+                    <tr><td>img.mailer.antam.com</td><td>104.17.158.243</td><td>Cloudflare</td><td>403 Forbidden / Direct IP not allowed</td></tr>
+                    <tr><td>r.mailer.antam.com</td><td>1.179.112.197</td><td>Google Cloud (France)</td><td>-</td></tr>
+                    <tr><td>ppid.antam.com</td><td>172.66.167.41</td><td>Cloudflare</td><td>cloudflare</td></tr>
+                    <tr><td>wayafli.antam.com</td><td>172.66.167.41</td><td>Cloudflare</td><td>cloudflare</td></tr>
+                    <tr><td>www.antam.com</td><td>104.20.31.172</td><td>Cloudflare</td><td>cloudflare</td></tr>
+                </tbody>
+            </table>
+            <div class="recommendation">
+                ⚠️ <strong>Catatan:</strong> Banyak subdomain menggunakan Cloudflare, sehingga IP asli tersembunyi. Pastikan origin server tidak terekspos langsung.
+            </div>
+        </div>
+    </div>
+
+    <!-- Shodan Insights & Nikto Findings -->
+    <div class="dashboard-grid">
+        <div class="card">
+            <div class="card-header">
+                <span>🔎</span> Shodan.io Intelligence
+            </div>
+            <div class="card-content">
+                <div><span class="badge">Total Results: 12</span></div>
+                <div><strong>Top Ports:</strong> 443 (10), 25 (1), 80 (1)</div>
+                <div><strong>Top Orgs:</strong> Cloudflare (5), PT iForte (2), Amazon Data Services (1), Google Asia Pacific (1)</div>
+                <hr>
+                <div><strong>Temuan Penting:</strong></div>
+                <ul style="margin-left: 1.2rem; font-size:0.75rem; margin-top:0.3rem;">
+                    <li>IP 172.66.167.41 & 104.20.31.172: Cloudflare, SSL wildcard (*.antam.com), TLSv1.2/1.3</li>
+                    <li>IP 103.164.111.229 (iForte) – HTTP 503 Service Unavailable</li>
+                    <li>IP 212.146.235.108 (Sendinblue) – SMTP + STARTTLS</li>
+                    <li>IP 202.137.8.228 (ISP LINKNET) – HTTP 503</li>
+                    <li>IP 16.78.37.76 (AWS Jakarta) – 403 Forbidden (ELB)</li>
+                    <li>IP 15.232.106.52 (AWS) – Precious Metal Platform, header x-powered-by: Nuxt</li>
+                    <li>IP 34.101.40.250 (Google Cloud) – nginx, Home PPID ANTAM</li>
+                </ul>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <span>⚠️</span> Nikto & WhatWeb Findings
+            </div>
+            <div class="card-content scrollable">
+                <table class="data-table">
+                    <tr><th>Issue</th><th>Severity</th></tr>
+                    <tr><td>Cookie NEXT_LOCALE tanpa secure flag</td><td><span class="badge warning-badge">Medium</span></td></tr>
+                    <tr><td>Cookie NEXT_LOCALE tanpa HttpOnly flag</td><td><span class="badge warning-badge">Medium</span></td></tr>
+                    <tr><td>Cloudflare detected (cf-ray) – dapat memblokir scanning</td><td><span class="badge info-badge">Info</span></td></tr>
+                    <tr><td>Header Link: hreflang alternates</td><td><span class="badge info-badge">Info</span></td></tr>
+                    <tr><td>/icons/ memicu refresh header</td><td><span class="badge info-badge">Low</span></td></tr>
+                    <tr><td>/trace.axd mengungkap x-powered-by: Next.js</td><td><span class="badge info-badge">Info</span></td></tr>
+                </table>
+                <hr>
+                <div><strong>WhatWeb:</strong> Next.js, Cloudflare, X-Frame-Options ALLOW-FROM https://wayafli.antam.com, Content-Security-Policy ditemukan.</div>
+                <div><strong>wafw00f:</strong> <span class="badge">Cloudflare WAF detected</span></div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <span>📡</span> Nmap Vulnerability Scan (--script vuln)
+            </div>
+            <div class="card-content">
+                <div><strong>Open Ports:</strong> 80/tcp (cloudflare), 443/tcp (ssl/cloudflare), 8080/tcp, 8443/tcp</div>
+                <div><strong>Script Results:</strong></div>
+                <ul style="margin-left:1.2rem; font-size:0.75rem;">
+                    <li>http-csrf: Tidak ditemukan kerentanan CSRF</li>
+                    <li>http-dombased-xss: Tidak ditemukan</li>
+                    <li>http-stored-xss: Tidak ditemukan</li>
+                    <li>http-enum: /robots.txt terdeteksi</li>
+                    <li>http-server-header: cloudflare</li>
+                </ul>
+                <div class="recommendation" style="margin-top:0.6rem;">
+                    ✅ Tidak ditemukan kerentanan XSS/CSRF langsung, namun pemindaian dibatasi oleh Cloudflare.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Rekomendasi & End-of-Life Check -->
+    <div class="card" style="margin-bottom: 1.5rem;">
+        <div class="card-header">
+            <span>💡</span> Rekomendasi Keamanan & End-of-Life (EOL) Assessment
+        </div>
+        <div class="card-content">
+            <div class="recommendation">
+                <strong>🔒 Rekomendasi Mitigasi:</strong>
+                <ul style="margin-left: 1.2rem; margin-top: 0.5rem;">
+                    <li><strong>Cookie Security:</strong> Tambahkan <code>Secure</code> dan <code>HttpOnly</code> flag pada cookie <code>NEXT_LOCALE</code> untuk mencegah akses JavaScript dan transmisi tidak aman.</li>
+                    <li><strong>Cloudflare Configuration:</strong> Pastikan origin server tidak terekspos langsung (blokir akses HTTP/HTTPS ke IP asli). Gunakan Authenticated Origin Pulls.</li>
+                    <li><strong>Directory Listing:</strong> Pada subdomain dengan title "Index of /" (misalnya di 195.88.211.210 dari laporan sebelumnya, tidak ada di antam.com? Tapi dari data subdomain antam tidak ada index of. Namun tetap periksa /icons/ tidak menampilkan file sensitif.</li>
+                    <li><strong>SSL/TLS:</strong> Hanya TLSv1.2/1.3 sudah baik. Pertahankan.</li>
+                    <li><strong>SPF Record:</strong> Sudah strict (-all) – sangat baik cegah spoofing.</li>
+                    <li><strong>DNSSEC:</strong> Aktifkan DNSSEC untuk mencegah cache poisoning.</li>
+                    <li><strong>Response Headers:</strong> Hapus header <code>x-powered-by</code> (Next.js, Nuxt) untuk menyembunyikan teknologi.</li>
+                    <li><strong>Error Handling:</strong> Beberapa subdomain mengembalikan 404/503 – pastikan tidak membocorkan informasi internal.</li>
+                </ul>
+            </div>
+            <div class="recommendation" style="border-left-color: #ef4444; margin-top: 1rem;">
+                <strong>⚠️ End-of-Life (EOL) & Versi Rentan:</strong>
+                <ul style="margin-left: 1.2rem; margin-top: 0.5rem;">
+                    <li><strong>Next.js & Nuxt:</strong> Tidak ada versi spesifik terdeteksi, namun selalu gunakan versi LTS terbaru. Cek secara rutin.</li>
+                    <li><strong>OpenSSH 8.0</strong> (tidak muncul di antam.com, tetapi dari name server smpnegeri13mj sebelumnya). Untuk antam.com, tidak ada service SSH yang terekspos publik (port 22 tidak terbuka).</li>
+                    <li><strong>PHP:</strong> Tidak terdeteksi pada antam.com, sehingga tidak ada risiko EOL PHP.</li>
+                    <li><strong>Cloudflare:</strong> Bukan EOL, tetapi pastikan menggunakan WAF rules terbaru.</li>
+                    <li><strong>Microsoft Azure & AWS:</strong> Pastikan service menggunakan versi runtime yang didukung (misalnya Node.js untuk Next.js).</li>
+                </ul>
+                <div style="margin-top:0.5rem;">📌 Kesimpulan: Tidak ditemukan komponen dengan status EOL yang jelas pada antam.com. Namun, cookie dan header hardening perlu ditingkatkan.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tabel tambahan: DNS Records (MX, TXT, NS) -->
+    <div class="card" style="margin-bottom: 1.5rem;">
+        <div class="card-header">
+            <span>📋</span> Detail DNS Records (dig & nslookup)
+        </div>
+        <div class="card-content">
+            <table class="data-table">
+                <tr><th>Type</th><th>Value</th></tr>
+                <tr><td>MX</td><td>0 antam-com.mail.protection.outlook.com → 52.101.137.0</td></tr>
+                <tr><td>TXT</td><td>"MS=ms72037489", "google-site-verification=...", "sendinblue-code:...", "v=spf1 include:amazonses.com include:spf.protection.outlook.com -all", "2007004256-ANTAM", "MS=C70B95032..."</td></tr>
+                <tr><td>NS</td><td>clark.ns.cloudflare.com (108.162.193.87), arushi.ns.cloudflare.com (108.162.194.61)</td></tr>
+                <tr><td>SOA</td><td>arushi.ns.cloudflare.com dns.cloudflare.com 2406518980 10000 2400 604800 1800</td></tr>
+                <tr><td>CNAME</td><td>Tidak ditemukan (dig antam.com CNAME memberikan jawaban kosong, hanya SOA)</td></tr>
+            </table>
+            <div class="recommendation" style="margin-top:0.6rem;">
+                ✅ SPF strict (-all) sangat baik, DNSSEC masih unsigned – disarankan untuk mengaktifkan.
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        ⚡ UTS Information Security – Passive & Active Reconnaissance | Berdasarkan hasil scanning menggunakan Kali Linux (whois, dig, DNSDumpster, Shodan, Nikto, WhatWeb, wafw00f, Nmap) pada antam.com.
+        <br>Data diambil dari laporan UTS-Security_25120300016.docx dan file Excel antam.com.
+    </div>
+</div>
+</body>
+</html>

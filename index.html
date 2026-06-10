@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Security Dashboard | antam.com</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: #0a0c10;
+            color: #e5e7eb;
+            padding: 1.5rem;
+            line-height: 1.5;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        .header {
+            margin-bottom: 2rem;
+            border-bottom: 1px solid #2d3748;
+            padding-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .title h1 {
+            font-size: 1.8rem;
+            background: linear-gradient(135deg, #3b82f6, #a855f7);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: -0.5px;
+        }
+
+        .title .domain {
+            font-family: monospace;
+            background: #1e293b;
+            padding: 0.25rem 0.8rem;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            margin-top: 0.4rem;
+            display: inline-block;
+        }
+
+        .scan-meta {
+            text-align: right;
+            font-size: 0.75rem;
+            color: #9ca3af;
+        }
+
+        .link-buttons {
+            margin-top: 0.5rem;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .link-btn {
+            background: #1e293b;
+            color: #93c5fd;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 0.75rem;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            border: 1px solid #334155;
+        }
+
+        .link-btn:hover {
+            background: #2d3a4b;
+            color: #bfdbfe;
+            border-color: #5b8cce;
+        }
+
+        .assignment-info {
+            background: #0f1722;
+            border-radius: 16px;
+            padding: 0.8rem 1.2rem;
+            margin-top: 0.8rem;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            border: 1px solid #2d3748;
+        }
+
+        .assignment-text {
+            font-size: 0.85rem;
+        }
+
+        .assignment-text strong {
+            color: #93c5fd;
+        }
+
+        /* Grid */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .card {
+            background: #11161f;
+            border-radius: 20px;
+            border: 1px solid #1f2a3e;
+            overflow: hidden;
+            transition: all 0.2s;
+        }
+
+        .card:hover {
+            border-color: #3b4a62;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+
+        .card-header {
+            background: #0c111a;
+            padding: 1rem 1.2rem;
+            border-bottom: 1px solid #1f2a3e;
+            font-weight: 600;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .card-content {
+            padding: 1.2rem;
+        }
+
+        .data-table {
+            width: 100%;
+            font-size: 0.8rem;
+            border-collapse: collapse;
+        }
+
+        .data-table th {
+            text-align: left;
+            padding: 0.5rem 0.2rem;
+            color: #9ca3af;
+            font-weight: 500;
+            border-bottom: 1px solid #1f2a3e;
+        }
+
+        .data-table td {
+            padding: 0.5rem 0.2rem;
+            border-bottom: 1px solid #1a2533;
+            vertical-align: top;
+            word-break: break-word;
+        }
+
+        .badge {
+            background: #1e3a5f;
+            color: #7cb8ff;
+            border-radius: 20px;
+            padding: 0.2rem 0.6rem;
+            font-size: 0.7rem;
+            font-weight: 500;
+            display: inline-block;
+            margin-right: 0.3rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .risk-badge {
+            background: #7f1a1a;
+            color: #fca5a5;
+        }
+
+        .warning-badge {
+            background: #854d0e;
+            color: #fde047;
+        }
+
+        .info-badge {
+            background: #1e3a5f;
+            color: #93c5fd;
+        }
+
+        .scrollable {
+            max-height: 350px;
+            overflow-y: auto;
+            padding-right: 0.3rem;
+        }
+
+        .recommendation {
+            background: #0f1722;
+            border-left: 4px solid #f59e0b;
+            padding: 0.8rem;
+            border-radius: 12px;
+            margin-top: 0.8rem;
+        }
+
+        hr {
+            border-color: #1f2a3e;
+            margin: 0.8rem 0;
+        }
+
+        /* Certificate Section dengan zoom effect */
+        .certificate-section {
+            background: #0f1722;
+            border-radius: 20px;
+            padding: 1.5rem;
+            margin: 1.5rem 0 1rem;
+            text-align: center;
+            border: 1px solid #2d3748;
+        }
+
+        .certificate-section img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+            max-height: 200px;
+            margin-bottom: 0.8rem;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .certificate-section img:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+
+        .certificate-section p {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #93c5fd;
+        }
+
+        /* Modal Zoom */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.9);
+            cursor: pointer;
+        }
+        .modal-content {
+            margin: auto;
+            display: block;
+            max-width: 90%;
+            max-height: 90%;
+            margin-top: 5%;
+            border-radius: 12px;
+        }
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 35px;
+            color: #fff;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            background: rgba(0,0,0,0.5);
+            padding: 0 12px;
+            border-radius: 50%;
+        }
+        .close-modal:hover {
+            color: #ccc;
+        }
+
+        /* SQL Styling */
+        .sql-block {
+            background: #0a0f18;
+            border-radius: 12px;
+            padding: 1rem;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.7rem;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            margin-top: 0.8rem;
+        }
+
+        .query-result {
+            margin-top: 0.8rem;
+            margin-bottom: 1rem;
+            border: 1px solid #2d3748;
+            border-radius: 12px;
+            overflow-x: auto;
+        }
+        .query-result table {
+            width: 100%;
+            font-size: 0.7rem;
+        }
+        .query-result th {
+            background: #1a2533;
+            padding: 0.4rem;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #1f2a3e;
+            font-size: 0.7rem;
+            color: #6b7280;
+        }
+
+        @media (max-width: 700px) {
+            body {
+                padding: 1rem;
+            }
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+            .data-table {
+                font-size: 0.7rem;
+            }
+            .assignment-info {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <div class="title">
+            <h1>🛡️ Security Reconnaissance Dashboard</h1>
+            <div class="domain">🎯 Target: antam.com</div>
+            <div style="font-size:0.7rem; margin-top:0.3rem;">Scan: 10 Juni 2026 | Tools: whois, dig, DNSDumpster, Shodan, Nikto, WhatWeb, wafw00f, Nmap</div>
+            <div class="link-buttons">
+                <a href="antam.com_06102026_1202.html" target="_blank" class="link-btn">📄 Lihat Laporan Lengkap (antam.com_06102026_1202.html)</a>
+                <a href="hasil_nikto.html" target="_blank" class="link-btn">🔍 Lihat Hasil Scan Nikto (hasil_nikto.html)</a>
+				<a href="UTS-Security_25120300016.docx" target="_blank" class="link-btn">🔍 Lihat Hasil Screenshot Kali Linux</a>
+            </div>
+        </div>
+        <div class="scan-meta">
+            📅 Generated: 2026-06-10<br>
+            🔍 Passive + Active Reconnaissance
+        </div>
+    </div>
+
+    <!-- Tugas UTS Info (Header) -->
+    <div class="assignment-info">
+        <div class="assignment-text">
+            <strong>📌 Tugas UTS Information Security (ISec2)</strong><br>
+            Dosen Pengajar: Yudi Triyana, S.T., MMsib., CEH., CSA., CySA.<br>
+            Nama Mahasiswa: Dimas Kurniawan - 25120300016
+        </div>
+    </div>
+
+    <!-- Ringkasan dari Excel (Summary) -->
+    <div class="dashboard-grid">
+        <div class="card">
+            <div class="card-header">
+                <span>📊</span> Top Banners
+            </div>
+            <div class="card-content">
+                <table class="data-table">
+                    <tr><th>Service/Banner</th><th>Count</th></tr>
+                    <tr><td>cloudflare</td><td>17</td></tr>
+                    <tr><td>UploadServer</td><td>2</td></tr>
+                    <tr><td>ZGS</td><td>1</td></tr>
+                </table>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <span>🌍</span> Top ASN & Countries
+            </div>
+            <div class="card-content">
+                <table class="data-table">
+                    <tr><th>ASN</th><th>Organization</th><th>Count</th></tr>
+                    <tr><td>13335</td><td>Cloudflare, Inc.</td><td>8</td></tr>
+                    <tr><td>8075</td><td>Microsoft Corporation</td><td>2</td></tr>
+                    <tr><td>15169</td><td>Google LLC</td><td>1</td></tr>
+                    <tr><td>2639</td><td>ZOHO</td><td>1</td></tr>
+                    <tr><td>200484</td><td>Sendinblue SAS</td><td>1</td></tr>
+                </table>
+                <hr>
+                <div><strong>Top Countries:</strong> United States (2), Singapore (2), France (2)</div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <span>🔐</span> WHOIS & DNS Summary
+            </div>
+            <div class="card-content">
+                <table class="data-table">
+                    <tr><td>Registrar</td><td>PT Biznet GIO Nusantara</td></tr>
+                    <tr><td>Creation Date</td><td>1997-08-21</td></tr>
+                    <tr><td>Expiry Date</td><td>2029-08-20</td></tr>
+                    <tr><td>Name Servers</td><td>arushi.ns.cloudflare.com, clark.ns.cloudflare.com</td></tr>
+                    <tr><td>DNSSEC</td><td><span class="badge risk-badge">unsigned</span> (rentan cache poisoning)</td></tr>
+                    <tr><td>SPF Record</td><td>v=spf1 include:amazonses.com include:spf.protection.outlook.com -all (strict)</td></tr>
+                    <tr><td>MX Record</td><td>0 antam-com.mail.protection.outlook.com (Microsoft 365)</td></tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Subdomain Tabel (DNSDumpster A Records) -->
+    <div class="card" style="margin-bottom: 1.5rem;">
+        <div class="card-header">
+            <span>🔍</span> Subdomain Discovery (DNSDumpster / A Records)
+        </div>
+        <div class="card-content scrollable">
+            <table class="data-table">
+                <thead>
+                    <tr><th>Host</th><th>IP Address</th><th>ASN / Owner</th><th>Open Services / Banners</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>contents.antam.com</td><td>142.250.189.251</td><td>AS15169 (Google LLC)</td><td>UploadServer (HTTP/HTTPS)</td></tr>
+                    <tr><td>eproc.antam.com</td><td>172.66.167.41</td><td>AS13335 (Cloudflare)</td><td>cloudflare - Direct IP access not allowed</td></tr>
+                    <tr><td>gaspol.antam.com</td><td>172.66.0.145</td><td>Cloudflare</td><td>cloudflare - "Just a moment..."</td></tr>
+                    <tr><td>gastrip.antam.com</td><td>20.212.64.7</td><td>Microsoft (Singapore)</td><td>Azure Web App - Error 404</td></tr>
+                    <tr><td>ictcare.antam.com</td><td>136.143.186.127</td><td>ZOHO (US)</td><td>ZGS - 400 Bad Request</td></tr>
+                    <tr><td>mailer.antam.com</td><td>212.146.235.108</td><td>Sendinblue (France)</td><td>SMTP server</td></tr>
+                    <tr><td>img.mailer.antam.com</td><td>104.17.158.243</td><td>Cloudflare</td><td>403 Forbidden / Direct IP not allowed</td></tr>
+                    <tr><td>r.mailer.antam.com</td><td>1.179.112.197</td><td>Google Cloud (France)</td><td>-</td></tr>
+                    <tr><td>ppid.antam.com</td><td>172.66.167.41</td><td>Cloudflare</td><td>cloudflare</td></tr>
+                    <tr><td>wayafli.antam.com</td><td>172.66.167.41</td><td>Cloudflare</td><td>cloudflare</td></tr>
+                    <tr><td>www.antam.com</td><td>104.20.31.172</td><td>Cloudflare</td><td>cloudflare</td></tr>
+                </tbody>
+            </table>
+            <div class="recommendation">
+                ⚠️ <strong>Catatan:</strong> Banyak subdomain menggunakan Cloudflare, sehingga IP asli tersembunyi. Pastikan origin server tidak terekspos langsung.
+            </div>
+        </div>
+    </div>
+
+    <!-- Shodan Insights & Nikto Findings -->
+    <div class="dashboard-grid">
+        <div class="card">
+            <div class="card-header">
+                <span>🔎</span> Shodan.io Intelligence
+            </div>
+            <div class="card-content">
+                <div><span class="badge">Total Results: 12</span></div>
+                <div><strong>Top Ports:</strong> 443 (10), 25 (1), 80 (1)</div>
+                <div><strong>Top Orgs:</strong> Cloudflare (5), PT iForte (2), Amazon Data Services (1), Google Asia Pacific (1)</div>
+                <hr>
+                <div><strong>Temuan Penting:</strong></div>
+                <ul style="margin-left: 1.2rem; font-size:0.75rem; margin-top:0.3rem;">
+                    <li>IP 172.66.167.41 & 104.20.31.172: Cloudflare, SSL wildcard (*.antam.com), TLSv1.2/1.3</li>
+                    <li>IP 103.164.111.229 (iForte) – HTTP 503 Service Unavailable</li>
+                    <li>IP 212.146.235.108 (Sendinblue) – SMTP + STARTTLS</li>
+                    <li>IP 202.137.8.228 (ISP LINKNET) – HTTP 503</li>
+                    <li>IP 16.78.37.76 (AWS Jakarta) – 403 Forbidden (ELB)</li>
+                    <li>IP 15.232.106.52 (AWS) – Precious Metal Platform, header x-powered-by: Nuxt</li>
+                    <li>IP 34.101.40.250 (Google Cloud) – nginx, Home PPID ANTAM</li>
+                </ul>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <span>⚠️</span> Nikto & WhatWeb Findings
+            </div>
+            <div class="card-content scrollable">
+                <table class="data-table">
+                    <tr><th>Issue</th><th>Severity</th></tr>
+                    <tr><td>Cookie NEXT_LOCALE tanpa secure flag</td><td><span class="badge warning-badge">Medium</span></td></tr>
+                    <tr><td>Cookie NEXT_LOCALE tanpa HttpOnly flag</td><td><span class="badge warning-badge">Medium</span></td></tr>
+                    <tr><td>Cloudflare detected (cf-ray) – dapat memblokir scanning</td><td><span class="badge info-badge">Info</span></td></tr>
+                    <tr><td>Header Link: hreflang alternates</td><td><span class="badge info-badge">Info</span></td></tr>
+                    <tr><td>/icons/ memicu refresh header</td><td><span class="badge info-badge">Low</span></td></tr>
+                    <tr><td>/trace.axd mengungkap x-powered-by: Next.js</td><td><span class="badge info-badge">Info</span></td></tr>
+                </table>
+                <hr>
+                <div><strong>WhatWeb:</strong> Next.js, Cloudflare, X-Frame-Options ALLOW-FROM https://wayafli.antam.com, Content-Security-Policy ditemukan.</div>
+                <div><strong>wafw00f:</strong> <span class="badge">Cloudflare WAF detected</span></div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <span>📡</span> Nmap Vulnerability Scan (--script vuln)
+            </div>
+            <div class="card-content">
+                <div><strong>Open Ports:</strong> 80/tcp (cloudflare), 443/tcp (ssl/cloudflare), 8080/tcp, 8443/tcp</div>
+                <div><strong>Script Results:</strong></div>
+                <ul style="margin-left:1.2rem; font-size:0.75rem;">
+                    <li>http-csrf: Tidak ditemukan kerentanan CSRF</li>
+                    <li>http-dombased-xss: Tidak ditemukan</li>
+                    <li>http-stored-xss: Tidak ditemukan</li>
+                    <li>http-enum: /robots.txt terdeteksi</li>
+                    <li>http-server-header: cloudflare</li>
+                </ul>
+                <div class="recommendation" style="margin-top:0.6rem;">
+                    ✅ Tidak ditemukan kerentanan XSS/CSRF langsung, namun pemindaian dibatasi oleh Cloudflare.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Rekomendasi & End-of-Life Check (ANALISA 30%) -->
+    <div class="card" style="margin-bottom: 1.5rem;">
+        <div class="card-header">
+            <span>💡</span> Analisa Ancaman, Risiko & Solusi 
+        </div>
+        <div class="card-content">
+            <div class="recommendation">
+                <strong>🔒 Identifikasi Ancaman & Risiko:</strong>
+                <ul style="margin-left: 1.2rem; margin-top: 0.5rem;">
+                    <li><strong>Cookie tidak aman:</strong> `NEXT_LOCALE` tanpa `Secure` dan `HttpOnly` → berpotensi session hijacking.</li>
+                    <li><strong>Cloudflare WAF:</strong> Bisa memblokir security scanning, namun juga bisa menjadi single point of failure.</li>
+                    <li><strong>DNSSEC tidak aktif:</strong> Rentan DNS cache poisoning / spoofing.</li>
+                    <li><strong>Wildcard SSL Certificate (*.antam.com):</strong> Jika private key bocor, semua subdomain terancam.</li>
+                    <li><strong>Subdomain dengan service tidak standar:</strong> `ictcare.antam.com` menggunakan ZGS (400 Bad Request), bisa jadi vulnerable.</li>
+                    <li><strong>IP asli tersembunyi di balik Cloudflare:</strong> Bisa memberi rasa aman palsu jika origin server terekspos.</li>
+                </ul>
+            </div>
+            <div class="recommendation" style="border-left-color: #10b981; margin-top: 1rem;">
+                <strong>🔧 Solusi Mitigasi:</strong>
+                <ul style="margin-left: 1.2rem; margin-top: 0.5rem;">
+                    <li>Tambahkan flag `Secure; HttpOnly; SameSite=Lax` pada cookie `NEXT_LOCALE`.</li>
+                    <li>Aktifkan DNSSEC pada registrar.</li>
+                    <li>Gunakan `Authenticated Origin Pulls` di Cloudflare dan batasi akses origin hanya dari IP Cloudflare.</li>
+                    <li>Rotasi wildcard certificate secara berkala dan simpan private key dengan aman.</li>
+                    <li>Lakukan security assessment pada subdomain `ictcare.antam.com` dan service Zoho.</li>
+                    <li>Terapkan `Content-Security-Policy` yang ketat untuk mencegah XSS.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- PEMAPARAN LANGSUNG: Kode SQL  -->
+    <div class="card" style="margin-bottom: 1.5rem;">
+        <div class="card-header">
+            <span>🗄️</span> Pemaparan Langsung - Rancangan Tabel SQL 
+        </div>
+        <div class="card-content">
+            <div><strong>DDL (Data Definition Language) :</strong> Primary Key, Foreign Key, Constraints</div>
+            <div class="sql-block">
+                <pre>
+-- Tabel domain (parent)
+CREATE TABLE domain (
+    id SERIAL PRIMARY KEY,
+    domain_name VARCHAR(255) NOT NULL UNIQUE,
+    registrar VARCHAR(255),
+    creation_date DATE,
+    expiry_date DATE,
+    dnssec BOOLEAN DEFAULT false
+);
+
+-- Tabel subdomain (child, FK ke domain)
+CREATE TABLE subdomain (
+    id SERIAL PRIMARY KEY,
+    domain_id INT REFERENCES domain(id) ON DELETE CASCADE,
+    host VARCHAR(255) NOT NULL,
+    ip_address INET,
+    asn VARCHAR(20),
+    banner TEXT,
+    UNIQUE(domain_id, host)
+);
+
+-- Tabel scan_result (child, FK ke domain)
+CREATE TABLE scan_result (
+    id SERIAL PRIMARY KEY,
+    domain_id INT REFERENCES domain(id),
+    tool VARCHAR(50),
+    finding TEXT,
+    severity VARCHAR(20),
+    scan_date TIMESTAMP DEFAULT NOW()
+);
+
+-- Contoh INSERT data manipulasi (DML)
+INSERT INTO domain (domain_name, registrar, creation_date, expiry_date, dnssec)
+VALUES ('antam.com', 'PT Biznet GIO Nusantara', '1997-08-21', '2029-08-20', false);
+
+INSERT INTO subdomain (domain_id, host, ip_address, asn, banner)
+SELECT id, 'www.antam.com', '104.20.31.172', 'AS13335', 'cloudflare' FROM domain WHERE domain_name='antam.com'
+UNION ALL
+SELECT id, 'eproc.antam.com', '172.66.167.41', 'AS13335', 'cloudflare' FROM domain WHERE domain_name='antam.com';
+                </pre>
+            </div>
+        </div>
+    </div>
+
+    <!-- SOLUSI TAMBAHAN: Query SELECT dengan hasil tabel  -->
+    <div class="card" style="margin-bottom: 1.5rem;">
+        <div class="card-header">
+            <span>📊</span> Solusi Tambahan - Query Relasional & Hasil 
+        </div>
+        <div class="card-content">
+            <div><strong>Query 1:</strong> Menampilkan semua subdomain dari domain 'antam.com' beserta banner dan ASN</div>
+            <div class="sql-block">
+                <pre>SELECT d.domain_name, s.host, s.ip_address, s.asn, s.banner
+FROM domain d
+JOIN subdomain s ON d.id = s.domain_id
+WHERE d.domain_name = 'antam.com';</pre>
+            </div>
+            <div class="query-result">
+                <table class="data-table">
+                    <thead><tr><th>domain_name</th><th>host</th><th>ip_address</th><th>asn</th><th>banner</th></tr></thead>
+                    <tbody>
+                        <tr><td>antam.com</td><td>www.antam.com</td><td>104.20.31.172</td><td>AS13335</td><td>cloudflare</td></tr>
+                        <tr><td>antam.com</td><td>eproc.antam.com</td><td>172.66.167.41</td><td>AS13335</td><td>cloudflare</td></tr>
+                        <tr><td>antam.com</td><td>gaspol.antam.com</td><td>172.66.0.145</td><td>AS13335</td><td>cloudflare - Just a moment...</td></tr>
+                        <tr><td>antam.com</td><td>mailer.antam.com</td><td>212.146.235.108</td><td>AS200484</td><td>SMTP server</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div style="margin-top: 1.5rem;"><strong>Query 2:</strong> Menampilkan domain yang memiliki DNSSEC tidak aktif beserta jumlah subdomain</div>
+            <div class="sql-block">
+                <pre>SELECT d.domain_name, COUNT(s.id) AS total_subdomain
+FROM domain d
+LEFT JOIN subdomain s ON d.id = s.domain_id
+WHERE d.dnssec = false
+GROUP BY d.domain_name;</pre>
+            </div>
+            <div class="query-result">
+                <table class="data-table">
+                    <thead><tr><th>domain_name</th><th>total_subdomain</th></tr></thead>
+                    <tbody>
+                        <tr><td>antam.com</td><td>11</td></tr>
+                        <tr><td>smpnegeri13mj.sch.id (contoh)</td><td>8</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div style="margin-top: 1.5rem;"><strong>Query 3:</strong> Menampilkan temuan scan dengan severity 'Medium' atau 'High'</div>
+            <div class="sql-block">
+                <pre>SELECT d.domain_name, r.tool, r.finding, r.severity, r.scan_date
+FROM scan_result r
+JOIN domain d ON r.domain_id = d.id
+WHERE r.severity IN ('Medium', 'High')
+ORDER BY r.scan_date DESC;</pre>
+            </div>
+            <div class="query-result">
+                <table class="data-table">
+                    <thead><tr><th>domain_name</th><th>tool</th><th>finding</th><th>severity</th><th>scan_date</th></tr></thead>
+                    <tbody>
+                        <tr><td>antam.com</td><td>Nikto</td><td>Cookie NEXT_LOCALE tanpa secure flag</td><td>Medium</td><td>2026-06-10 07:44:54</td></tr>
+                        <tr><td>antam.com</td><td>Nikto</td><td>Cookie NEXT_LOCALE tanpa HttpOnly flag</td><td>Medium</td><td>2026-06-10 07:44:54</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="recommendation" style="margin-top:1rem;">
+                ✅ Query di atas memanfaatkan JOIN, GROUP BY, agregasi, dan filtering sesuai relasi antar tabel. Hasil query ditampilkan secara visual dalam bentuk tabel untuk memudahkan analisis.
+            </div>
+        </div>
+    </div>
+
+    <!-- Tabel tambahan: DNS Records (MX, TXT, NS) -->
+    <div class="card" style="margin-bottom: 1.5rem;">
+        <div class="card-header">
+            <span>📋</span> Detail DNS Records (dig & nslookup)
+        </div>
+        <div class="card-content">
+            <table class="data-table">
+                <tr><th>Type</th><th>Value</th></tr>
+                <tr><td>MX</td><td>0 antam-com.mail.protection.outlook.com → 52.101.137.0</td></tr>
+                <tr><td>TXT</td><td>"MS=ms72037489", "google-site-verification=...", "sendinblue-code:...", "v=spf1 include:amazonses.com include:spf.protection.outlook.com -all", "2007004256-ANTAM", "MS=C70B95032..."</td></tr>
+                <tr><td>NS</td><td>clark.ns.cloudflare.com (108.162.193.87), arushi.ns.cloudflare.com (108.162.194.61)</td></tr>
+                <tr><td>SOA</td><td>arushi.ns.cloudflare.com dns.cloudflare.com 2406518980 10000 2400 604800 1800</td></tr>
+                <tr><td>CNAME</td><td>Tidak ditemukan (dig antam.com CNAME memberikan jawaban kosong, hanya SOA)</td></tr>
+            </table>
+            <div class="recommendation" style="margin-top:0.6rem;">
+                ✅ SPF strict (-all) sangat baik, DNSSEC masih unsigned – disarankan untuk mengaktifkan.
+            </div>
+        </div>
+    </div>
+
+    <!-- BAGIAN PALING BAWAH: Tugas 1 Coursera dengan zoom -->
+    <div class="certificate-section">
+        <img id="zoomImg" src="Coursera_Foundation_security.jpeg" alt="Certificate Foundation of Security - Coursera" onclick="openModal()" onerror="this.style.display='none'">
+        <p>📜 Tugas 1 : Menyelesaikan Training Foundation of Security di Coursera (klik gambar untuk zoom)</p>
+    </div>
+
+    <!-- Modal Zoom -->
+    <div id="imageModal" class="modal" onclick="closeModal()">
+        <span class="close-modal" onclick="closeModal()">&times;</span>
+        <img class="modal-content" id="modalImg">
+    </div>
+
+    <div class="footer">
+        ⚡ UTS Information Security – Passive & Active Reconnaissance | Berdasarkan hasil scanning menggunakan Kali Linux (whois, dig, DNSDumpster, Shodan, Nikto, WhatWeb, wafw00f, Nmap) pada antam.com.
+        <br>📁 <a href="antam.com_06102026_1202.html" target="_blank">Laporan Lengkap (antam.com_06102026_1202.html)</a> | <a href="hasil_nikto.html" target="_blank">Hasil Scan Nikto (hasil_nikto.html)</a>
+    </div>
+</div>
+
+<script>
+    function openModal() {
+        var img = document.getElementById("zoomImg");
+        var modal = document.getElementById("imageModal");
+        var modalImg = document.getElementById("modalImg");
+        if (img && modal && modalImg && img.src) {
+            modal.style.display = "block";
+            modalImg.src = img.src;
+        }
+    }
+    function closeModal() {
+        document.getElementById("imageModal").style.display = "none";
+    }
+</script>
+</body>
+</html>

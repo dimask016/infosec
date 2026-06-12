@@ -1,0 +1,81 @@
+using TMPro;
+
+using UnityEngine;
+
+using UnityEngine.UI;
+
+ 
+
+public class VR02_P5_Latihan5 : MonoBehaviour
+
+{
+
+    public Image GambarOverlay;
+
+    public Button ButtonDamage, ButtonHeal;
+
+    public TextMeshProUGUI TeksHP;
+
+ 
+
+    private int currentHP;
+
+    public int MaxHP;
+
+ 
+
+    public int DamageAmount;
+
+ 
+
+    private void Start()
+
+    {
+
+        currentHP = MaxHP;
+
+        UpdateTeks();
+
+        GambarOverlay.color = new Color(1f,1f,1f,0f);
+
+ 
+
+        ButtonDamage.onClick.AddListener(KetikaButtonDamageDiTekan);
+
+    }
+
+    public void UpdateTeks()
+
+    {
+
+        TeksHP.text = "HP: " +  currentHP + "/" + MaxHP; //Ammo Text diperbarui
+
+    }
+
+ 
+
+    public void KetikaButtonDamageDiTekan() 
+
+    {
+
+        currentHP = currentHP - DamageAmount;
+
+ 
+
+        if (currentHP <= 0)
+
+        {
+
+            currentHP = 0;
+
+        }
+
+        
+
+        UpdateTeks();
+
+    }
+
+ 
+
+}

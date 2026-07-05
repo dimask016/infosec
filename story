@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Old Symphony · Piano Notes & the Corridor of Time</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600&display=swap" rel="stylesheet" />
+    <style>
+        /* ----- reset & base ----- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #f7f2eb;
+            font-family: 'Inter', sans-serif;
+            color: #2c241e;
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #e8dfd7;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #b7a18c;
+            border-radius: 8px;
+        }
+
+        .story-container {
+            max-width: 820px;
+            margin: 0 auto;
+            padding: 2rem 1.8rem 5rem;
+            position: relative;
+        }
+
+        /* ----- header ----- */
+        .story-header {
+            text-align: center;
+            padding: 3.5rem 0 2rem;
+            position: relative;
+        }
+
+        .story-header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #b7a18c, transparent);
+        }
+
+        .story-header .label {
+            font-size: 0.75rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: #b7a18c;
+            font-weight: 500;
+            margin-bottom: 0.75rem;
+        }
+
+        .story-header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            font-weight: 700;
+            line-height: 1.2;
+            color: #2c241e;
+            margin-bottom: 0.3rem;
+            letter-spacing: -0.5px;
+        }
+
+        .story-header h1 .accent {
+            color: #a67c5b;
+            font-style: italic;
+            font-weight: 600;
+        }
+
+        .story-header .subhead {
+            font-size: 1rem;
+            font-weight: 300;
+            color: #6b5a4b;
+            letter-spacing: 1px;
+            margin-top: 0.2rem;
+        }
+
+        .story-header .subhead strong {
+            font-weight: 500;
+            color: #4a3a2e;
+        }
+
+        /* ----- language toggle ----- */
+        .lang-toggle-wrap {
+            margin-top: 1.2rem;
+            display: flex;
+            justify-content: center;
+            gap: 0.6rem;
+            align-items: center;
+        }
+
+        .lang-toggle-wrap .lang-btn {
+            background: transparent;
+            border: 1px solid #dacfc4;
+            border-radius: 40px;
+            padding: 0.35rem 1.2rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            color: #4a3a2e;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            font-family: 'Inter', sans-serif;
+            background: #f7f2eb;
+        }
+
+        .lang-toggle-wrap .lang-btn:hover {
+            background: #dacfc4;
+            border-color: #b7a18c;
+        }
+
+        .lang-toggle-wrap .lang-btn.active {
+            background: #a67c5b;
+            border-color: #a67c5b;
+            color: #f7f2eb;
+        }
+
+        .lang-toggle-wrap .lang-divider {
+            color: #dacfc4;
+            font-weight: 300;
+        }
+
+        /* ----- piano mood ----- */
+        .piano-mood {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1.2rem;
+            margin: 2rem 0 2.6rem;
+            flex-wrap: wrap;
+        }
+
+        .piano-keys {
+            display: flex;
+            gap: 3px;
+            padding: 8px 12px;
+            background: #dacfc4;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(44, 36, 30, 0.10);
+        }
+
+        .key {
+            width: 28px;
+            height: 80px;
+            background: #fcf8f4;
+            border-radius: 0 0 4px 4px;
+            box-shadow: inset -1px -2px 0 rgba(0, 0, 0, 0.06), 0 2px 4px rgba(0, 0, 0, 0.05);
+            transition: transform 0.15s ease, background 0.2s;
+            cursor: default;
+            position: relative;
+        }
+
+        .key.black {
+            width: 18px;
+            height: 48px;
+            background: #2c241e;
+            border-radius: 0 0 3px 3px;
+            margin-left: -9px;
+            margin-right: -9px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+            z-index: 2;
+        }
+
+        .key.white {
+            background: #fcf8f4;
+            z-index: 1;
+        }
+
+        .key.pressed {
+            transform: translateY(4px);
+            background: #e8ddd2;
+        }
+        .key.black.pressed {
+            background: #1f1814;
+        }
+
+        .piano-label {
+            font-size: 0.8rem;
+            color: #8a7a6b;
+            letter-spacing: 2px;
+            font-weight: 300;
+            border-left: 1px solid #dacfc4;
+            padding-left: 1.2rem;
+        }
+
+        .piano-label span {
+            display: block;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            font-style: italic;
+            color: #4a3a2e;
+        }
+
+        /* ----- story body ----- */
+        .story-body {
+            margin-top: 2rem;
+        }
+
+        .story-body p {
+            font-size: 1.05rem;
+            font-weight: 300;
+            color: #3a3028;
+            margin-bottom: 1.6rem;
+            text-align: justify;
+            text-indent: 1.8rem;
+        }
+
+        .story-body p:first-of-type {
+            text-indent: 0;
+        }
+
+        .story-body .dropcap::first-letter {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.8rem;
+            float: left;
+            line-height: 1;
+            margin-right: 0.4rem;
+            margin-top: 0.15rem;
+            color: #a67c5b;
+            font-weight: 700;
+        }
+
+        /* memory blocks */
+        .memory-block {
+            background: #f0e9e1;
+            border-radius: 20px;
+            padding: 2rem 2.2rem;
+            margin: 2.2rem 0;
+            border-left: 4px solid #b7a18c;
+            position: relative;
+            transition: background 0.3s;
+        }
+
+        .memory-block:hover {
+            background: #ece2d8;
+        }
+
+        .memory-block .block-label {
+            display: inline-block;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: #a67c5b;
+            font-weight: 600;
+            background: #f7f2eb;
+            padding: 0.2rem 1rem;
+            border-radius: 30px;
+            margin-bottom: 0.8rem;
+        }
+
+        .memory-block h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.7rem;
+            font-weight: 600;
+            color: #2c241e;
+            margin-bottom: 0.6rem;
+        }
+
+        .memory-block h2 .emoji-icon {
+            font-size: 1.6rem;
+            display: inline-block;
+            margin-right: 0.3rem;
+        }
+
+        .memory-block p {
+            font-size: 1.02rem;
+            text-indent: 0;
+            margin-bottom: 0.8rem;
+        }
+
+        .memory-block p:last-child {
+            margin-bottom: 0;
+        }
+
+        .memory-block .highlight {
+            background: rgba(166, 124, 91, 0.12);
+            padding: 0.1rem 0.4rem;
+            border-radius: 6px;
+            font-weight: 400;
+            color: #7a5f49;
+        }
+
+        .mj-block {
+            background: #2c241e;
+            border-left-color: #c8a78c;
+            color: #f0e9e1;
+        }
+
+        .mj-block .block-label {
+            background: #3f332b;
+            color: #dcc9ba;
+        }
+
+        .mj-block h2 {
+            color: #f0e9e1;
+        }
+
+        .mj-block h2 .emoji-icon {
+            filter: drop-shadow(0 0 6px rgba(200, 167, 140, 0.3));
+        }
+
+        .mj-block p {
+            color: #e3d6cb;
+        }
+
+        .mj-block .highlight {
+            background: rgba(200, 167, 140, 0.2);
+            color: #f0e5db;
+        }
+
+        /* closing */
+        .closing {
+            margin-top: 3.5rem;
+            padding-top: 2rem;
+            border-top: 1px solid #dacfc4;
+            text-align: center;
+        }
+
+        .closing p {
+            font-size: 1.1rem;
+            font-style: italic;
+            font-family: 'Playfair Display', serif;
+            color: #4a3a2e;
+            text-indent: 0;
+            text-align: center;
+            max-width: 80%;
+            margin: 0 auto 1.2rem;
+        }
+
+        .closing .signature {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
+            font-style: normal;
+            letter-spacing: 2px;
+            color: #8a7a6b;
+        }
+
+        .closing .signature strong {
+            color: #4a3a2e;
+            font-weight: 500;
+        }
+
+        /* action bar */
+        .action-bar {
+            display: flex;
+            justify-content: center;
+            gap: 1.2rem;
+            margin-top: 2.5rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            background: #e8dfd7;
+            border: none;
+            padding: 0.7rem 1.8rem;
+            border-radius: 50px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #2c241e;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            letter-spacing: 0.5px;
+            box-shadow: 0 2px 8px rgba(44, 36, 30, 0.04);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn:hover {
+            background: #dacfc4;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(44, 36, 30, 0.08);
+        }
+
+        .btn-primary {
+            background: #a67c5b;
+            color: #f7f2eb;
+        }
+
+        .btn-primary:hover {
+            background: #8f6b4e;
+            color: #fff;
+        }
+
+        .btn .icon {
+            font-size: 1.1rem;
+        }
+
+        /* fade sections */
+        .fade-section {
+            opacity: 0;
+            transform: translateY(32px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* responsive */
+        @media (max-width: 640px) {
+            .story-container {
+                padding: 1.2rem 1.2rem 4rem;
+            }
+
+            .story-header h1 {
+                font-size: 2rem;
+            }
+            .story-header .subhead {
+                font-size: 0.9rem;
+            }
+
+            .piano-keys {
+                padding: 6px 10px;
+            }
+            .key {
+                width: 22px;
+                height: 64px;
+            }
+            .key.black {
+                width: 14px;
+                height: 38px;
+                margin-left: -7px;
+                margin-right: -7px;
+            }
+            .piano-label {
+                font-size: 0.7rem;
+                padding-left: 0.8rem;
+            }
+            .piano-label span {
+                font-size: 1rem;
+            }
+
+            .memory-block {
+                padding: 1.5rem;
+            }
+            .memory-block h2 {
+                font-size: 1.3rem;
+            }
+
+            .story-body p {
+                font-size: 0.98rem;
+                text-indent: 1.4rem;
+            }
+
+            .closing p {
+                max-width: 100%;
+                font-size: 1rem;
+            }
+
+            .btn {
+                padding: 0.5rem 1.4rem;
+                font-size: 0.8rem;
+            }
+
+            .lang-toggle-wrap .lang-btn {
+                font-size: 0.7rem;
+                padding: 0.25rem 1rem;
+            }
+        }
+
+        @media (max-width: 420px) {
+            .story-header h1 {
+                font-size: 1.6rem;
+            }
+            .key {
+                width: 18px;
+                height: 52px;
+            }
+            .key.black {
+                width: 12px;
+                height: 32px;
+                margin-left: -6px;
+                margin-right: -6px;
+            }
+            .piano-keys {
+                gap: 2px;
+                padding: 4px 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="story-container">
+
+        <!-- ===== HEADER ===== -->
+        <header class="story-header fade-section visible">
+            <div class="label" data-i18n="header-label">✦ story from a noogler</div>
+            <h1 data-i18n="header-title">Old Symphony: <span class="accent">Piano Notes</span> &amp; the Corridor of Time</h1>
+            <div class="subhead" data-i18n="header-sub">presented by <strong>Dimas</strong> · Indonesia</div>
+
+            <!-- language toggle -->
+            <div class="lang-toggle-wrap">
+                <button class="lang-btn active" id="langToggle" data-lang="en">Bahasa Indonesia</button>
+                <span class="lang-divider">|</span>
+                <span style="font-size:0.7rem; color:#8a7a6b; letter-spacing:1px;">EN</span>
+            </div>
+        </header>
+
+        <!-- ===== PIANO MOOD ===== -->
+        <div class="piano-mood fade-section visible">
+            <div class="piano-keys" id="pianoKeys">
+                <div class="key white" data-note="C"></div>
+                <div class="key black" data-note="C#"></div>
+                <div class="key white" data-note="D"></div>
+                <div class="key black" data-note="D#"></div>
+                <div class="key white" data-note="E"></div>
+                <div class="key white" data-note="F"></div>
+                <div class="key black" data-note="F#"></div>
+                <div class="key white" data-note="G"></div>
+                <div class="key black" data-note="G#"></div>
+                <div class="key white" data-note="A"></div>
+                <div class="key black" data-note="A#"></div>
+                <div class="key white" data-note="B"></div>
+                <div class="key white" data-note="C2"></div>
+            </div>
+            <div class="piano-label">
+                <span data-i18n="piano-label1">♪ notes</span>
+                <span data-i18n="piano-label2">touch keys</span>
+            </div>
+        </div>
+
+        <!-- ===== STORY BODY ===== -->
+        <div class="story-body">
+
+            <!-- p1 -->
+            <p class="dropcap fade-section" data-i18n="p1">
+                The turn of the key behind the miniature wooden piano made a small <em>click</em>. When the lever was released, a clear and soothing melody began to flow, filling the corners of the old silent room. Its gentle chime slowly swept away all the burdens in the mind, carrying the soul across the dimensions of time.
+            </p>
+
+            <!-- p2 -->
+            <p class="fade-section" data-i18n="p2">
+                Under the dim light, the row of miniature wooden toys on the table seemed to awaken from a long slumber.
+            </p>
+
+            <!-- BLOCK 1 -->
+            <div class="memory-block fade-section">
+                <div class="block-label" data-i18n="block1-label">✦ first step</div>
+                <h2><span class="emoji-icon">🚲</span> <span data-i18n="block1-title">Afternoon Breeze &amp; a Small Pedicab</span></h2>
+                <div data-i18n="block1-content">
+                    <p>My eyes fell on the miniature <span class="highlight">traditional pedicab</span>. Instantly, my nose seemed to smell the damp earth after rain in childhood. Memories of simple afternoons spun back: sitting on the front bench of the pedicab with Mother, gently swaying to the tired yet smiling pedaler's strokes. That was a time when happiness was so simple—just the afternoon breeze hitting a carefree child's face.</p>
+                </div>
+            </div>
+
+            <!-- BLOCK 2 -->
+            <div class="memory-block fade-section">
+                <div class="block-label" data-i18n="block2-label">✦ second step</div>
+                <h2><span class="emoji-icon">🚗</span> <span data-i18n="block2-title">The Pace of Time &amp; Flying Dreams</span></h2>
+                <div data-i18n="block2-content">
+                    <p>Next to the pedicab, a row of <span class="highlight">ancient Dutch-style toy cars</span> stood. Their rigid yet elegant shapes reminded me of Grandpa's stories about the past—about an era that moved slowly, full of history left on old asphalt roads.</p>
+                    <p>But time never stops. From the old cars, my gaze shifted to a miniature <span class="highlight">airplane</span>. It was a symbol of teenage years, when dreams began to soar high. A time when we no longer just walked on the ground, but looked up to the sky, wanting to fly freely chasing dreams high in the heavens.</p>
+                </div>
+            </div>
+
+            <!-- BLOCK 3 (MJ) -->
+            <div class="memory-block mj-block fade-section">
+                <div class="block-label" data-i18n="block3-label">✦ the king</div>
+                <h2><span class="emoji-icon">👑</span> <span data-i18n="block3-title">Michael Jackson · The King of Pop</span></h2>
+                <div data-i18n="block3-content">
+                    <p>Amid the noise of past memories and the peace brought by the piano melody, my eyes fixed on an iconic figure. <span class="highlight">Michael Jackson, the King of Pop</span>.</p>
+                    <p>His presence on the corner of the table injected a magical energy into the silence. For the generation that grew up with him, he was not just a musician; he was the soundtrack of courage, freedom, and self-expression. Inside my head, the soothing piano notes seemed to magically merge with the legendary <span class="highlight">moonwalk</span> on a grand stage, surrounded by thousands of lights and shouts of admiration. He was a reminder that behind the silence of life, there is always room to dance and shine.</p>
+                </div>
+            </div>
+
+            <!-- p4 & p5 penutup -->
+            <div class="fade-section" style="margin-top: 2.5rem;">
+                <p data-i18n="p4">The piano notes slowly began to fade, leaving one by one the last notes hanging in the air before finally falling silent.</p>
+                <p data-i18n="p5">The wooden toys remained still in their place. But inside my chest, a warm feeling swelled. A brief yet profound sentimental journey, proving that even though our bodies have walked far into the future, our little hearts will always find a way home through the threads of memory.</p>
+            </div>
+
+            <!-- CLOSING -->
+            <div class="closing fade-section">
+                <p data-i18n="closing-quote">“ … and the piano chime still echoes,<br />bringing home every step we ever left behind. ”</p>
+                <div class="signature" data-i18n="closing-signature">— <strong>Dimas</strong> · noogler Indonesia</div>
+            </div>
+
+        </div>
+
+        <!-- ===== ACTION BAR ===== -->
+        <div class="action-bar fade-section">
+            <button class="btn" id="playPianoBtn" data-i18n="btn-play"><span class="icon">🔊</span> Play the chime</button>
+            <button class="btn btn-primary" id="resetScrollBtn" data-i18n="btn-reset"><span class="icon">↻</span> Rewind the story</button>
+        </div>
+
+    </div>
+
+    <script>
+        (function() {
+            'use strict';
+
+            // ----- TRANSLATIONS -----
+            const translations = {
+                en: {
+                    'header-label': '✦ story from a noogler',
+                    'header-title': 'Old Symphony: <span class="accent">Piano Notes</span> &amp; the Corridor of Time',
+                    'header-sub': 'presented by <strong>Dimas</strong> · Indonesia',
+                    'piano-label1': '♪ notes',
+                    'piano-label2': 'touch keys',
+                    'p1': 'The turn of the key behind the miniature wooden piano made a small <em>click</em>. When the lever was released, a clear and soothing melody began to flow, filling the corners of the old silent room. Its gentle chime slowly swept away all the burdens in the mind, carrying the soul across the dimensions of time.',
+                    'p2': 'Under the dim light, the row of miniature wooden toys on the table seemed to awaken from a long slumber.',
+                    'block1-label': '✦ first step',
+                    'block1-title': 'Afternoon Breeze &amp; a Small Pedicab',
+                    'block1-content': '<p>My eyes fell on the miniature <span class="highlight">traditional pedicab</span>. Instantly, my nose seemed to smell the damp earth after rain in childhood. Memories of simple afternoons spun back: sitting on the front bench of the pedicab with Mother, gently swaying to the tired yet smiling pedaler\'s strokes. That was a time when happiness was so simple—just the afternoon breeze hitting a carefree child\'s face.</p>',
+                    'block2-label': '✦ second step',
+                    'block2-title': 'The Pace of Time &amp; Flying Dreams',
+                    'block2-content': '<p>Next to the pedicab, a row of <span class="highlight">ancient Dutch-style toy cars</span> stood. Their rigid yet elegant shapes reminded me of Grandpa\'s stories about the past—about an era that moved slowly, full of history left on old asphalt roads.</p><p>But time never stops. From the old cars, my gaze shifted to a miniature <span class="highlight">airplane</span>. It was a symbol of teenage years, when dreams began to soar high. A time when we no longer just walked on the ground, but looked up to the sky, wanting to fly freely chasing dreams high in the heavens.</p>',
+                    'block3-label': '✦ the king',
+                    'block3-title': 'Michael Jackson · The King of Pop',
+                    'block3-content': '<p>Amid the noise of past memories and the peace brought by the piano melody, my eyes fixed on an iconic figure. <span class="highlight">Michael Jackson, the King of Pop</span>.</p><p>His presence on the corner of the table injected a magical energy into the silence. For the generation that grew up with him, he was not just a musician; he was the soundtrack of courage, freedom, and self-expression. Inside my head, the soothing piano notes seemed to magically merge with the legendary <span class="highlight">moonwalk</span> on a grand stage, surrounded by thousands of lights and shouts of admiration. He was a reminder that behind the silence of life, there is always room to dance and shine.</p>',
+                    'p4': 'The piano notes slowly began to fade, leaving one by one the last notes hanging in the air before finally falling silent.',
+                    'p5': 'The wooden toys remained still in their place. But inside my chest, a warm feeling swelled. A brief yet profound sentimental journey, proving that even though our bodies have walked far into the future, our little hearts will always find a way home through the threads of memory.',
+                    'closing-quote': '“ … and the piano chime still echoes,<br />bringing home every step we ever left behind. ”',
+                    'closing-signature': '— <strong>Dimas</strong> · noogler Indonesia',
+                    'btn-play': 'Play the chime',
+                    'btn-reset': 'Rewind the story'
+                },
+                id: {
+                    'header-label': '✦ cerita dari seorang noogler',
+                    'header-title': 'Simfoni Usang: <span class="accent">Denting Piano</span> &amp; Lorong Waktu',
+                    'header-sub': 'dibawakan oleh <strong>Dimas</strong> · Indonesia',
+                    'piano-label1': '♪ denting',
+                    'piano-label2': 'sentuh tuts',
+                    'p1': 'Putaran kunci di balik miniatur piano kayu itu berbunyi <em>klik</em> kecil. Ketika tuasnya dilepaskan, alunan nada yang jernih dan menenangkan mulai mengalir, mengisi sudut-sudut kamar tua yang sunyi. Suara dentingnya begitu lembut, perlahan menyapu seluruh beban di kepala, membawa jiwa ini hanyut melintasi dimensi waktu.',
+                    'p2': 'Di bawah temaram cahaya lampu, barisan mainan kayu mini di atas meja seolah terbangun dari tidur panjangnya.',
+                    'block1-label': '✦ langkah pertama',
+                    'block1-title': 'Angin Sore &amp; Becak Kecil',
+                    'block1-content': '<p>Mata ini tertuju pada miniatur <span class="highlight">becak tradisional</span>. Seketika, hidung ini seperti kembali menghirup aroma tanah basah setelah hujan di masa kecil. Memori tentang sore hari yang bersahaja berputar kembali: duduk di bangku depan becak bersama Ibu, bergoyang pelan mengikuti kayuhan pedal sang penarik becak yang melelahkan namun penuh senyum. Itu adalah masa ketika kebahagiaan begitu sederhana, sebatas embusan angin sore yang menerpa wajah anak kecil tanpa beban.</p>',
+                    'block2-label': '✦ langkah kedua',
+                    'block2-title': 'Laju Zaman &amp; Impian Terbang',
+                    'block2-content': '<p>Di sebelah becak, berjejer <span class="highlight">mobil-mobilan kuno zaman Belanda</span>. Bentuknya yang kaku namun elegan mengingatkan pada cerita-cerita kakek tentang masa lalu—tentang sebuah era yang bergerak lambat, penuh sejarah yang tertinggal di aspal jalanan tua.</p><p>Namun, waktu tidak pernah berhenti. Dari mobil tua itu, pandangan beralih pada miniatur <span class="highlight">pesawat terbang</span>. Itu adalah simbol dari fase remaja, saat mimpi-mimpi mulai tumbuh tinggi. Masa ketika kita tidak lagi sekadar berjalan di atas tanah, melainkan menengadah ke langit, ingin terbang bebas mengejar cita-cita yang menjulang di angkasa.</p>',
+                    'block3-label': '✦ sang raja',
+                    'block3-title': 'Michael Jackson · The King of Pop',
+                    'block3-content': '<p>Di tengah riuh rendahnya memori masa lalu dan kedamaian yang dihantarkan oleh alunan piano, pandangan ini tertambat pada sebuah figur ikonik. <span class="highlight">Michael Jackson, sang King of Pop</span>.</p><p>Kehadirannya di sudut meja itu seperti menyuntikkan energi magis ke dalam keheningan. Bagi generasi yang tumbuh bersamanya, ia bukan sekadar musisi; ia adalah <em>soundtrack</em> dari keberanian, kebebasan, dan ekspresi diri. Di dalam kepala, denting piano yang menenangkan itu seolah berpadu magis dengan bayangan gerakan <span class="highlight">moonwalk</span> yang legendaris di atas panggung megah, dikelilingi ribuan lampu dan teriakan penuh kekaguman. Dia adalah pengingat bahwa di balik kesunyian hidup, selalu ada ruang untuk berdansa dan bersinar.</p>',
+                    'p4': 'Denting piano perlahan mulai melambat, menyisakan satu-satu nada terakhir yang menggantung di udara sebelum akhirnya benar-benar senyap.',
+                    'p5': 'Mainan kayu itu tetap bergeming di tempatnya. Namun, di dalam dada, ada rasa hangat yang membuncah. Sebuah perjalanan sentimental yang singkat namun mendalam, membuktikan bahwa meski raga ini telah berjalan jauh ke masa depan, hati kecil kita akan selalu menemukan jalan pulang melalui untaian kenangan.',
+                    'closing-quote': '“ … dan denting piano itu tetap bergema,<br />membawa pulang setiap langkah yang pernah kita tinggalkan. ”',
+                    'closing-signature': '— <strong>Dimas</strong> · noogler Indonesia',
+                    'btn-play': 'Mainkan denting',
+                    'btn-reset': 'Putar kembali cerita'
+                }
+            };
+
+            // ----- STATE -----
+            let currentLang = 'en'; // default
+
+            // ----- DOM refs -----
+            const langToggle = document.getElementById('langToggle');
+            const i18nElements = document.querySelectorAll('[data-i18n]');
+
+            // ----- apply language -----
+            function applyLanguage(lang) {
+                currentLang = lang;
+                const dict = translations[lang];
+                if (!dict) return;
+
+                i18nElements.forEach(el => {
+                    const key = el.getAttribute('data-i18n');
+                    if (dict[key] !== undefined) {
+                        el.innerHTML = dict[key];
+                    }
+                });
+
+                // update tombol toggle
+                if (lang === 'en') {
+                    langToggle.textContent = 'Bahasa Indonesia';
+                    langToggle.setAttribute('data-lang', 'en');
+                } else {
+                    langToggle.textContent = 'English';
+                    langToggle.setAttribute('data-lang', 'id');
+                }
+
+                // update html lang
+                document.documentElement.lang = lang === 'en' ? 'en' : 'id';
+            }
+
+            // ----- toggle handler -----
+            langToggle.addEventListener('click', function() {
+                const nextLang = (currentLang === 'en') ? 'id' : 'en';
+                applyLanguage(nextLang);
+            });
+
+            // ----- piano interaction (unchanged) -----
+            const keys = document.querySelectorAll('.key');
+            let activeTimeout = null;
+
+            function pressKey(keyEl) {
+                if (!keyEl) return;
+                keyEl.classList.add('pressed');
+                clearTimeout(activeTimeout);
+                activeTimeout = setTimeout(() => {
+                    keys.forEach(k => k.classList.remove('pressed'));
+                }, 300);
+            }
+
+            keys.forEach(key => {
+                key.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    pressKey(this);
+                });
+                key.addEventListener('touchstart', function(e) {
+                    e.preventDefault();
+                    pressKey(this);
+                }, { passive: false });
+            });
+
+            // ----- play button (piano sequence) -----
+            const playBtn = document.getElementById('playPianoBtn');
+            if (playBtn) {
+                playBtn.addEventListener('click', function() {
+                    const sequence = [0, 2, 4, 5, 7, 9, 11, 12, 11, 9, 7, 5, 4, 2, 0];
+                    let index = 0;
+
+                    function playNext() {
+                        if (index >= sequence.length) {
+                            keys.forEach(k => k.classList.remove('pressed'));
+                            return;
+                        }
+                        const idx = sequence[index];
+                        if (keys[idx]) {
+                            keys[idx].classList.add('pressed');
+                            setTimeout(() => {
+                                keys[idx].classList.remove('pressed');
+                            }, 200);
+                        }
+                        index++;
+                        setTimeout(playNext, 180);
+                    }
+                    keys.forEach(k => k.classList.remove('pressed'));
+                    playNext();
+                });
+            }
+
+            // ----- reset scroll button -----
+            const resetBtn = document.getElementById('resetScrollBtn');
+            if (resetBtn) {
+                resetBtn.addEventListener('click', function() {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    keys.forEach(k => k.classList.add('pressed'));
+                    setTimeout(() => {
+                        keys.forEach(k => k.classList.remove('pressed'));
+                    }, 500);
+                });
+            }
+
+            // ----- fade sections (scroll reveal) -----
+            const fadeSections = document.querySelectorAll('.fade-section');
+
+            function checkVisibility() {
+                const windowHeight = window.innerHeight;
+                const revealThreshold = 100;
+                fadeSections.forEach(el => {
+                    const rect = el.getBoundingClientRect();
+                    if (rect.top < windowHeight - revealThreshold) {
+                        el.classList.add('visible');
+                    }
+                });
+            }
+
+            setTimeout(checkVisibility, 100);
+            let ticking = false;
+            window.addEventListener('scroll', function() {
+                if (!ticking) {
+                    window.requestAnimationFrame(function() {
+                        checkVisibility();
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            });
+
+            // ----- auto piano intro on load -----
+            window.addEventListener('load', function() {
+                setTimeout(() => {
+                    const introSeq = [0, 2, 4, 7, 9, 11, 12, 11, 9, 7, 4, 2, 0];
+                    let i = 0;
+
+                    function playIntro() {
+                        if (i >= introSeq.length) {
+                            keys.forEach(k => k.classList.remove('pressed'));
+                            return;
+                        }
+                        const idx = introSeq[i];
+                        if (keys[idx]) {
+                            keys[idx].classList.add('pressed');
+                            setTimeout(() => {
+                                keys[idx].classList.remove('pressed');
+                            }, 180);
+                        }
+                        i++;
+                        setTimeout(playIntro, 160);
+                    }
+                    playIntro();
+                }, 700);
+
+                // ----- set default language (English) -----
+                applyLanguage('en');
+            });
+
+        })();
+    </script>
+
+</body>
+</html>

@@ -8,6 +8,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!-- Library untuk preview DOCX -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
   <style>
     * {
       margin: 0;
@@ -56,6 +58,58 @@
     .app-header .sub {
       font-size: 0.95rem;
       color: #475569;
+    }
+
+    .header-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      align-items: center;
+    }
+
+    .btn-preview, .btn-download {
+      padding: 0.5rem 1.2rem;
+      border-radius: 40px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: #f1f5f9;
+      color: #0b2b4a;
+    }
+
+    .btn-preview {
+      background: #2c7be5;
+      color: white;
+    }
+    .btn-preview:hover {
+      background: #1a5bb5;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(44, 123, 229, 0.3);
+    }
+
+    .btn-download {
+      background: #dcfce7;
+      color: #16a34a;
+    }
+    .btn-download:hover {
+      background: #bbf7d0;
+      transform: translateY(-2px);
+    }
+
+    .badge-page {
+      background: #f1f5f9;
+      padding: 0.2rem 1rem;
+      border-radius: 30px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #475569;
+      white-space: nowrap;
     }
 
     /* Tabs */
@@ -142,16 +196,167 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
+    /* Modal Preview */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(4px);
+      z-index: 9999;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+    }
+
+    .modal.active {
+      display: flex;
+    }
+
+    .modal-content {
+      background: #ffffff;
+      border-radius: 28px;
+      max-width: 900px;
+      width: 100%;
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.3);
+      animation: modalIn 0.3s ease;
+    }
+
+    @keyframes modalIn {
+      from { transform: scale(0.95); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .modal-header {
+      padding: 1.2rem 2rem;
+      border-bottom: 2px solid #f1f5f9;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-shrink: 0;
+    }
+
+    .modal-header h3 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #0b2b4a;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .modal-header h3 i {
+      color: #2c7be5;
+    }
+
+    .modal-close {
+      background: #f1f5f9;
+      border: none;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      font-size: 1.4rem;
+      cursor: pointer;
+      color: #475569;
+      transition: 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-close:hover {
+      background: #fee2e2;
+      color: #b91c1c;
+    }
+
+    .modal-body {
+      padding: 2rem;
+      overflow-y: auto;
+      flex: 1;
+      line-height: 1.7;
+      color: #1e293b;
+    }
+
+    .modal-body .loading {
+      text-align: center;
+      padding: 3rem 0;
+      color: #94a3b8;
+      font-size: 1.1rem;
+    }
+    .modal-body .loading i {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+      display: block;
+      color: #2c7be5;
+    }
+
+    .modal-body .error {
+      background: #fee2e2;
+      color: #b91c1c;
+      padding: 1.5rem;
+      border-radius: 16px;
+      text-align: center;
+      font-weight: 500;
+    }
+
+    .modal-body .error i {
+      font-size: 2rem;
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+    /* Styling untuk hasil render DOCX */
+    .modal-body h1, .modal-body h2, .modal-body h3 {
+      color: #0b2b4a;
+      margin-top: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+    .modal-body p {
+      margin-bottom: 0.8rem;
+    }
+    .modal-body ul, .modal-body ol {
+      padding-left: 1.5rem;
+      margin-bottom: 0.8rem;
+    }
+    .modal-body table {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 1rem 0;
+      font-size: 0.9rem;
+    }
+    .modal-body table td, .modal-body table th {
+      border: 1px solid #e2e8f0;
+      padding: 0.5rem 0.8rem;
+    }
+    .modal-body table th {
+      background: #f1f5f9;
+      font-weight: 600;
+    }
+
     /* Responsive */
     @media (max-width: 768px) {
       .app-header {
         flex-direction: column;
         align-items: flex-start;
-        gap: 0.5rem;
+        gap: 0.8rem;
         padding: 1rem 1.2rem;
       }
       .app-header h1 {
         font-size: 1.4rem;
+      }
+      .header-actions {
+        width: 100%;
+        justify-content: flex-start;
+      }
+      .btn-preview, .btn-download {
+        font-size: 0.8rem;
+        padding: 0.4rem 1rem;
       }
       .tabs {
         padding: 0.5rem 0.8rem;
@@ -171,6 +376,18 @@
         min-height: 80vh;
         border-radius: 16px;
       }
+      .modal {
+        padding: 1rem;
+      }
+      .modal-content {
+        max-height: 95vh;
+      }
+      .modal-header {
+        padding: 0.8rem 1.2rem;
+      }
+      .modal-body {
+        padding: 1.2rem;
+      }
     }
 
     @media (max-width: 480px) {
@@ -184,9 +401,19 @@
       .app-header h1 {
         font-size: 1.2rem;
       }
+      .btn-preview, .btn-download {
+        font-size: 0.7rem;
+        padding: 0.3rem 0.8rem;
+      }
+      .btn-preview i, .btn-download i {
+        font-size: 0.7rem;
+      }
+      .badge-page {
+        font-size: 0.7rem;
+        padding: 0.1rem 0.6rem;
+      }
     }
 
-    /* Footer */
     .footer-note {
       margin-top: 2rem;
       text-align: center;
@@ -206,10 +433,11 @@
       <h1><i class="fas fa-shield-alt"></i> API Security Assessment</h1>
       <span class="sub">PT GlobalRetail – Customer Rewards API (Part F – 20 Points)</span>
     </div>
-    <div style="display: flex; gap: 0.5rem; align-items: center;">
-      <span style="background: #f1f5f9; padding: 0.2rem 1rem; border-radius: 30px; font-size: 0.8rem; font-weight: 600; color: #475569;">
-        <i class="far fa-file-alt"></i> 6 Halaman
-      </span>
+    <div class="header-actions">
+      <!-- Tombol Preview dan Download -->
+      <button class="btn-preview" id="previewDocBtn"><i class="fas fa-file-alt"></i> Preview Soal</button>
+      <a href="soal_UAS_ISEC2_Dimas25120300016.docx" download class="btn-download"><i class="fas fa-download"></i> Download Soal</a>
+      <span class="badge-page"><i class="far fa-file-alt"></i> 6 Halaman</span>
     </div>
   </div>
 
@@ -256,8 +484,22 @@
   </div>
 </div>
 
+<!-- Modal Preview DOCX -->
+<div id="previewModal" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3><i class="fas fa-file-word"></i> Preview Soal UAS</h3>
+      <button class="modal-close" id="closeModalBtn">&times;</button>
+    </div>
+    <div class="modal-body" id="docPreviewContent">
+      <div class="loading"><i class="fas fa-spinner fa-spin"></i> Memuat file soal...</div>
+    </div>
+  </div>
+</div>
+
 <script>
   (function() {
+    // ========== TAB NAVIGATION ==========
     const tabButtons = document.querySelectorAll('.tab-btn');
     const panes = {
       tab0: document.getElementById('tab0'),
@@ -268,31 +510,97 @@
       tab5: document.getElementById('tab5')
     };
 
-    // Fungsi untuk mengaktifkan tab
     function activateTab(tabId) {
-      // Sembunyikan semua pane
       Object.values(panes).forEach(pane => pane.classList.remove('active'));
-      // Tampilkan pane yang dipilih
       if (panes[tabId]) panes[tabId].classList.add('active');
-      // Update tombol
       tabButtons.forEach(btn => btn.classList.remove('active'));
       const activeBtn = document.querySelector(`.tab-btn[data-tab="${tabId}"]`);
       if (activeBtn) activeBtn.classList.add('active');
     }
 
-    // Tambahkan event listener ke setiap tombol tab
     tabButtons.forEach(btn => {
-      btn.addEventListener('click', function(e) {
+      btn.addEventListener('click', function() {
         const tabId = this.getAttribute('data-tab');
         activateTab(tabId);
-        // Scroll ke atas konten (opsional)
-        // window.scrollTo({ top: 0, behavior: 'smooth' });
       });
     });
 
-    // Set tinggi iframe agar sesuai konten (tidak diperlukan jika min-height sudah diatur)
+    // ========== PREVIEW & DOWNLOAD DOCX ==========
+    const previewBtn = document.getElementById('previewDocBtn');
+    const modal = document.getElementById('previewModal');
+    const closeBtn = document.getElementById('closeModalBtn');
+    const docContent = document.getElementById('docPreviewContent');
+    const fileName = 'soal_UAS_ISEC2_Dimas25120300016.docx';
 
-    console.log('✅ Index dengan tab siap digunakan.');
+    // Fungsi untuk menampilkan modal
+    function showModal() {
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function hideModal() {
+      modal.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    // Event klik Preview
+    previewBtn.addEventListener('click', function() {
+      showModal();
+      docContent.innerHTML = `<div class="loading"><i class="fas fa-spinner fa-spin"></i> Memuat file "${fileName}"...</div>`;
+
+      // Fetch file .docx dari folder yang sama
+      fetch(fileName)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error(`File "${fileName}" tidak ditemukan atau tidak dapat diakses.`);
+          }
+          return response.arrayBuffer();
+        })
+        .then(arrayBuffer => {
+          // Konversi DOCX ke HTML menggunakan mammoth
+          mammoth.convertToHtml({ arrayBuffer: arrayBuffer })
+            .then(result => {
+              docContent.innerHTML = result.value || '<p><em>Kosong atau tidak ada konten yang dapat ditampilkan.</em></p>';
+            })
+            .catch(err => {
+              docContent.innerHTML = `
+                <div class="error">
+                  <i class="fas fa-exclamation-triangle"></i>
+                  Gagal mengonversi file: ${err.message}
+                  <br><small>Pastikan file adalah dokumen .docx yang valid.</small>
+                </div>
+              `;
+            });
+        })
+        .catch(err => {
+          docContent.innerHTML = `
+            <div class="error">
+              <i class="fas fa-file-alt"></i>
+              ${err.message}
+              <br><small>Pastikan file <strong>"${fileName}"</strong> berada di folder yang sama dengan index.html. <br>Klik tombol <strong>Download</strong> untuk mengunduh file jika belum ada.</small>
+            </div>
+          `;
+        });
+    });
+
+    // Tutup modal dengan tombol close
+    closeBtn.addEventListener('click', hideModal);
+
+    // Tutup modal jika klik di luar konten modal
+    modal.addEventListener('click', function(e) {
+      if (e.target === this) {
+        hideModal();
+      }
+    });
+
+    // Tutup modal dengan tombol Escape
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && modal.classList.contains('active')) {
+        hideModal();
+      }
+    });
+
+    console.log('✅ Index dengan tab dan fitur preview/download siap digunakan.');
   })();
 </script>
 

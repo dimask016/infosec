@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🔒 API Security Assessment – Case Study</title>
+  <!-- Font & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f4f7fc;
+      color: #1e293b;
+      padding: 2rem 1rem;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1300px;
+      margin: 0 auto;
+    }
+
+    /* Case Study khusus – ditempatkan di atas */
+    .case-study {
+      background: #ffffff;
+      border-radius: 24px;
+      padding: 2rem 2.2rem;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
+      border: 1px solid rgba(0,0,0,0.03);
+      margin-bottom: 2.5rem;
+      border-left: 8px solid #b91c1c;
+    }
+
+    .case-study .case-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.2rem;
+    }
+
+    .case-study .case-header .badge-case {
+      background: #0b2b4a;
+      color: #fff;
+      font-weight: 600;
+      font-size: 0.8rem;
+      padding: 0.4rem 1.2rem;
+      border-radius: 30px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .case-study .case-header .badge-points {
+      background: #fef3c7;
+      color: #b45309;
+      font-weight: 700;
+      font-size: 0.8rem;
+      padding: 0.3rem 1rem;
+      border-radius: 30px;
+    }
+
+    .case-study h2 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #0b2b4a;
+      margin-bottom: 0.8rem;
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+    }
+
+    .case-study h2 i {
+      color: #b91c1c;
+    }
+
+    .case-study .scenario {
+      background: #f8fafc;
+      border-radius: 16px;
+      padding: 1.2rem 1.8rem;
+      margin: 1rem 0 1.5rem;
+      border-left: 4px solid #2c7be5;
+    }
+
+    .case-study .scenario p {
+      margin-bottom: 0.5rem;
+    }
+
+    .case-study .scenario ul {
+      list-style: none;
+      padding-left: 1.2rem;
+    }
+
+    .case-study .scenario ul li {
+      padding: 0.25rem 0;
+      position: relative;
+    }
+
+    .case-study .scenario ul li::before {
+      content: "•";
+      color: #2c7be5;
+      font-weight: bold;
+      position: absolute;
+      left: -1rem;
+    }
+
+    .case-study .code-request {
+      background: #0b2b4a;
+      color: #e2e8f0;
+      padding: 1rem 1.5rem;
+      border-radius: 16px;
+      font-family: 'Courier New', monospace;
+      font-size: 0.85rem;
+      overflow-x: auto;
+      margin: 1rem 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+
+    .case-study .code-request .highlight-change {
+      background: #facc15;
+      color: #0b2b4a;
+      padding: 0.1rem 0.4rem;
+      border-radius: 6px;
+      font-weight: 700;
+    }
+
+    .case-study .finding-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin: 1.2rem 0 0.5rem;
+    }
+
+    .case-study .finding-grid .finding-item {
+      background: #f8fafc;
+      padding: 0.6rem 1rem;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      font-size: 0.95rem;
+    }
+
+    .case-study .finding-grid .finding-item .icon {
+      width: 2rem;
+      text-align: center;
+      font-size: 1.2rem;
+    }
+
+    .case-study .finding-grid .finding-item .badge-risk {
+      margin-left: auto;
+      font-size: 0.7rem;
+      padding: 0.2rem 0.7rem;
+      border-radius: 30px;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .badge-critical { background: #fee2e2; color: #b91c1c; }
+    .badge-high { background: #fef3c7; color: #b45309; }
+    .badge-medium { background: #dbeafe; color: #1e40af; }
+    .badge-good { background: #dcfce7; color: #16a34a; }
+
+    @media (max-width: 700px) {
+      .case-study .finding-grid {
+        grid-template-columns: 1fr;
+      }
+      .case-study {
+        padding: 1.5rem;
+      }
+    }
+
+    /* Header */
+    .header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+
+    .header .badge {
+      display: inline-block;
+      background: #0b2b4a;
+      color: #fff;
+      font-weight: 600;
+      font-size: 0.8rem;
+      padding: 0.3rem 1rem;
+      border-radius: 30px;
+      letter-spacing: 0.5px;
+      margin-bottom: 0.5rem;
+      text-transform: uppercase;
+    }
+
+    .header h1 {
+      font-size: 2.8rem;
+      font-weight: 700;
+      background: linear-gradient(145deg, #0b2b4a, #1a5276);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.5rem;
+    }
+
+    .header p {
+      font-size: 1.2rem;
+      color: #475569;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    /* Grid Layout */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.8rem;
+      margin-top: 1.5rem;
+    }
+
+    @media (max-width: 900px) {
+      .grid-2 {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+    }
+
+    /* Cards */
+    .card {
+      background: #ffffff;
+      border-radius: 24px;
+      padding: 1.8rem 2rem;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
+      transition: transform 0.2s ease, box-shadow 0.3s ease;
+      border: 1px solid rgba(0,0,0,0.03);
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+    }
+
+    .card h2 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      color: #0b2b4a;
+    }
+
+    .card h2 i {
+      font-size: 1.6rem;
+      color: #2c7be5;
+    }
+
+    .card h3 {
+      font-weight: 600;
+      font-size: 1.1rem;
+      margin: 1.2rem 0 0.4rem;
+      color: #1e293b;
+    }
+
+    .card ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .card ul li {
+      padding: 0.5rem 0 0.5rem 1.8rem;
+      position: relative;
+      border-bottom: 1px solid #f1f5f9;
+    }
+
+    .card ul li:last-child {
+      border-bottom: none;
+    }
+
+    .card ul li::before {
+      content: "▹";
+      position: absolute;
+      left: 0;
+      color: #2c7be5;
+      font-weight: 700;
+    }
+
+    .badge-risk {
+      display: inline-block;
+      background: #fef3c7;
+      color: #b45309;
+      font-weight: 600;
+      font-size: 0.7rem;
+      padding: 0.2rem 0.8rem;
+      border-radius: 30px;
+      margin-left: 0.5rem;
+      text-transform: uppercase;
+    }
+
+    .highlight-box {
+      background: #f8fafc;
+      border-left: 6px solid #2c7be5;
+      padding: 1rem 1.5rem;
+      border-radius: 12px;
+      margin: 1rem 0;
+      font-size: 0.95rem;
+    }
+
+    .code-block {
+      background: #0b2b4a;
+      color: #e2e8f0;
+      padding: 1.2rem 1.5rem;
+      border-radius: 16px;
+      font-family: 'Courier New', monospace;
+      font-size: 0.85rem;
+      overflow-x: auto;
+      margin: 1rem 0;
+    }
+
+    .code-block .comment {
+      color: #94a3b8;
+    }
+
+    .code-block .keyword {
+      color: #facc15;
+    }
+
+    .code-block .string {
+      color: #a7f3d0;
+    }
+
+    .btn {
+      background: #2c7be5;
+      color: white;
+      border: none;
+      padding: 0.6rem 1.4rem;
+      border-radius: 40px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+      margin-top: 0.8rem;
+    }
+
+    .btn:hover {
+      background: #1a5bb5;
+    }
+
+    .impact-meter {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      margin: 0.8rem 0;
+    }
+
+    .meter-bar {
+      flex: 1;
+      height: 10px;
+      background: #e2e8f0;
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    .meter-bar .fill {
+      height: 100%;
+      border-radius: 20px;
+      background: linear-gradient(90deg, #facc15, #ef4444);
+      width: 90%;
+    }
+
+    .solution-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 1rem 0 0.5rem;
+      border-bottom: 2px solid #e2e8f0;
+      padding-bottom: 0.5rem;
+    }
+
+    .solution-tabs button {
+      background: transparent;
+      border: none;
+      padding: 0.5rem 1.2rem;
+      font-weight: 600;
+      color: #64748b;
+      cursor: pointer;
+      border-radius: 30px;
+      transition: all 0.2s;
+      font-size: 0.9rem;
+    }
+
+    .solution-tabs button.active {
+      background: #2c7be5;
+      color: white;
+    }
+
+    .solution-tabs button:hover:not(.active) {
+      background: #f1f5f9;
+    }
+
+    .tab-content {
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .footer-note {
+      margin-top: 3rem;
+      text-align: center;
+      color: #94a3b8;
+      font-size: 0.9rem;
+      border-top: 1px solid #e2e8f0;
+      padding-top: 2rem;
+    }
+
+    .pill {
+      display: inline-block;
+      background: #e2e8f0;
+      padding: 0.15rem 0.8rem;
+      border-radius: 30px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #1e293b;
+    }
+
+    @media (max-width: 600px) {
+      .header h1 { font-size: 2rem; }
+      .card { padding: 1.5rem; }
+      .solution-tabs button { font-size: 0.8rem; padding: 0.3rem 0.8rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <!-- ========== CASE STUDY (ditempatkan di atas) ========== -->
+    <div class="case-study">
+      <div class="case-header">
+        <span class="badge-case"><i class="fas fa-book-open"></i> Case Study</span>
+        <span class="badge-points"><i class="fas fa-star"></i> Part F – 20 Points</span>
+      </div>
+
+      <h2><i class="fas fa-store-alt"></i> Customer Rewards API</h2>
+
+      <div class="scenario">
+        <p><strong>Skenario:</strong> PT GlobalRetail memiliki aplikasi mobile yang berkomunikasi dengan API berikut:</p>
+        <div style="background: #e2e8f0; padding: 0.3rem 0.8rem; border-radius: 8px; display: inline-block; font-family: monospace; margin: 0.3rem 0;">
+          https://api.globalretail.com/v1/customers
+        </div>
+        <p style="margin-top: 0.8rem;">Aplikasi memungkinkan pelanggan untuk melihat:</p>
+        <ul>
+          <li>Informasi profil</li>
+          <li>Poin reward</li>
+          <li>Riwayat pesanan</li>
+        </ul>
+      </div>
+
+      <p style="font-weight: 600; margin-top: 1rem;">Pengujian oleh konsultan:</p>
+      <div class="code-request">
+        <div><span style="color: #facc15;">GET</span> /v1/customers/1001 HTTP/1.1</div>
+        <div>Host: api.globalretail.com</div>
+        <div>Authorization: Bearer eyXXXXX</div>
+      </div>
+      <p style="margin: 0.5rem 0;">Konsultan mengubah ID pelanggan dari <strong>1001</strong> menjadi <strong>1002</strong>:</p>
+      <div class="code-request" style="border-left: 4px solid #facc15;">
+        <div><span style="color: #facc15;">GET</span> /v1/customers/<span class="highlight-change">1002</span> HTTP/1.1</div>
+        <div>Host: api.globalretail.com</div>
+        <div>Authorization: Bearer eyXXXXX</div>
+      </div>
+      <div class="highlight-box" style="border-left-color: #b91c1c; background: #fee2e2;">
+        <i class="fas fa-exclamation-triangle" style="color: #b91c1c; margin-right: 0.5rem;"></i>
+        <strong>Hasil:</strong> API mengembalikan data pribadi pelanggan lain <strong>tanpa memverifikasi</strong> apakah pengguna yang terautentikasi memiliki izin untuk mengakses data tersebut.
+      </div>
+
+      <p style="font-weight: 600; margin-top: 1.2rem;">Temuan tambahan dari assessment:</p>
+      <div class="finding-grid">
+        <div class="finding-item"><span class="icon">🚫</span> Rate limiting tidak diaktifkan <span class="badge-risk badge-critical">Kritis</span></div>
+        <div class="finding-item"><span class="icon">📄</span> Dokumentasi API dapat diakses publik <span class="badge-risk badge-high">Tinggi</span></div>
+        <div class="finding-item"><span class="icon">⏳</span> Token berlaku 90 hari <span class="badge-risk badge-high">Tinggi</span></div>
+        <div class="finding-item"><span class="icon">⚠️</span> Error message bocorkan detail DB <span class="badge-risk badge-medium">Sedang</span></div>
+        <div class="finding-item"><span class="icon">🔒</span> Traffic dienkripsi HTTPS <span class="badge-risk badge-good">✓ Baik</span></div>
+        <div class="finding-item" style="grid-column: 1 / -1; background: #fef3c7; border-left: 4px solid #b45309;">
+          <span class="icon">💡</span> <strong>Kekhawatiran manajemen:</strong> Attacker bisa mengeksploitasi API untuk mengakses data pelanggan dalam jumlah besar.
+        </div>
+      </div>
+    </div>
+    <!-- ========== AKHIR CASE STUDY ========== -->
+
+    <!-- HEADER (analisis) -->
+    <div class="header">
+      <span class="badge"><i class="fas fa-shield-alt"></i> OWASP API Security Top 10</span>
+      <h1>🔐 IDOR & BOLA Vulnerability</h1>
+      <p>Analisis mendalam, dampak bisnis, dan solusi komprehensif untuk kasus di atas.</p>
+    </div>
+
+    <!-- RINGKASAN & TEMUAN UTAMA -->
+    <div class="grid-2">
+      <!-- Kiri: Deskripsi Kasus -->
+      <div class="card">
+        <h2><i class="fas fa-bug"></i> Skenario Serangan</h2>
+        <p style="margin-bottom: 0.8rem;">Aplikasi mobile <strong>Customer Rewards</strong> menggunakan endpoint:</p>
+        <div class="code-block" style="background: #1e293b;">
+          GET /v1/customers/1001 HTTP/1.1<br>
+          Host: api.globalretail.com<br>
+          Authorization: Bearer eyXXXXX
+        </div>
+        <p>Peneliti mengubah <code>customer_id</code> menjadi <strong>1002</strong> dan <span style="color: #b91c1c; font-weight: 600;">mendapatkan data pelanggan lain</span> tanpa verifikasi otorisasi.</p>
+        <div class="highlight-box">
+          <i class="fas fa-exclamation-triangle" style="color: #b45309; margin-right: 0.5rem;"></i>
+          <strong>Kerentanan Utama:</strong> IDOR (<em>Insecure Direct Object Reference</em>) / BOLA (<em>Broken Object Level Authorization</em>)
+        </div>
+        <p><strong>Endpoint rentan:</strong> <code>/v1/customers/{id}</code> – ID numerik dapat ditebak.</p>
+      </div>
+
+      <!-- Kanan: Temuan Assessment -->
+      <div class="card">
+        <h2><i class="fas fa-search"></i> Temuan Assessment</h2>
+        <ul>
+          <li><span class="pill">❌</span> <strong>Rate limiting</strong> tidak diaktifkan <span class="badge-risk badge-critical">Kritis</span></li>
+          <li><span class="pill">📄</span> <strong>Dokumentasi API</strong> dapat diakses publik <span class="badge-risk badge-high">Tinggi</span></li>
+          <li><span class="pill">⏳</span> Token autentikasi berlaku <strong>90 hari</strong> <span class="badge-risk badge-high">Tinggi</span></li>
+          <li><span class="pill">⚠️</span> <strong>Error message</strong> mengungkap detail database <span class="badge-risk badge-medium">Sedang</span></li>
+          <li><span class="pill">🔒</span> Traffic dienkripsi dengan <strong>HTTPS</strong> <span style="color: #16a34a;">✓</span> (sudah benar)</li>
+        </ul>
+        <div style="margin-top: 1rem; background: #f1f5f9; border-radius: 12px; padding: 0.8rem 1.2rem;">
+          <p style="margin: 0; font-size: 0.95rem;"><i class="fas fa-arrow-right" style="color: #2c7be5;"></i> <strong>Dampak potensial:</strong> Eksfiltrasi data jutaan pelanggan melalui enumerasi ID.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ANALISIS DAMPAK BISNIS -->
+    <div class="card" style="margin-top: 1.8rem;">
+      <h2><i class="fas fa-chart-line"></i> Dampak Bisnis & Risiko</h2>
+      <div class="grid-2" style="margin-top: 0.5rem; gap: 1.5rem;">
+        <div>
+          <div class="impact-meter">
+            <span style="font-weight: 600;">Keparahan</span>
+            <div class="meter-bar"><div class="fill" style="width: 95%;"></div></div>
+            <span style="font-weight: 600; color: #b91c1c;">Kritis</span>
+          </div>
+          <ul>
+            <li><i class="fas fa-user-secret" style="color: #b91c1c; width: 1.2rem;"></i> <strong>Data breach</strong> – Nama, alamat, poin reward, histori order</li>
+            <li><i class="fas fa-gavel" style="color: #b45309;"></i> <strong>Pelanggaran regulasi</strong> (UU PDP, GDPR) → denda besar</li>
+            <li><i class="fas fa-building" style="color: #1e40af;"></i> <strong>Reputasi</strong> – Hilangnya kepercayaan pelanggan</li>
+          </ul>
+        </div>
+        <div style="background: #f8fafc; border-radius: 16px; padding: 1rem 1.5rem;">
+          <p style="font-weight: 600; margin-bottom: 0.3rem;"><i class="fas fa-bolt" style="color: #2c7be5;"></i> Faktor yang memperparah:</p>
+          <ul>
+            <li><strong>Rate limiting</strong> mati → brute-force ribuan ID dalam menit</li>
+            <li>Token berlaku <strong>90 hari</strong> → window serangan panjang</li>
+            <li>Dokumentasi publik → memberikan peta jalan kepada attacker</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- SOLUSI (Interaktif dengan Tabs) -->
+    <div class="card" style="margin-top: 1.8rem;">
+      <h2><i class="fas fa-tools"></i> Solusi & Remediasi</h2>
+      <p style="margin-bottom: 0.8rem;">Klik tab di bawah untuk melihat detail setiap rekomendasi.</p>
+
+      <div class="solution-tabs">
+        <button class="active" data-tab="tab1">🔧 Perbaikan Kode</button>
+        <button data-tab="tab2">🛡️ Infrastruktur</button>
+        <button data-tab="tab3">📋 Manajemen Info</button>
+        <button data-tab="tab4">🔍 Deteksi & Monitoring</button>
+      </div>
+
+      <!-- Tab 1: Perbaikan Kode -->
+      <div id="tab1" class="tab-content active">
+        <h3><i class="fas fa-code" style="color: #2c7be5;"></i> 1. Access Control yang Ketat</h3>
+        <p>Jangan percaya input <code>customer_id</code> dari client. Gunakan ID dari token yang sudah terverifikasi.</p>
+        <div class="code-block">
+          <span class="comment">-- ❌ JANGAN:</span><br>
+          SELECT * FROM customers WHERE id = <span class="string">request.params.id</span>;<br><br>
+          <span class="comment">-- ✅ LAKUKAN:</span><br>
+          SELECT * FROM customers <br>
+          WHERE id = <span class="string">request.params.id</span> <br>
+          <span class="keyword">AND</span> user_id = <span class="string">decoded_token.user_id</span>;<br>
+          <span class="comment">-- Jika tidak ditemukan → return 404/403</span>
+        </div>
+        <h3 style="margin-top: 1.5rem;"><i class="fas fa-id-card"></i> 2. Ganti ID Numerik dengan UUID</h3>
+        <p>Gunakan <strong>UUID</strong> (contoh: <code>550e8400-e29b-41d4-a716-446655440000</code>) untuk mempersulit enumerasi.</p>
+        <div class="highlight-box" style="border-left-color: #16a34a;">
+          <i class="fas fa-check-circle" style="color: #16a34a;"></i> <strong>Catatan:</strong> UUID adalah <em>security by obscurity</em>, tetap wajib dikombinasikan dengan otorisasi.
+        </div>
+      </div>
+
+      <!-- Tab 2: Infrastruktur -->
+      <div id="tab2" class="tab-content">
+        <h3><i class="fas fa-stopwatch"></i> 3. Aktifkan Rate Limiting</h3>
+        <ul>
+          <li>Batas: <strong>50 request/menit</strong> per user untuk endpoint sensitif.</li>
+          <li>Jika melebihi → kembalikan <code>HTTP 429 Too Many Requests</code>.</li>
+        </ul>
+        <h3 style="margin-top: 1.2rem;"><i class="fas fa-clock"></i> 4. Perpendek Masa Aktif Token</h3>
+        <ul>
+          <li>Access Token berlaku <strong>15–30 menit</strong> (bukan 90 hari).</li>
+          <li>Gunakan <strong>Refresh Token</strong> (masa berlaku 7 hari) untuk mendapatkan access token baru.</li>
+        </ul>
+        <div class="highlight-box">
+          <i class="fas fa-lightbulb" style="color: #b45309;"></i> <strong>Rekomendasi:</strong> Implementasikan <em>token rotation</em> dan <em>revocation</em> untuk keamanan ekstra.
+        </div>
+      </div>
+
+      <!-- Tab 3: Manajemen Info -->
+      <div id="tab3" class="tab-content">
+        <h3><i class="fas fa-file-alt"></i> 5. Sembunyikan Dokumentasi API</h3>
+        <ul>
+          <li>Pindahkan Swagger/OpenAPI ke lingkungan internal (VPN) atau proteksi dengan basic auth khusus developer.</li>
+        </ul>
+        <h3 style="margin-top: 1.2rem;"><i class="fas fa-exclamation-circle"></i> 6. Redam Error Message</h3>
+        <ul>
+          <li>Kembalikan pesan generik: <code>{"error": "Resource not found"}</code>.</li>
+          <li>Simpan detail teknis (stack trace, query) di server log internal.</li>
+        </ul>
+        <div class="code-block" style="background: #1e293b;">
+          <span class="comment">// Global Exception Handler (pseudocode)</span><br>
+          try {<br>
+          &nbsp;&nbsp;processRequest();<br>
+          } catch (Exception e) {<br>
+          &nbsp;&nbsp;logger.error(<span class="string">"Detail error"</span>, e); <span class="comment">// internal</span><br>
+          &nbsp;&nbsp;return <span class="string">{"error": "Terjadi kesalahan"}</span>;<br>
+          }
+        </div>
+      </div>
+
+      <!-- Tab 4: Deteksi & Monitoring -->
+      <div id="tab4" class="tab-content">
+        <h3><i class="fas fa-chart-bar"></i> 7. Monitoring Anomali</h3>
+        <ul>
+          <li>Pasang alert jika ada lonjakan request dengan pola ID berurutan (misal: 1001, 1002, 1003...).</li>
+          <li>Gunakan <strong>SIEM</strong> atau <strong>CloudWatch</strong> untuk mendeteksi serangan brute-force.</li>
+        </ul>
+        <h3 style="margin-top: 1.2rem;"><i class="fas fa-vial"></i> 8. Pengujian Keamanan Otomatis</h3>
+        <ul>
+          <li>Masukkan skenario IDOR ke dalam <strong>DAST/SAST</strong> di CI/CD pipeline.</li>
+          <li>Lakukan <em>penetration testing</em> rutin.</li>
+        </ul>
+        <div class="highlight-box" style="border-left-color: #2c7be5;">
+          <i class="fas fa-shield-alt"></i> <strong>Prinsip:</strong> <em>Least Privilege</em> – Setiap service hanya boleh mengakses data yang dibutuhkan.
+        </div>
+      </div>
+
+      <div style="margin-top: 1.5rem; text-align: right;">
+        <button class="btn" id="resetBtn"><i class="fas fa-undo-alt"></i> Reset ke tab pertama</button>
+      </div>
+    </div>
+
+    <!-- KESIMPULAN -->
+    <div class="card" style="margin-top: 1.8rem; border-left: 8px solid #b91c1c;">
+      <h2><i class="fas fa-flag-checkered"></i> Kesimpulan</h2>
+      <p style="font-size: 1.05rem;">Inti masalah adalah <strong>kurangnya validasi otorisasi di sisi server</strong>. Perbaikan utama adalah mengikat ID pelanggan dengan token autentikasi. Tanpa perbaikan ini, pengaturan HTTPS, firewall, atau enkripsi lainnya tidak cukup karena attacker sudah memiliki token valid untuk mengakses semua data.</p>
+      <div style="display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 1rem;">
+        <span style="background: #0b2b4a; color: white; padding: 0.4rem 1.2rem; border-radius: 40px; font-size: 0.85rem;"><i class="fas fa-check"></i> Prioritaskan perbaikan kode</span>
+        <span style="background: #1e293b; color: white; padding: 0.4rem 1.2rem; border-radius: 40px; font-size: 0.85rem;"><i class="fas fa-clock"></i> Terapkan rate limiting & token expiry</span>
+        <span style="background: #475569; color: white; padding: 0.4rem 1.2rem; border-radius: 40px; font-size: 0.85rem;"><i class="fas fa-eye"></i> Monitoring dan logging anomali</span>
+      </div>
+    </div>
+
+    <div class="footer-note">
+      <i class="fas fa-lock" style="margin-right: 0.5rem;"></i> Disusun untuk kebutuhan presentasi keamanan API. <br>Semua rekomendasi berdasarkan praktik terbaik OWASP dan standar industri.
+    </div>
+
+  </div>
+
+  <script>
+    (function() {
+      // Tab switching
+      const tabs = document.querySelectorAll('.solution-tabs button');
+      const contents = {
+        tab1: document.getElementById('tab1'),
+        tab2: document.getElementById('tab2'),
+        tab3: document.getElementById('tab3'),
+        tab4: document.getElementById('tab4')
+      };
+
+      function activateTab(tabId) {
+        // Sembunyikan semua konten
+        Object.values(contents).forEach(el => el.classList.remove('active'));
+        // Tampilkan yang dipilih
+        if (contents[tabId]) contents[tabId].classList.add('active');
+        // Update tombol
+        tabs.forEach(btn => btn.classList.remove('active'));
+        const activeBtn = document.querySelector(`.solution-tabs button[data-tab="${tabId}"]`);
+        if (activeBtn) activeBtn.classList.add('active');
+      }
+
+      tabs.forEach(btn => {
+        btn.addEventListener('click', function(e) {
+          const tabId = this.getAttribute('data-tab');
+          activateTab(tabId);
+        });
+      });
+
+      // Reset ke tab pertama
+      document.getElementById('resetBtn').addEventListener('click', function() {
+        activateTab('tab1');
+      });
+
+      console.log('✅ Interactive API Security Case Study loaded.');
+    })();
+  </script>
+</body>
+</html>

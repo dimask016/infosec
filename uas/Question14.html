@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🚨 Priority Remediation – Question 14</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f4f7fc;
+      color: #1e293b;
+      padding: 2rem 1rem;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1050px;
+      margin: 0 auto;
+    }
+
+    /* Header */
+    .header {
+      background: #ffffff;
+      border-radius: 24px;
+      padding: 2rem 2.5rem;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+      margin-bottom: 2rem;
+      border-left: 8px solid #2c7be5;
+    }
+
+    .header .badge {
+      display: inline-block;
+      background: #0b2b4a;
+      color: white;
+      font-weight: 600;
+      font-size: 0.75rem;
+      padding: 0.3rem 1rem;
+      border-radius: 30px;
+      letter-spacing: 0.3px;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+
+    .header h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #0b2b4a;
+      margin-bottom: 0.3rem;
+    }
+
+    .header h1 i {
+      color: #b91c1c;
+      margin-right: 0.5rem;
+    }
+
+    .header .sub {
+      font-size: 1.05rem;
+      color: #475569;
+    }
+
+    .scenario-box {
+      background: #f8fafc;
+      border-radius: 14px;
+      padding: 1rem 1.5rem;
+      margin-top: 1rem;
+      border-left: 4px solid #94a3b8;
+      font-size: 0.95rem;
+    }
+
+    .scenario-box strong {
+      color: #0b2b4a;
+    }
+
+    /* Priority Card */
+    .priority-card {
+      background: #ffffff;
+      border-radius: 24px;
+      padding: 2rem 2.5rem;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+      margin-bottom: 2rem;
+      border: 2px solid #b91c1c;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .priority-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 6px;
+      background: linear-gradient(90deg, #b91c1c, #ef4444, #b91c1c);
+    }
+
+    .priority-card .top-label {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.8rem;
+    }
+
+    .priority-card .top-label .urgent-badge {
+      background: #b91c1c;
+      color: white;
+      font-weight: 800;
+      font-size: 0.9rem;
+      padding: 0.4rem 1.5rem;
+      border-radius: 60px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .priority-card .vuln-name {
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: #0b2b4a;
+      margin: 0.5rem 0 0.3rem;
+    }
+
+    .priority-card .vuln-name i {
+      color: #b91c1c;
+      margin-right: 0.8rem;
+    }
+
+    .priority-card .vuln-sub {
+      font-size: 1.2rem;
+      font-weight: 500;
+      color: #475569;
+      margin-bottom: 1.5rem;
+      border-left: 4px solid #b91c1c;
+      padding-left: 1rem;
+    }
+
+    /* Grid Alasan */
+    .reason-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.2rem;
+      margin: 1.5rem 0;
+    }
+
+    .reason-grid .reason-item {
+      background: #f8fafc;
+      padding: 1.2rem 1.5rem;
+      border-radius: 16px;
+      border: 1px solid #e2e8f0;
+      transition: 0.2s;
+    }
+
+    .reason-grid .reason-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+    }
+
+    .reason-grid .reason-item .icon-circle {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background: #fee2e2;
+      border-radius: 50%;
+      color: #b91c1c;
+      font-size: 1.2rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .reason-grid .reason-item h4 {
+      font-weight: 700;
+      color: #0b2b4a;
+      margin-bottom: 0.3rem;
+    }
+
+    .reason-grid .reason-item p {
+      font-size: 0.95rem;
+      color: #475569;
+    }
+
+    @media (max-width: 700px) {
+      .reason-grid {
+        grid-template-columns: 1fr;
+      }
+      .priority-card .vuln-name {
+        font-size: 1.6rem;
+      }
+    }
+
+    /* Why Not Others - Comparison Table */
+    .comparison-wrapper {
+      background: #ffffff;
+      border-radius: 24px;
+      padding: 1.8rem 2.2rem;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+      margin-top: 2rem;
+      overflow-x: auto;
+    }
+
+    .comparison-wrapper h2 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #0b2b4a;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .comparison-wrapper h2 i {
+      color: #b45309;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.95rem;
+    }
+
+    thead th {
+      text-align: left;
+      padding: 0.9rem 1rem;
+      background: #f1f5f9;
+      font-weight: 700;
+      color: #0b2b4a;
+      border-bottom: 3px solid #e2e8f0;
+    }
+
+    thead th:first-child { width: 22%; }
+    thead th:nth-child(2) { width: 28%; }
+    thead th:nth-child(3) { width: 25%; }
+    thead th:nth-child(4) { width: 25%; }
+
+    tbody td {
+      padding: 0.9rem 1rem;
+      border-bottom: 1px solid #f1f5f9;
+      vertical-align: top;
+    }
+
+    tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    tbody tr.highlight-row {
+      background: #dcfce7;
+      border-left: 4px solid #16a34a;
+    }
+
+    tbody tr.highlight-row td:first-child {
+      font-weight: 700;
+      color: #16a34a;
+    }
+
+    .check-yes {
+      color: #16a34a;
+      font-weight: 700;
+    }
+    .check-no {
+      color: #94a3b8;
+    }
+
+    .verdict-box {
+      margin-top: 1.5rem;
+      padding: 1.2rem 1.8rem;
+      background: #f0fdf4;
+      border-radius: 16px;
+      border-left: 6px solid #16a34a;
+      font-size: 1rem;
+    }
+
+    .verdict-box strong {
+      color: #0b2b4a;
+    }
+
+    .verdict-box .highlight-red {
+      color: #b91c1c;
+      font-weight: 700;
+    }
+
+    @media (max-width: 700px) {
+      .comparison-wrapper {
+        padding: 1.2rem;
+      }
+      table { font-size: 0.8rem; }
+      thead th, tbody td { padding: 0.6rem 0.5rem; }
+    }
+
+    /* Call to action / Conclusion */
+    .conclusion-card {
+      margin-top: 2rem;
+      background: #0b2b4a;
+      border-radius: 24px;
+      padding: 2rem 2.5rem;
+      color: white;
+      text-align: center;
+    }
+
+    .conclusion-card h3 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .conclusion-card h3 i {
+      color: #facc15;
+      margin-right: 0.5rem;
+    }
+
+    .conclusion-card p {
+      font-size: 1.05rem;
+      opacity: 0.9;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .conclusion-card .action-button {
+      display: inline-block;
+      margin-top: 1rem;
+      background: #facc15;
+      color: #0b2b4a;
+      font-weight: 700;
+      padding: 0.6rem 2rem;
+      border-radius: 60px;
+      font-size: 0.9rem;
+    }
+
+    .conclusion-card .action-button i {
+      margin-right: 0.5rem;
+    }
+
+    .footer-note {
+      margin-top: 2.5rem;
+      text-align: center;
+      color: #94a3b8;
+      font-size: 0.9rem;
+      border-top: 1px solid #e2e8f0;
+      padding-top: 2rem;
+    }
+
+    .footer-note strong {
+      color: #0b2b4a;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- HEADER -->
+  <div class="header">
+    <span class="badge"><i class="fas fa-shield-alt"></i> OWASP API Security – Part F</span>
+    <h1><i class="fas fa-exclamation-triangle"></i> Question 14 – Analysis Question</h1>
+    <div class="sub">A security consultant must prioritize <strong>one</strong> API vulnerability for immediate remediation. Which vulnerability should be fixed first and why?</div>
+    <div class="scenario-box">
+      <i class="fas fa-store-alt" style="color: #2c7be5; margin-right: 0.5rem;"></i>
+      <strong>Scenario Recap:</strong> IDOR (change ID 1001→1002 gets other's data) | No rate limiting | 90-day tokens | Public docs | Verbose DB errors | HTTPS enabled.
+    </div>
+  </div>
+
+  <!-- PRIORITY VULNERABILITY CARD -->
+  <div class="priority-card">
+    <div class="top-label">
+      <span class="urgent-badge"><i class="fas fa-bell"></i> PRIORITAS #1 – REMEDIASI SEGERA</span>
+      <span style="background: #f1f5f9; padding: 0.2rem 1rem; border-radius: 30px; font-weight: 600; color: #475569;"><i class="far fa-clock"></i> 0-24 Jam</span>
+    </div>
+    <div class="vuln-name">
+      <i class="fas fa-unlock-alt"></i> Broken Object Level Authorization (BOLA) / IDOR
+    </div>
+    <div class="vuln-sub">
+      Akses data pelanggan lain hanya dengan mengubah ID di URL — tanpa verifikasi otorisasi.
+    </div>
+
+    <div class="reason-grid">
+      <div class="reason-item">
+        <div class="icon-circle"><i class="fas fa-user-secret"></i></div>
+        <h4>Dampak Langsung</h4>
+        <p>Menimbulkan <strong>data breach</strong> instan. Attacker bisa langsung melihat data PII (profil, poin, histori) pelanggan lain tanpa hambatan teknis.</p>
+      </div>
+      <div class="reason-item">
+        <div class="icon-circle"><i class="fas fa-bolt"></i></div>
+        <h4>Mudah Dieksploitasi</h4>
+        <p>ID numerik <strong>1001, 1002, 1003</strong> mudah ditebak. Tidak memerlukan alat canggih — cukup ubah angka di browser atau Postman.</p>
+      </div>
+      <div class="reason-item">
+        <div class="icon-circle"><i class="fas fa-sitemap"></i></div>
+        <h4>Akar Masalah (Root Cause)</h4>
+        <p>Merupakan <strong>business logic flaw</strong> di sisi server. Selama otorisasi tidak diperbaiki, kerentanan lain (rate limiting, token) hanya memperlambat, bukan mencegah, akses tidak sah.</p>
+      </div>
+    </div>
+
+    <div style="background: #fee2e2; border-radius: 16px; padding: 1rem 1.5rem; border: 1px solid #fecaca; margin-top: 0.5rem;">
+      <p style="font-weight: 600; color: #b91c1c; display: flex; align-items: center; gap: 0.5rem;">
+        <i class="fas fa-gavel"></i> Dampak Regulasi & Bisnis:
+      </p>
+      <p style="margin-left: 2rem; color: #1e293b;">
+        Kebocoran data jutaan pelanggan → <strong>Denda UU PDP / GDPR</strong> + Kehilangan kepercayaan pelanggan. Risiko ini <u>tidak bisa ditoleransi</u> dan membutuhkan perbaikan segera.
+      </p>
+    </div>
+  </div>
+
+  <!-- COMPARISON TABLE (WHY NOT OTHERS) -->
+  <div class="comparison-wrapper">
+    <h2><i class="fas fa-balance-scale"></i> Analisis Perbandingan: Mengapa BOLA/IDOR Lebih Prioritas?</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Kerentanan</th>
+          <th>Apakah Ini Akar Masalah?</th>
+          <th>Apakah Memungkinkan Akses Data Langsung?</th>
+          <th>Kesimpulan Prioritas</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- BOLA/IDOR (Highlighted) -->
+        <tr class="highlight-row">
+          <td><strong>BOLA / IDOR</strong></td>
+          <td><span class="check-yes">✅ Ya</span> — Server gagal memeriksa hak akses.</td>
+          <td><span class="check-yes">✅ Ya</span> — Attacker langsung melihat data pelanggan lain.</td>
+          <td><strong style="color: #16a34a;">PRIORITAS #1</strong> — Perbaiki sekarang!</td>
+        </tr>
+        <!-- Rate Limiting -->
+        <tr>
+          <td>Missing Rate Limiting</td>
+          <td><span class="check-no">❌ Tidak</span> — Hanya memperlambat serangan, tidak mencegah akses.</td>
+          <td><span class="check-no">❌ Tidak</span> — Tidak memberikan akses data secara langsung.</td>
+          <td><span style="color: #b45309;">Prioritas 2</span> — Penting untuk mencegah scraping massal, <br>tetapi tidak menghentikan IDOR itu sendiri.</td>
+        </tr>
+        <!-- Long-lived Tokens -->
+        <tr>
+          <td>Long-lived Tokens (90 hari)</td>
+          <td><span class="check-no">❌ Tidak</span> — Token yang valid digunakan oleh user yang sah untuk mengakses data orang lain.</td>
+          <td><span class="check-no">❌ Tidak</span> — Attacker menggunakan token yang sah untuk mengeksploitasi IDOR.</td>
+          <td><span style="color: #b45309;">Prioritas 3</span> — Memperpendek masa berlaku token penting, tetapi <br>tidak mencegah user melihat data orang lain.</td>
+        </tr>
+        <!-- Verbose Errors -->
+        <tr>
+          <td>Verbose Error Messages (DB details)</td>
+          <td><span class="check-no">❌ Tidak</span> — Hanya memberikan informasi tambahan (reconnaissance).</td>
+          <td><span class="check-no">❌ Tidak</td>
+          <td><span style="color: #1e40af;">Prioritas 4</span> — Risiko kebocoran informasi, tetapi <br>tidak menyebabkan data breach langsung.</td>
+        </tr>
+        <!-- Public Docs -->
+        <tr>
+          <td>Public API Documentation</td>
+          <td><span class="check-no">❌ Tidak</span> — Memberikan "peta jalan" kepada attacker.</td>
+          <td><span class="check-no">❌ Tidak</span></td>
+          <td><span style="color: #1e40af;">Prioritas 5</span> — Risiko informasi, tetapi <br>tidak memberikan akses data langsung.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Verdict -->
+    <div class="verdict-box">
+      <strong><i class="fas fa-gavel" style="color: #b91c1c;"></i> Keputusan Akhir:</strong>
+      <span class="highlight-red">BOLA/IDOR</span> harus diperbaiki <strong>pertama kali</strong> karena:
+      <ul style="margin-top: 0.5rem; padding-left: 1.5rem; list-style: none;">
+        <li style="padding: 0.2rem 0;">✅ Ini adalah <strong>root cause</strong> yang memungkinkan akses data tidak sah secara langsung.</li>
+        <li style="padding: 0.2rem 0;">✅ Kerentanan lain (rate limiting, token, error) adalah <strong>faktor yang memperparah</strong>, tetapi <u>tidak menyelesaikan</u> celah akses data.</li>
+        <li style="padding: 0.2rem 0;">✅ Selama otorisasi tidak diperbaiki, attacker tetap bisa mengakses data pelanggan meskipun rate limiting aktif (hanya lebih lambat) atau token diperpendek (tetap valid dalam jangka pendek).</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- KESIMPULAN / CALL TO ACTION -->
+  <div class="conclusion-card">
+    <h3><i class="fas fa-check-circle"></i> Kesimpulan & Rekomendasi</h3>
+    <p>
+      <strong style="color: #facc15;">Prioritas #1:</strong> Segera perbaiki validasi otorisasi di sisi server untuk endpoint <code>/v1/customers/{id}</code>. 
+      Binding setiap request dengan <strong>user_id dari token JWT</strong> yang terverifikasi. Jangan pernah mempercayai input ID dari client tanpa verifikasi kepemilikan.
+    </p>
+    <div class="action-button">
+      <i class="fas fa-tools"></i> Remediasi: Server-Side Authorization Check
+    </div>
+    <p style="margin-top: 1.5rem; font-size: 0.9rem; opacity: 0.8;">
+      Setelah BOLA diperbaiki, lakukan perbaikan bertahap: Rate Limiting → Token Expiry → Generic Error → Hapus Public Docs.
+    </p>
+  </div>
+
+  <div class="footer-note">
+    <i class="fas fa-lock" style="margin-right: 0.3rem;"></i> Berdasarkan analisis skenario PT GlobalRetail – Customer Rewards API dan standar OWASP API Security Top 10.
+  </div>
+
+</div>
+</body>
+</html>

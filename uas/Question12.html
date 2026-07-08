@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>📊 Risk Assessment – Question 12</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f4f7fc;
+      color: #1e293b;
+      padding: 2rem 1rem;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    /* Header */
+    .header {
+      background: #ffffff;
+      border-radius: 24px;
+      padding: 2rem 2.5rem;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+      margin-bottom: 2rem;
+      border-left: 8px solid #2c7be5;
+    }
+
+    .header .badge {
+      display: inline-block;
+      background: #0b2b4a;
+      color: white;
+      font-weight: 600;
+      font-size: 0.75rem;
+      padding: 0.3rem 1rem;
+      border-radius: 30px;
+      letter-spacing: 0.3px;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+
+    .header h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #0b2b4a;
+      margin-bottom: 0.3rem;
+    }
+
+    .header h1 i {
+      color: #2c7be5;
+      margin-right: 0.5rem;
+    }
+
+    .header .sub {
+      font-size: 1.05rem;
+      color: #475569;
+    }
+
+    .scenario-box {
+      background: #f8fafc;
+      border-radius: 14px;
+      padding: 1rem 1.5rem;
+      margin-top: 1rem;
+      border-left: 4px solid #94a3b8;
+      font-size: 0.95rem;
+    }
+
+    .scenario-box strong {
+      color: #0b2b4a;
+    }
+
+    /* Tabel Utama */
+    .table-wrapper {
+      background: #ffffff;
+      border-radius: 24px;
+      padding: 1.8rem 2.2rem;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+      margin-bottom: 2rem;
+      overflow-x: auto;
+    }
+
+    .table-wrapper h2 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #0b2b4a;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.95rem;
+    }
+
+    thead th {
+      text-align: left;
+      padding: 0.9rem 1rem;
+      background: #f1f5f9;
+      font-weight: 700;
+      color: #0b2b4a;
+      border-bottom: 3px solid #e2e8f0;
+      white-space: nowrap;
+    }
+
+    tbody td {
+      padding: 0.9rem 1rem;
+      border-bottom: 1px solid #f1f5f9;
+      vertical-align: middle;
+    }
+
+    tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    tbody tr {
+      transition: background 0.2s ease;
+      cursor: pointer;
+    }
+
+    tbody tr:hover {
+      background: #f8fafc;
+    }
+
+    .risk-name {
+      font-weight: 600;
+      color: #0b2b4a;
+    }
+
+    .badge-likelihood, .badge-impact, .badge-risk {
+      display: inline-block;
+      padding: 0.25rem 1rem;
+      border-radius: 30px;
+      font-weight: 600;
+      font-size: 0.8rem;
+      text-align: center;
+      min-width: 70px;
+    }
+
+    .badge-likelihood.high { background: #fee2e2; color: #b91c1c; }
+    .badge-likelihood.medium { background: #fef3c7; color: #b45309; }
+    .badge-likelihood.low { background: #dbeafe; color: #1e40af; }
+
+    .badge-impact.high { background: #fee2e2; color: #b91c1c; }
+    .badge-impact.medium { background: #fef3c7; color: #b45309; }
+    .badge-impact.low { background: #dbeafe; color: #1e40af; }
+
+    .badge-risk.critical { background: #7f1d1d; color: #fecaca; font-weight: 700; }
+    .badge-risk.high { background: #b91c1c; color: #fecaca; font-weight: 700; }
+    .badge-risk.medium { background: #b45309; color: #fef3c7; font-weight: 700; }
+    .badge-risk.low { background: #1e40af; color: #dbeafe; font-weight: 700; }
+
+    .expand-icon {
+      font-size: 1.2rem;
+      color: #94a3b8;
+      transition: transform 0.3s ease;
+      display: inline-block;
+    }
+
+    .expand-icon.rotated {
+      transform: rotate(180deg);
+    }
+
+    /* Detail Accordion */
+    .detail-row {
+      display: none;
+      background: #fafcff;
+    }
+
+    .detail-row.open {
+      display: table-row;
+    }
+
+    .detail-row td {
+      padding: 0 !important;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .detail-content {
+      padding: 1.5rem 2rem 2rem 2rem;
+      background: #f8fafc;
+      border-radius: 0 0 16px 16px;
+      margin: 0 0 0.5rem 0;
+    }
+
+    .detail-content .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-top: 0.8rem;
+    }
+
+    .detail-content .grid-2 .item {
+      background: white;
+      padding: 1rem 1.2rem;
+      border-radius: 14px;
+      border: 1px solid #e2e8f0;
+    }
+
+    .detail-content .grid-2 .item .label {
+      font-weight: 600;
+      color: #475569;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      display: block;
+      margin-bottom: 0.2rem;
+    }
+
+    .detail-content .grid-2 .item .value {
+      font-weight: 500;
+    }
+
+    .detail-content p {
+      margin-bottom: 0.5rem;
+    }
+
+    .detail-content .case-link {
+      background: #e2e8f0;
+      padding: 0.5rem 1rem;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      color: #1e293b;
+      display: inline-block;
+      margin-top: 0.5rem;
+    }
+
+    .detail-content .case-link i {
+      color: #2c7be5;
+      margin-right: 0.4rem;
+    }
+
+    @media (max-width: 700px) {
+      .detail-content .grid-2 {
+        grid-template-columns: 1fr;
+        gap: 0.8rem;
+      }
+      .header, .table-wrapper {
+        padding: 1.5rem;
+      }
+      table { font-size: 0.85rem; }
+      .badge-likelihood, .badge-impact, .badge-risk {
+        font-size: 0.7rem;
+        padding: 0.15rem 0.6rem;
+        min-width: 50px;
+      }
+      .detail-content {
+        padding: 1rem;
+      }
+    }
+
+    .footer-note {
+      margin-top: 2.5rem;
+      text-align: center;
+      color: #94a3b8;
+      font-size: 0.9rem;
+      border-top: 1px solid #e2e8f0;
+      padding-top: 2rem;
+    }
+
+    .footer-note strong {
+      color: #0b2b4a;
+    }
+
+    /* Animasi */
+    @keyframes fadeSlide {
+      from { opacity: 0; transform: translateY(-8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .detail-row.open .detail-content {
+      animation: fadeSlide 0.3s ease;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- HEADER -->
+  <div class="header">
+    <span class="badge"><i class="fas fa-shield-alt"></i> OWASP API Security – Part F</span>
+    <h1><i class="fas fa-clipboard-list"></i> Question 12 – Risk Assessment</h1>
+    <div class="sub">Complete the table below by assessing the <strong>Likelihood</strong>, <strong>Impact</strong>, and <strong>Risk Level</strong> for each API risk based on the PT GlobalRetail scenario.</div>
+    <div class="scenario-box">
+      <i class="fas fa-store-alt" style="color: #2c7be5; margin-right: 0.5rem;"></i>
+      <strong>Scenario Recap:</strong> IDOR vulnerability (change ID 1001→1002 gets other's data) | No rate limiting | 90-day tokens | Public API docs | Verbose DB errors | HTTPS enabled.
+    </div>
+  </div>
+
+  <!-- TABEL -->
+  <div class="table-wrapper">
+    <h2><i class="fas fa-table"></i> Penilaian Risiko API</h2>
+    <table>
+      <thead>
+        <tr>
+          <th style="width: 5%;">#</th>
+          <th style="width: 25%;">API Risk</th>
+          <th style="width: 18%;">Likelihood</th>
+          <th style="width: 18%;">Impact</th>
+          <th style="width: 18%;">Risk Level</th>
+          <th style="width: 16%; text-align: center;">Detail</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- RISK 1: Unauthorized Data Access -->
+        <tr class="main-row" data-target="detail1">
+          <td>1</td>
+          <td class="risk-name">Unauthorized Data Access</td>
+          <td><span class="badge-likelihood high">High</span></td>
+          <td><span class="badge-impact high">High</span></td>
+          <td><span class="badge-risk critical">CRITICAL</span></td>
+          <td style="text-align: center;"><span class="expand-icon" id="icon1"><i class="fas fa-chevron-down"></i></span></td>
+        </tr>
+        <tr class="detail-row" id="detail1">
+          <td colspan="6">
+            <div class="detail-content">
+              <p><strong><i class="fas fa-info-circle" style="color: #2c7be5;"></i> Mengapa Likelihood = High &amp; Impact = High?</strong></p>
+              <div class="grid-2">
+                <div class="item">
+                  <span class="label">🔍 Analisis Likelihood</span>
+                  <div class="value">Kerentanan <strong>BOLA/IDOR</strong> sangat mudah dieksploitasi. Attacker hanya perlu mengubah angka <code>customer_id</code> (1001 → 1002) tanpa perlu teknik khusus. ID numerik bersifat prediktif, sehingga enumerasi sangat sederhana.</div>
+                </div>
+                <div class="item">
+                  <span class="label">💥 Analisis Impact</span>
+                  <div class="value">Data yang diekspos adalah <strong>PII (Personally Identifiable Information)</strong> seperti profil, poin reward, dan histori pesanan. Kebocoran data ini dapat mengakibatkan denda regulasi (UU PDP/GDPR) dan kerusakan reputasi besar.</div>
+                </div>
+              </div>
+              <div class="case-link"><i class="fas fa-link"></i> <strong>Referensi skenario:</strong> "The API returns another customer's personal information without verifying whether the user is authorized to access that record."</div>
+            </div>
+          </td>
+        </tr>
+
+        <!-- RISK 2: Account Enumeration -->
+        <tr class="main-row" data-target="detail2">
+          <td>2</td>
+          <td class="risk-name">Account Enumeration</td>
+          <td><span class="badge-likelihood medium">Medium</span></td>
+          <td><span class="badge-impact medium">Medium</span></td>
+          <td><span class="badge-risk medium">MEDIUM</span></td>
+          <td style="text-align: center;"><span class="expand-icon" id="icon2"><i class="fas fa-chevron-down"></i></span></td>
+        </tr>
+        <tr class="detail-row" id="detail2">
+          <td colspan="6">
+            <div class="detail-content">
+              <p><strong><i class="fas fa-info-circle" style="color: #2c7be5;"></i> Mengapa Likelihood = Medium &amp; Impact = Medium?</strong></p>
+              <div class="grid-2">
+                <div class="item">
+                  <span class="label">🔍 Analisis Likelihood</span>
+                  <div class="value">Meskipun skenario tidak menyebutkan perbedaan respons antara ID valid dan tidak valid, <strong>dokumentasi API yang publik</strong> dan <strong>error message yang verbose</strong> bisa membantu attacker menyusun daftar akun. Namun, tetap membutuhkan usaha enumerasi yang tidak selalu berhasil jika respons digenerik.</div>
+                </div>
+                <div class="item">
+                  <span class="label">💥 Analisis Impact</span>
+                  <div class="value">Enumeration itu sendiri tidak langsung membocorkan data sensitif, tetapi dapat digunakan untuk <strong>targeted phishing</strong> atau social engineering. Dampaknya bersifat tidak langsung, sehingga dinilai Medium.</div>
+                </div>
+              </div>
+              <div class="case-link"><i class="fas fa-link"></i> <strong>Referensi skenario:</strong> "API documentation is publicly accessible" dan "Error messages reveal detailed database information."</div>
+            </div>
+          </td>
+        </tr>
+
+        <!-- RISK 3: Automated Data Harvesting -->
+        <tr class="main-row" data-target="detail3">
+          <td>3</td>
+          <td class="risk-name">Automated Data Harvesting</td>
+          <td><span class="badge-likelihood high">High</span></td>
+          <td><span class="badge-impact high">High</span></td>
+          <td><span class="badge-risk critical">CRITICAL</span></td>
+          <td style="text-align: center;"><span class="expand-icon" id="icon3"><i class="fas fa-chevron-down"></i></span></td>
+        </tr>
+        <tr class="detail-row" id="detail3">
+          <td colspan="6">
+            <div class="detail-content">
+              <p><strong><i class="fas fa-info-circle" style="color: #2c7be5;"></i> Mengapa Likelihood = High &amp; Impact = High?</strong></p>
+              <div class="grid-2">
+                <div class="item">
+                  <span class="label">🔍 Analisis Likelihood</span>
+                  <div class="value">Kombinasi <strong>IDOR</strong> (memungkinkan akses tidak sah) dan <strong>tidak ada rate limiting</strong> (memungkinkan skala besar) menciptakan peluang sempurna untuk otomatisasi. Attacker bisa menulis skrip sederhana untuk meminta ribuan ID dalam hitungan menit.</div>
+                </div>
+                <div class="item">
+                  <span class="label">💥 Analisis Impact</span>
+                  <div class="value">Dampaknya sangat besar karena dapat menyebabkan <strong>eksfiltrasi data massal</strong> (jutaan pelanggan) dalam waktu singkat. Ini adalah skenario terburuk bagi perusahaan dan langsung memicu pelanggaran regulasi.</div>
+                </div>
+              </div>
+              <div class="case-link"><i class="fas fa-link"></i> <strong>Referensi skenario:</strong> "Rate limiting is not enabled" dan management khawatir "attackers could exploit the API to access large amounts of customer data."</div>
+            </div>
+          </td>
+        </tr>
+
+        <!-- RISK 4: Token Theft Misuse -->
+        <tr class="main-row" data-target="detail4">
+          <td>4</td>
+          <td class="risk-name">Token Theft Misuse</td>
+          <td><span class="badge-likelihood medium">Medium</span></td>
+          <td><span class="badge-impact high">High</span></td>
+          <td><span class="badge-risk high">HIGH</span></td>
+          <td style="text-align: center;"><span class="expand-icon" id="icon4"><i class="fas fa-chevron-down"></i></span></td>
+        </tr>
+        <tr class="detail-row" id="detail4">
+          <td colspan="6">
+            <div class="detail-content">
+              <p><strong><i class="fas fa-info-circle" style="color: #2c7be5;"></i> Mengapa Likelihood = Medium &amp; Impact = High?</strong></p>
+              <div class="grid-2">
+                <div class="item">
+                  <span class="label">🔍 Analisis Likelihood</span>
+                  <div class="value">Token bisa dicuri melalui berbagai vektor (MITM, XSS, cache, logging). Meskipun HTTPS sudah diaktifkan, token tetap rentan bocor di sisi client atau server. Namun, karena membutuhkan akses ke token terlebih dahulu, kemungkinannya tidak setinggi IDOR yang langsung bisa dieksploitasi tanpa syarat.</div>
+                </div>
+                <div class="item">
+                  <span class="label">💥 Analisis Impact</span>
+                  <div class="value">Token berlaku <strong>90 hari</strong>. Jika dicuri, attacker memiliki waktu sangat panjang untuk mengakses semua data dan fitur yang dimiliki pengguna yang sah. Ini setara dengan <strong>pengambilalihan akun penuh</strong> (account takeover) yang dampaknya sangat tinggi.</div>
+                </div>
+              </div>
+              <div class="case-link"><i class="fas fa-link"></i> <strong>Referensi skenario:</strong> "Authentication tokens remain valid for 90 days."</div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div style="margin-top: 1.5rem; padding: 1rem; background: #f1f5f9; border-radius: 16px; display: flex; flex-wrap: wrap; gap: 1.5rem; justify-content: center;">
+      <span><span class="badge-risk critical">CRITICAL</span> = Kombinasi High Likelihood + High Impact</span>
+      <span><span class="badge-risk high">HIGH</span> = Kombinasi Medium/High Likelihood + High Impact</span>
+      <span><span class="badge-risk medium">MEDIUM</span> = Kombinasi Medium Likelihood + Medium Impact</span>
+      <span style="font-size: 0.9rem; color: #475569;"><i class="fas fa-hand-pointer"></i> Klik pada baris untuk melihat analisis detail.</span>
+    </div>
+  </div>
+
+  <div class="footer-note">
+    <i class="fas fa-lock" style="margin-right: 0.3rem;"></i> Berdasarkan analisis skenario PT GlobalRetail – Customer Rewards API. <br>Mengacu pada standar OWASP dan praktik penilaian risiko industri.
+  </div>
+
+</div>
+
+<script>
+  (function() {
+    // Ambil semua baris utama yang memiliki data-target
+    const mainRows = document.querySelectorAll('.main-row');
+
+    mainRows.forEach(row => {
+      row.addEventListener('click', function(e) {
+        // Cegah jika klik pada icon/tombol (opsional)
+        const targetId = this.getAttribute('data-target');
+        const detailRow = document.getElementById(targetId);
+        const icon = this.querySelector('.expand-icon');
+
+        if (!detailRow) return;
+
+        // Toggle class 'open' pada detail row
+        const isOpen = detailRow.classList.contains('open');
+
+        // Tutup semua detail row lainnya (opsional, buat accordion)
+        // Jika ingin accordion (hanya satu terbuka), aktifkan kode di bawah:
+        // document.querySelectorAll('.detail-row').forEach(dr => dr.classList.remove('open'));
+        // document.querySelectorAll('.expand-icon').forEach(ic => ic.classList.remove('rotated'));
+
+        if (isOpen) {
+          detailRow.classList.remove('open');
+          if (icon) icon.classList.remove('rotated');
+        } else {
+          // Tutup yang lain untuk efek accordion yang rapi
+          document.querySelectorAll('.detail-row').forEach(dr => dr.classList.remove('open'));
+          document.querySelectorAll('.expand-icon').forEach(ic => ic.classList.remove('rotated'));
+
+          detailRow.classList.add('open');
+          if (icon) icon.classList.add('rotated');
+        }
+      });
+    });
+
+    // Inisialisasi: pastikan semua detail tertutup, icon normal
+    document.querySelectorAll('.detail-row').forEach(dr => dr.classList.remove('open'));
+    document.querySelectorAll('.expand-icon').forEach(ic => ic.classList.remove('rotated'));
+
+    // Optional: Klik pada icon juga memicu toggle (karena icon ada di dalam row)
+    console.log('✅ Risk Assessment table with accordion ready.');
+  })();
+</script>
+
+</body>
+</html>

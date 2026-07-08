@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🔐 Security Recommendations – Question 13</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f4f7fc;
+      color: #1e293b;
+      padding: 2rem 1rem;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    /* Header */
+    .header {
+      background: #ffffff;
+      border-radius: 24px;
+      padding: 2rem 2.5rem;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+      margin-bottom: 2rem;
+      border-left: 8px solid #2c7be5;
+    }
+
+    .header .badge {
+      display: inline-block;
+      background: #0b2b4a;
+      color: white;
+      font-weight: 600;
+      font-size: 0.75rem;
+      padding: 0.3rem 1rem;
+      border-radius: 30px;
+      letter-spacing: 0.3px;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+
+    .header h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #0b2b4a;
+      margin-bottom: 0.3rem;
+    }
+
+    .header h1 i {
+      color: #2c7be5;
+      margin-right: 0.5rem;
+    }
+
+    .header .sub {
+      font-size: 1.05rem;
+      color: #475569;
+    }
+
+    .scenario-box {
+      background: #f8fafc;
+      border-radius: 14px;
+      padding: 1rem 1.5rem;
+      margin-top: 1rem;
+      border-left: 4px solid #94a3b8;
+      font-size: 0.95rem;
+    }
+
+    .scenario-box strong {
+      color: #0b2b4a;
+    }
+
+    /* Available Controls */
+    .controls-pool {
+      background: #ffffff;
+      border-radius: 24px;
+      padding: 1.5rem 2rem;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+      margin-bottom: 2rem;
+      border: 2px dashed #cbd5e1;
+    }
+
+    .controls-pool h3 {
+      font-weight: 600;
+      color: #0b2b4a;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .controls-pool .pill-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+    }
+
+    .controls-pool .pill {
+      background: #f1f5f9;
+      padding: 0.5rem 1.2rem;
+      border-radius: 30px;
+      font-weight: 500;
+      font-size: 0.9rem;
+      border: 1px solid #e2e8f0;
+      color: #0b2b4a;
+    }
+
+    .controls-pool .pill i {
+      color: #2c7be5;
+      margin-right: 0.3rem;
+    }
+
+    /* Tabel Matching */
+    .table-wrapper {
+      background: #ffffff;
+      border-radius: 24px;
+      padding: 1.8rem 2.2rem;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+      margin-bottom: 2rem;
+      overflow-x: auto;
+    }
+
+    .table-wrapper h2 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #0b2b4a;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.95rem;
+    }
+
+    thead th {
+      text-align: left;
+      padding: 0.9rem 1.2rem;
+      background: #f1f5f9;
+      font-weight: 700;
+      color: #0b2b4a;
+      border-bottom: 3px solid #e2e8f0;
+    }
+
+    tbody td {
+      padding: 0.9rem 1.2rem;
+      border-bottom: 1px solid #f1f5f9;
+      vertical-align: middle;
+    }
+
+    tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    tbody tr {
+      transition: background 0.2s ease;
+      cursor: pointer;
+    }
+
+    tbody tr:hover {
+      background: #f8fafc;
+    }
+
+    .risk-name {
+      font-weight: 600;
+      color: #0b2b4a;
+    }
+
+    .match-arrow {
+      color: #94a3b8;
+      font-size: 1.2rem;
+      padding: 0 0.5rem;
+    }
+
+    .control-matched {
+      font-weight: 600;
+      color: #0b2b4a;
+      background: #dcfce7;
+      padding: 0.3rem 1rem;
+      border-radius: 30px;
+      display: inline-block;
+      border: 1px solid #bbf7d0;
+    }
+
+    .control-matched i {
+      color: #16a34a;
+      margin-right: 0.4rem;
+    }
+
+    .expand-icon {
+      font-size: 1.2rem;
+      color: #94a3b8;
+      transition: transform 0.3s ease;
+      display: inline-block;
+      text-align: center;
+      width: 100%;
+    }
+
+    .expand-icon.rotated {
+      transform: rotate(180deg);
+    }
+
+    /* Detail Accordion */
+    .detail-row {
+      display: none;
+      background: #fafcff;
+    }
+
+    .detail-row.open {
+      display: table-row;
+    }
+
+    .detail-row td {
+      padding: 0 !important;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .detail-content {
+      padding: 1.5rem 2rem 2rem 2rem;
+      background: #f8fafc;
+      border-radius: 0 0 16px 16px;
+      margin: 0 0 0.5rem 0;
+    }
+
+    .detail-content .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-top: 0.8rem;
+    }
+
+    .detail-content .grid-2 .item {
+      background: white;
+      padding: 1rem 1.2rem;
+      border-radius: 14px;
+      border: 1px solid #e2e8f0;
+    }
+
+    .detail-content .grid-2 .item .label {
+      font-weight: 600;
+      color: #475569;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      display: block;
+      margin-bottom: 0.2rem;
+    }
+
+    .detail-content .grid-2 .item .value {
+      font-weight: 500;
+    }
+
+    .detail-content .case-link {
+      background: #e2e8f0;
+      padding: 0.5rem 1rem;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      color: #1e293b;
+      display: inline-block;
+      margin-top: 0.5rem;
+    }
+
+    .detail-content .case-link i {
+      color: #2c7be5;
+      margin-right: 0.4rem;
+    }
+
+    .detail-content p {
+      margin-bottom: 0.5rem;
+    }
+
+    .detail-content .why-title {
+      font-weight: 700;
+      color: #0b2b4a;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    @media (max-width: 700px) {
+      .detail-content .grid-2 {
+        grid-template-columns: 1fr;
+        gap: 0.8rem;
+      }
+      .header, .table-wrapper, .controls-pool {
+        padding: 1.5rem;
+      }
+      table { font-size: 0.85rem; }
+      .control-matched { font-size: 0.8rem; padding: 0.2rem 0.6rem; }
+      .detail-content { padding: 1rem; }
+      .match-arrow { font-size: 0.9rem; padding: 0 0.2rem; }
+    }
+
+    .footer-note {
+      margin-top: 2.5rem;
+      text-align: center;
+      color: #94a3b8;
+      font-size: 0.9rem;
+      border-top: 1px solid #e2e8f0;
+      padding-top: 2rem;
+    }
+
+    .footer-note strong {
+      color: #0b2b4a;
+    }
+
+    @keyframes fadeSlide {
+      from { opacity: 0; transform: translateY(-8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .detail-row.open .detail-content {
+      animation: fadeSlide 0.3s ease;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- HEADER -->
+  <div class="header">
+    <span class="badge"><i class="fas fa-shield-alt"></i> OWASP API Security – Part F</span>
+    <h1><i class="fas fa-check-double"></i> Question 13 – Security Recommendations</h1>
+    <div class="sub">Match the security control to the API risk based on the PT GlobalRetail scenario. Klik pada baris untuk melihat analisis mendetail.</div>
+    <div class="scenario-box">
+      <i class="fas fa-store-alt" style="color: #2c7be5; margin-right: 0.5rem;"></i>
+      <strong>Scenario Recap:</strong> IDOR (BOLA) | No rate limiting | 90-day tokens | Public docs | Verbose DB errors | HTTPS enabled.
+    </div>
+  </div>
+
+  <!-- Available Controls (Pilihan yang tersedia) -->
+  <div class="controls-pool">
+    <h3><i class="fas fa-boxes"></i> Available Controls (Pilihan Kontrol)</h3>
+    <div class="pill-container">
+      <span class="pill"><i class="fas fa-check-circle"></i> Authorization Checks on Every Request</span>
+      <span class="pill"><i class="fas fa-check-circle"></i> API Rate Limiting</span>
+      <span class="pill"><i class="fas fa-check-circle"></i> Short-Lived Tokens and Token Rotation</span>
+      <span class="pill"><i class="fas fa-check-circle"></i> Generic Error Messages</span>
+    </div>
+  </div>
+
+  <!-- TABEL MATCHING -->
+  <div class="table-wrapper">
+    <h2><i class="fas fa-link"></i> Matching Table</h2>
+    <table>
+      <thead>
+        <tr>
+          <th style="width: 5%;">#</th>
+          <th style="width: 25%;">API Risk</th>
+          <th style="width: 10%; text-align: center;">⟷</th>
+          <th style="width: 35%;">Recommended Control</th>
+          <th style="width: 25%; text-align: center;">Detail</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- RISK 1: BOLA / IDOR -->
+        <tr class="main-row" data-target="detail1">
+          <td>1</td>
+          <td class="risk-name"><i class="fas fa-unlock-alt" style="color: #b91c1c; margin-right: 0.5rem;"></i>BOLA / IDOR</td>
+          <td style="text-align: center;"><span class="match-arrow"><i class="fas fa-arrow-right"></i></span></td>
+          <td><span class="control-matched"><i class="fas fa-shield-alt"></i> Authorization Checks on Every Request</span></td>
+          <td style="text-align: center;"><span class="expand-icon" id="icon1"><i class="fas fa-chevron-down"></i></span></td>
+        </tr>
+        <tr class="detail-row" id="detail1">
+          <td colspan="5">
+            <div class="detail-content">
+              <p class="why-title"><i class="fas fa-lightbulb" style="color: #b45309;"></i> Mengapa kontrol ini adalah solusi yang tepat?</p>
+              <div class="grid-2">
+                <div class="item">
+                  <span class="label">🔍 Bagaimana cara kerjanya?</span>
+                  <div class="value">Kontrol ini memastikan bahwa setiap permintaan ke API tidak hanya memeriksa keabsahan token (autentikasi), tetapi juga memverifikasi apakah pengguna yang terautentikasi memiliki izin untuk mengakses objek/data yang diminta. Di sisi server, ID pengguna dari token JWT di-binding dengan parameter query (misal: <code>WHERE id = ? AND user_id = decoded_token.user_id</code>).</div>
+                </div>
+                <div class="item">
+                  <span class="label">🎯 Mengatasi akar masalah</span>
+                  <div class="value">Serangan BOLA/IDOR terjadi karena server tidak memeriksa otorisasi. Dengan menambahkan pengecekan otorisasi di setiap request, attacker tidak akan bisa mengakses data pelanggan lain meskipun mengganti ID di URL, karena server akan menolak akses jika ID tidak sesuai dengan pemilik token.</div>
+                </div>
+              </div>
+              <div class="case-link"><i class="fas fa-link"></i> <strong>Referensi skenario:</strong> "The API returns another customer's personal information without verifying whether the user is authorized to access that record."</div>
+            </div>
+          </td>
+        </tr>
+
+        <!-- RISK 2: Excessive Requests -->
+        <tr class="main-row" data-target="detail2">
+          <td>2</td>
+          <td class="risk-name"><i class="fas fa-bolt" style="color: #b45309; margin-right: 0.5rem;"></i>Excessive Requests</td>
+          <td style="text-align: center;"><span class="match-arrow"><i class="fas fa-arrow-right"></i></span></td>
+          <td><span class="control-matched"><i class="fas fa-tachometer-alt"></i> API Rate Limiting</span></td>
+          <td style="text-align: center;"><span class="expand-icon" id="icon2"><i class="fas fa-chevron-down"></i></span></td>
+        </tr>
+        <tr class="detail-row" id="detail2">
+          <td colspan="5">
+            <div class="detail-content">
+              <p class="why-title"><i class="fas fa-lightbulb" style="color: #b45309;"></i> Mengapa kontrol ini adalah solusi yang tepat?</p>
+              <div class="grid-2">
+                <div class="item">
+                  <span class="label">🔍 Bagaimana cara kerjanya?</span>
+                  <div class="value">Rate limiting membatasi jumlah request yang dapat dikirim oleh satu pengguna (atau satu IP) dalam periode waktu tertentu, misalnya 50 request per menit. Jika batas dilampaui, server akan mengembalikan status <code>HTTP 429 Too Many Requests</code>.</div>
+                </div>
+                <div class="item">
+                  <span class="label">🎯 Mengatasi akar masalah</span>
+                  <div class="value">Tanpa rate limiting, attacker dapat melakukan enumerasi ID secara otomatis (brute-force) dalam skala besar. Dengan adanya batasan, upaya scraping massal menjadi tidak efektif karena attacker akan terblokir setelah mencapai batas request, sehingga mencegah eksfiltrasi data dalam jumlah besar.</div>
+                </div>
+              </div>
+              <div class="case-link"><i class="fas fa-link"></i> <strong>Referensi skenario:</strong> "Rate limiting is not enabled" dan management khawatir "attackers could exploit the API to access large amounts of customer data."</div>
+            </div>
+          </td>
+        </tr>
+
+        <!-- RISK 3: Token Abuse -->
+        <tr class="main-row" data-target="detail3">
+          <td>3</td>
+          <td class="risk-name"><i class="fas fa-user-secret" style="color: #b91c1c; margin-right: 0.5rem;"></i>Token Abuse (Theft / Misuse)</td>
+          <td style="text-align: center;"><span class="match-arrow"><i class="fas fa-arrow-right"></i></span></td>
+          <td><span class="control-matched"><i class="fas fa-sync-alt"></i> Short-Lived Tokens and Token Rotation</span></td>
+          <td style="text-align: center;"><span class="expand-icon" id="icon3"><i class="fas fa-chevron-down"></i></span></td>
+        </tr>
+        <tr class="detail-row" id="detail3">
+          <td colspan="5">
+            <div class="detail-content">
+              <p class="why-title"><i class="fas fa-lightbulb" style="color: #b45309;"></i> Mengapa kontrol ini adalah solusi yang tepat?</p>
+              <div class="grid-2">
+                <div class="item">
+                  <span class="label">🔍 Bagaimana cara kerjanya?</span>
+                  <div class="value">Mengganti token yang berlaku 90 hari dengan <strong>Access Token</strong> berumur pendek (15–30 menit) dan <strong>Refresh Token</strong> (berlaku 7 hari) yang hanya digunakan untuk mendapatkan access token baru. Token rotation memastikan bahwa setiap kali refresh, token baru dikeluarkan dan token lama tidak bisa digunakan lagi.</div>
+                </div>
+                <div class="item">
+                  <span class="label">🎯 Mengatasi akar masalah</span>
+                  <div class="value">Token yang dicuri memiliki masa berlaku 90 hari, memberi attacker waktu sangat panjang untuk menyalahgunakannya. Dengan memperpendek masa berlaku, window of opportunity menjadi sangat kecil (15-30 menit). Jika token dicuri, kemungkinan besar sudah kadaluarsa sebelum sempat digunakan. Token rotation juga membatasi kerusakan jika terjadi kebocoran.</div>
+                </div>
+              </div>
+              <div class="case-link"><i class="fas fa-link"></i> <strong>Referensi skenario:</strong> "Authentication tokens remain valid for 90 days."</div>
+            </div>
+          </td>
+        </tr>
+
+        <!-- RISK 4: Information Disclosure -->
+        <tr class="main-row" data-target="detail4">
+          <td>4</td>
+          <td class="risk-name"><i class="fas fa-database" style="color: #1e40af; margin-right: 0.5rem;"></i>Information Disclosure</td>
+          <td style="text-align: center;"><span class="match-arrow"><i class="fas fa-arrow-right"></i></span></td>
+          <td><span class="control-matched"><i class="fas fa-mask"></i> Generic Error Messages</span></td>
+          <td style="text-align: center;"><span class="expand-icon" id="icon4"><i class="fas fa-chevron-down"></i></span></td>
+        </tr>
+        <tr class="detail-row" id="detail4">
+          <td colspan="5">
+            <div class="detail-content">
+              <p class="why-title"><i class="fas fa-lightbulb" style="color: #b45309;"></i> Mengapa kontrol ini adalah solusi yang tepat?</p>
+              <div class="grid-2">
+                <div class="item">
+                  <span class="label">🔍 Bagaimana cara kerjanya?</span>
+                  <div class="value">Mengganti pesan error yang detail (misal: <code>SQL Error: column 'email' not found</code>) dengan pesan generik (misal: <code>{"error": "Terjadi kesalahan pada server"}</code>). Semua detail teknis (stack trace, query SQL, nama tabel) hanya dicatat di log internal server.</div>
+                </div>
+                <div class="item">
+                  <span class="label">🎯 Mengatasi akar masalah</span>
+                  <div class="value">Pesan error yang verbose dapat membocorkan struktur database (nama tabel, kolom) kepada attacker. Informasi ini bisa digunakan untuk menyusun serangan lanjutan seperti <strong>SQL Injection</strong> atau <strong>enumerasi skema</strong>. Dengan pesan generik, attacker tidak mendapatkan petunjuk teknis apapun, sehingga mempersulit eksploitasi lebih lanjut.</div>
+                </div>
+              </div>
+              <div class="case-link"><i class="fas fa-link"></i> <strong>Referensi skenario:</strong> "Error messages reveal detailed database information."</div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Legend / Keterangan -->
+    <div style="margin-top: 1.5rem; padding: 1rem; background: #f1f5f9; border-radius: 16px; display: flex; flex-wrap: wrap; gap: 1.5rem; justify-content: center;">
+      <span><i class="fas fa-check-circle" style="color: #16a34a;"></i> <strong>BOLA/IDOR</strong> → Authorization Checks</span>
+      <span><i class="fas fa-check-circle" style="color: #16a34a;"></i> <strong>Excessive Requests</strong> → Rate Limiting</span>
+      <span><i class="fas fa-check-circle" style="color: #16a34a;"></i> <strong>Token Abuse</strong> → Short-Lived Tokens</span>
+      <span><i class="fas fa-check-circle" style="color: #16a34a;"></i> <strong>Information Disclosure</strong> → Generic Error Messages</span>
+      <span style="font-size: 0.9rem; color: #475569;"><i class="fas fa-hand-pointer"></i> Klik pada baris untuk melihat penjelasan detail.</span>
+    </div>
+  </div>
+
+  <div class="footer-note">
+    <i class="fas fa-lock" style="margin-right: 0.3rem;"></i> Berdasarkan analisis skenario PT GlobalRetail – Customer Rewards API. <br>Mengacu pada standar OWASP API Security Top 10 dan praktik terbaik industri.
+  </div>
+
+</div>
+
+<script>
+  (function() {
+    const mainRows = document.querySelectorAll('.main-row');
+
+    mainRows.forEach(row => {
+      row.addEventListener('click', function(e) {
+        const targetId = this.getAttribute('data-target');
+        const detailRow = document.getElementById(targetId);
+        const icon = this.querySelector('.expand-icon');
+
+        if (!detailRow) return;
+
+        const isOpen = detailRow.classList.contains('open');
+
+        // Tutup semua detail lainnya (accordion behavior)
+        document.querySelectorAll('.detail-row').forEach(dr => dr.classList.remove('open'));
+        document.querySelectorAll('.expand-icon').forEach(ic => ic.classList.remove('rotated'));
+
+        if (!isOpen) {
+          detailRow.classList.add('open');
+          if (icon) icon.classList.add('rotated');
+        }
+        // Jika sudah open, kita toggle -> karena kita tutup semua di atas, maka efeknya jadi toggle.
+        // Tapi karena kita tutup semua dulu, kita perlu cek apakah yang diklik sudah open sebelumnya.
+        // Jika sebelumnya open, kita biarkan tertutup (sudah ditutup oleh loop di atas).
+        // Jika sebelumnya closed, kita buka.
+        // Logika di atas sudah benar: tutup semua, lalu jika sebelumnya tidak open, buka yang diklik.
+        // Namun jika sebelumnya open, setelah ditutup semua, kita tidak membukanya lagi -> tetap tertutup. Ini toggle yang benar.
+        // Tapi kita perlu tahu status sebelumnya. Kita sudah simpan di isOpen.
+        // Jika isOpen true, kita sudah tutup semua dan tidak membuka ulang -> tertutup (toggle off).
+        // Jika isOpen false, kita tutup semua (tidak ada yang terbuka) lalu buka yang diklik -> terbuka (toggle on).
+        // Ini perfect.
+      });
+    });
+
+    // Inisialisasi: semua detail tertutup
+    document.querySelectorAll('.detail-row').forEach(dr => dr.classList.remove('open'));
+    document.querySelectorAll('.expand-icon').forEach(ic => ic.classList.remove('rotated'));
+
+    console.log('✅ Matching table with accordion ready.');
+  })();
+</script>
+
+</body>
+</html>

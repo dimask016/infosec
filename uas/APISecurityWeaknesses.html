@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>📘 Jawaban – Question 11: API Security Weaknesses</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f4f7fc;
+      color: #1e293b;
+      padding: 2rem 1rem;
+      line-height: 1.6;
+    }
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    /* Header */
+    .header {
+      background: #ffffff;
+      border-radius: 24px;
+      padding: 2rem 2.5rem;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.05);
+      margin-bottom: 2rem;
+      border-left: 8px solid #2c7be5;
+    }
+    .header .badge {
+      display: inline-block;
+      background: #0b2b4a;
+      color: white;
+      font-weight: 600;
+      font-size: 0.75rem;
+      padding: 0.3rem 1rem;
+      border-radius: 30px;
+      letter-spacing: 0.3px;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+    .header h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #0b2b4a;
+      margin-bottom: 0.3rem;
+    }
+    .header h1 i {
+      color: #2c7be5;
+      margin-right: 0.5rem;
+    }
+    .header .sub {
+      font-size: 1.05rem;
+      color: #475569;
+    }
+    .header .scenario-box {
+      background: #f8fafc;
+      border-radius: 14px;
+      padding: 1rem 1.5rem;
+      margin-top: 1rem;
+      border-left: 4px solid #94a3b8;
+      font-size: 0.95rem;
+    }
+    .header .scenario-box strong {
+      color: #0b2b4a;
+    }
+
+    /* Kartu Kelemahan */
+    .weakness-card {
+      background: #ffffff;
+      border-radius: 24px;
+      padding: 1.8rem 2.2rem;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.05);
+      margin-bottom: 1.8rem;
+      border: 1px solid #f1f5f9;
+      transition: 0.2s;
+    }
+    .weakness-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 14px 40px rgba(0,0,0,0.07);
+    }
+    .weakness-card .title {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #0b2b4a;
+      margin-bottom: 0.8rem;
+    }
+    .weakness-card .title .icon {
+      font-size: 2rem;
+      width: 3rem;
+      text-align: center;
+    }
+    .weakness-card .title .badge-weak {
+      background: #b91c1c;
+      color: white;
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 0.2rem 0.8rem;
+      border-radius: 30px;
+      margin-left: 0.5rem;
+      letter-spacing: 0.3px;
+    }
+    .weakness-card .detail-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin: 1rem 0 0.5rem;
+    }
+    .weakness-card .detail-grid .item {
+      background: #f8fafc;
+      padding: 0.8rem 1.2rem;
+      border-radius: 14px;
+    }
+    .weakness-card .detail-grid .item .label {
+      font-weight: 600;
+      color: #475569;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      display: block;
+    }
+    .weakness-card .detail-grid .item .value {
+      font-weight: 500;
+      margin-top: 0.2rem;
+    }
+    .weakness-card ul {
+      list-style: none;
+      padding-left: 0;
+      margin: 0.8rem 0;
+    }
+    .weakness-card ul li {
+      padding: 0.4rem 0 0.4rem 1.8rem;
+      position: relative;
+      border-bottom: 1px solid #f1f5f9;
+    }
+    .weakness-card ul li:last-child { border-bottom: none; }
+    .weakness-card ul li::before {
+      content: "▹";
+      position: absolute;
+      left: 0;
+      color: #2c7be5;
+      font-weight: 700;
+    }
+    .weakness-card .highlight-box {
+      background: #fef3c7;
+      border-left: 6px solid #b45309;
+      padding: 0.8rem 1.2rem;
+      border-radius: 12px;
+      margin: 0.8rem 0;
+    }
+    .weakness-card .highlight-box.success {
+      background: #dcfce7;
+      border-left-color: #16a34a;
+    }
+    .weakness-card .code-example {
+      background: #0b2b4a;
+      color: #e2e8f0;
+      padding: 0.8rem 1.2rem;
+      border-radius: 14px;
+      font-family: 'Courier New', monospace;
+      font-size: 0.85rem;
+      overflow-x: auto;
+      margin: 0.8rem 0;
+    }
+
+    /* Tabel ringkasan */
+    .summary-table {
+      background: #ffffff;
+      border-radius: 24px;
+      padding: 1.8rem 2.2rem;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.05);
+      margin-top: 2rem;
+    }
+    .summary-table h2 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #0b2b4a;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+    .summary-table table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.95rem;
+    }
+    .summary-table th {
+      text-align: left;
+      padding: 0.8rem 0.5rem;
+      background: #f1f5f9;
+      font-weight: 600;
+      color: #0b2b4a;
+    }
+    .summary-table td {
+      padding: 0.8rem 0.5rem;
+      border-bottom: 1px solid #e2e8f0;
+      vertical-align: top;
+    }
+    .summary-table tr:last-child td { border-bottom: none; }
+    .summary-table .weak-label {
+      font-weight: 600;
+      color: #b91c1c;
+    }
+
+    .footer-note {
+      margin-top: 2.5rem;
+      text-align: center;
+      color: #94a3b8;
+      font-size: 0.9rem;
+      border-top: 1px solid #e2e8f0;
+      padding-top: 2rem;
+    }
+
+    @media (max-width: 700px) {
+      .weakness-card .detail-grid {
+        grid-template-columns: 1fr;
+      }
+      .header, .weakness-card, .summary-table {
+        padding: 1.5rem;
+      }
+      .header h1 { font-size: 1.6rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <!-- HEADER -->
+  <div class="header">
+    <span class="badge"><i class="fas fa-shield-alt"></i> OWASP API Security – Part F</span>
+    <h1><i class="fas fa-pen-fancy"></i> Question 11 – Short Answer</h1>
+    <div class="sub">Identify <strong>three (3)</strong> API security weaknesses found in the PT GlobalRetail scenario.</div>
+    <div class="scenario-box">
+      <i class="fas fa-store-alt" style="color: #2c7be5; margin-right: 0.5rem;"></i>
+      <strong>Scenario Recap:</strong> Customer Rewards API – IDOR vulnerability (changing ID 1001 → 1002 returns other user’s data), rate limiting disabled, tokens valid for 90 days, public API docs, verbose DB errors, but HTTPS is enabled.
+    </div>
+  </div>
+
+  <!-- TIGA KELEMAHAN UTAMA -->
+  <h2 style="font-size: 1.6rem; font-weight: 700; color: #0b2b4a; margin-bottom: 1.2rem; display: flex; align-items: center; gap: 0.5rem;">
+    <i class="fas fa-exclamation-triangle" style="color: #b91c1c;"></i> Tiga Kelemahan Utama
+  </h2>
+
+  <!-- 1. BOLA/IDOR -->
+  <div class="weakness-card">
+    <div class="title">
+      <span class="icon">🔓</span>
+      1. Broken Object Level Authorization (BOLA/IDOR)
+      <span class="badge-weak">Kritis</span>
+    </div>
+    <p><strong>Apa yang terjadi?</strong> Server tidak memverifikasi apakah pengguna yang terautentikasi memiliki izin untuk mengakses data pelanggan tertentu. Konsultan mengubah <code>customer_id</code> dari 1001 ke 1002 dan mendapatkan data pelanggan lain tanpa hambatan.</p>
+    <div class="code-example">
+      GET /v1/customers/1002 HTTP/1.1<br>
+      Host: api.globalretail.com<br>
+      Authorization: Bearer eyXXXXX  <span style="color: #94a3b8;">// token milik user 1001, tapi data 1002 terbuka</span>
+    </div>
+    <div class="detail-grid">
+      <div class="item"><span class="label">Dampak</span><div class="value">Eksfiltrasi data pribadi jutaan pelanggan (nama, alamat, poin, histori)</div></div>
+      <div class="item"><span class="label">Akar Masalah</span><div class="value">Tidak ada pengecekan otorisasi di sisi server; hanya mengandalkan ID dari input client</div></div>
+    </div>
+    <ul>
+      <li><strong>Rekomendasi:</strong> Gunakan ID pengguna dari token JWT yang sudah terverifikasi, lalu tambahkan klausa <code>AND user_id = decoded_token.user_id</code> pada setiap query. Ganti ID numerik dengan UUID untuk mempersulit enumerasi.</li>
+      <li><strong>Referensi OWASP:</strong> API1:2023 – Broken Object Level Authorization (BOLA) – merupakan nomor satu dalam OWASP API Security Top 10.</li>
+    </ul>
+    <div class="highlight-box">
+      <i class="fas fa-lightbulb" style="color: #b45309;"></i> <strong>Kunci:</strong> Jangan pernah mempercayai input dari client untuk menentukan kepemilikan data. Selalu binding dengan identitas pengguna yang terautentikasi.
+    </div>
+  </div>
+
+  <!-- 2. Missing Rate Limiting -->
+  <div class="weakness-card">
+    <div class="title">
+      <span class="icon">🚫</span>
+      2. Missing Rate Limiting
+      <span class="badge-weak">Tinggi</span>
+    </div>
+    <p><strong>Apa yang terjadi?</strong> Tidak ada batasan jumlah request per pengguna atau per IP dalam periode waktu tertentu. Attacker dapat mengirim ribuan request dengan ID yang berurutan (1001, 1002, 1003, ...) dalam hitungan menit tanpa terblokir.</p>
+    <div class="detail-grid">
+      <div class="item"><span class="label">Dampak</span><div class="value">Memungkinkan brute-force enumerasi ID dan scraping data massal secara otomatis</div></div>
+      <div class="item"><span class="label">Akar Masalah</span><div class="value">Tidak ada mekanisme pembatasan request di tingkat API gateway atau aplikasi</div></div>
+    </div>
+    <ul>
+      <li><strong>Rekomendasi:</strong> Terapkan rate limiting dengan kebijakan misalnya <strong>50 request/menit</strong> per user untuk endpoint sensitif. Jika terlampaui, kembalikan <code>HTTP 429 Too Many Requests</code>.</li>
+      <li><strong>Praktik baik:</strong> Gunakan Redis atau layanan API gateway (seperti Kong, AWS API Gateway) untuk mengelola limit secara terpusat.</li>
+    </ul>
+    <div class="highlight-box success">
+      <i class="fas fa-check-circle" style="color: #16a34a;"></i> <strong>Manfaat:</strong> Selain mencegah scraping, rate limiting juga melindungi dari serangan DoS dan brute-force.
+    </div>
+  </div>
+
+  <!-- 3. Long-lived Tokens -->
+  <div class="weakness-card">
+    <div class="title">
+      <span class="icon">⏳</span>
+      3. Long-lived Authentication Tokens (90 days validity)
+      <span class="badge-weak">Tinggi</span>
+    </div>
+    <p><strong>Apa yang terjadi?</strong> Token autentikasi yang digunakan untuk mengakses API memiliki masa berlaku 90 hari. Jika token bocor atau dicuri, attacker memiliki jendela waktu yang sangat panjang untuk menyalahgunakannya.</p>
+    <div class="detail-grid">
+      <div class="item"><span class="label">Dampak</span><div class="value">Token yang dicuri dapat digunakan berulang kali selama 90 hari untuk mengakses semua data yang diizinkan oleh token tersebut</div></div>
+      <div class="item"><span class="label">Akar Masalah</span><div class="value">Kebijakan masa berlaku token yang terlalu panjang tanpa mekanisme refresh atau revoke</div></div>
+    </div>
+    <ul>
+      <li><strong>Rekomendasi:</strong> Perpendek masa berlaku access token menjadi <strong>15–30 menit</strong>. Gunakan <strong>refresh token</strong> (berlaku 7 hari) yang hanya digunakan untuk mendapatkan access token baru, bukan untuk mengakses data.</li>
+      <li><strong>Tambahan:</strong> Terapkan <em>token rotation</em> dan <em>revocation list</em> untuk mencabut token yang mencurigakan.</li>
+    </ul>
+    <div class="highlight-box">
+      <i class="fas fa-clock" style="color: #b45309;"></i> <strong>Prinsip Keamanan:</strong> Semakin pendek masa berlaku token, semakin kecil risiko jika terjadi kebocoran.
+    </div>
+  </div>
+
+  <!-- Kelemahan Tambahan (opsional) -->
+  <div style="background: #f8fafc; border-radius: 24px; padding: 1.5rem 2rem; margin-top: 1.5rem; border: 1px dashed #94a3b8;">
+    <h3 style="display: flex; align-items: center; gap: 0.5rem; color: #475569; font-weight: 600;">
+      <i class="fas fa-ellipsis-h"></i> Kelemahan Lain yang Ditemukan (tapi tidak termasuk 3 utama)
+    </h3>
+    <ul style="list-style: none; padding-left: 0; margin-top: 0.5rem;">
+      <li style="padding: 0.3rem 0;">📄 <strong>Publicly accessible API documentation</strong> – memberikan informasi endpoint dan skema request kepada attacker, memudahkan eksplorasi celah keamanan. Rekomendasi: pindahkan ke internal VPN atau proteksi dengan basic auth.</li>
+      <li style="padding: 0.3rem 0;">⚠️ <strong>Verbose error messages (database details)</strong> – pesan error yang mengungkapkan nama tabel, kolom, atau struktur query dapat membantu attacker melakukan serangan lanjutan seperti SQL Injection. Rekomendasi: gunakan pesan error generik untuk client dan log detail di server.</li>
+      <li style="padding: 0.3rem 0;">🔒 <strong>HTTPS encryption enabled</strong> – ini adalah <span style="color: #16a34a; font-weight: 600;">kekuatan</span>, bukan kelemahan. Sudah menjadi praktik yang baik dan harus dipertahankan.</li>
+    </ul>
+  </div>
+
+  <!-- RINGKASAN TABEL -->
+  <div class="summary-table">
+    <h2><i class="fas fa-table"></i> Ringkasan Tiga Kelemahan</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>No</th>
+          <th>Kelemahan</th>
+          <th>Tingkat Risiko</th>
+          <th>Solusi Singkat</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td class="weak-label">BOLA/IDOR</td>
+          <td><span style="color: #b91c1c; font-weight: 600;">Kritis</span></td>
+          <td>Binding otorisasi dengan token user, gunakan UUID</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td class="weak-label">Missing Rate Limiting</td>
+          <td><span style="color: #b45309; font-weight: 600;">Tinggi</span></td>
+          <td>Terapkan rate limit (misal 50 request/menit)</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td class="weak-label">Long-lived Tokens (90 hari)</td>
+          <td><span style="color: #b45309; font-weight: 600;">Tinggi</span></td>
+          <td>Access token 15–30 menit + refresh token</td>
+        </tr>
+      </tbody>
+    </table>
+    <p style="margin-top: 1rem; font-size: 0.95rem; color: #475569;">
+      <i class="fas fa-info-circle" style="color: #2c7be5;"></i> Ketiga kelemahan ini saling memperparah: BOLA memberikan akses data, rate limiting yang tidak ada memungkinkan enumerasi massal, dan token yang panjang memberi waktu bagi attacker untuk terus mengeksploitasi.
+    </p>
+  </div>
+
+  <div class="footer-note">
+    <i class="fas fa-lock" style="margin-right: 0.5rem;"></i> Berdasarkan analisis terhadap skenario PT GlobalRetail – Customer Rewards API. <br>Rekomendasi mengikuti standar OWASP API Security Top 10 dan praktik terbaik industri.
+  </div>
+
+</div>
+</body>
+</html>

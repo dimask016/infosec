@@ -1,3 +1,6 @@
+Berikut adalah kode HTML yang sudah disesuaikan. Saya telah menambahkan gambar piano.jpg, pedicab.jpg, car.jpg, dan mjackson.jpg ke dalam bagian cerita yang sesuai. Saya juga menambahkan CSS agar gambar memiliki opacity: 0.45 (40-50%) dan ditampilkan dengan rapi di antara paragraf, tanpa mengubah satu pun isi kalimat atau struktur data-i18n asli.
+
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -417,6 +420,17 @@
             transform: translateY(0);
         }
 
+        /* ----- story images (added) ----- */
+        .story-image {
+            opacity: 0.45;
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1.5rem auto;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(44, 36, 30, 0.08);
+        }
+
         /* responsive */
         @media (max-width: 640px) {
             .story-container {
@@ -544,6 +558,9 @@
         <!-- ===== STORY BODY ===== -->
         <div class="story-body">
 
+            <!-- PIANO IMAGE -->
+            <img src="piano.jpg" alt="Wooden Piano Model" class="story-image">
+
             <!-- p1 -->
             <p class="dropcap fade-section" data-i18n="p1">
                 The turn of the key behind the miniature wooden piano made a small <em>click</em>. When the lever was released, a clear and soothing melody began to flow, filling the corners of the old silent room. Its gentle chime slowly swept away all the burdens in the mind, carrying the soul across the dimensions of time.
@@ -558,6 +575,8 @@
             <div class="memory-block fade-section">
                 <div class="block-label" data-i18n="block1-label">✦ first step</div>
                 <h2><span class="emoji-icon">🚲</span> <span data-i18n="block1-title">Afternoon Breeze &amp; a Small Pedicab</span></h2>
+                <!-- PEDICAB IMAGE -->
+                <img src="pedicab.jpg" alt="Wooden Pedicab Model" class="story-image">
                 <div data-i18n="block1-content">
                     <p>My eyes fell on the miniature <span class="highlight">traditional pedicab</span>. Instantly, my nose seemed to smell the damp earth after rain in childhood. Memories of simple afternoons spun back: sitting on the front bench of the pedicab with Mother, gently swaying to the tired yet smiling pedaler's strokes. That was a time when happiness was so simple—just the afternoon breeze hitting a carefree child's face.</p>
                 </div>
@@ -567,6 +586,8 @@
             <div class="memory-block fade-section">
                 <div class="block-label" data-i18n="block2-label">✦ second step</div>
                 <h2><span class="emoji-icon">🚗</span> <span data-i18n="block2-title">The Pace of Time &amp; Flying Dreams</span></h2>
+                <!-- CAR IMAGE -->
+                <img src="car.jpg" alt="Wooden Car Model" class="story-image">
                 <div data-i18n="block2-content">
                     <p>Next to the pedicab, a row of <span class="highlight">ancient Dutch-style toy cars</span> stood. Their rigid yet elegant shapes reminded me of Grandpa's stories about the past—about an era that moved slowly, full of history left on old asphalt roads.</p>
                     <p>But time never stops. From the old cars, my gaze shifted to a miniature <span class="highlight">airplane</span>. It was a symbol of teenage years, when dreams began to soar high. A time when we no longer just walked on the ground, but looked up to the sky, wanting to fly freely chasing dreams high in the heavens.</p>
@@ -577,6 +598,8 @@
             <div class="memory-block mj-block fade-section">
                 <div class="block-label" data-i18n="block3-label">✦ the king</div>
                 <h2><span class="emoji-icon">👑</span> <span data-i18n="block3-title">Michael Jackson · The King of Pop</span></h2>
+                <!-- MICHAEL JACKSON IMAGE -->
+                <img src="mjackson.jpg" alt="Michael Jackson Action Figure" class="story-image">
                 <div data-i18n="block3-content">
                     <p>Amid the noise of past memories and the peace brought by the piano melody, my eyes fixed on an iconic figure. <span class="highlight">Michael Jackson, the King of Pop</span>.</p>
                     <p>His presence on the corner of the table injected a magical energy into the silence. For the generation that grew up with him, he was not just a musician; he was the soundtrack of courage, freedom, and self-expression. Inside my head, the soothing piano notes seemed to magically merge with the legendary <span class="highlight">moonwalk</span> on a grand stage, surrounded by thousands of lights and shouts of admiration. He was a reminder that behind the silence of life, there is always room to dance and shine.</p>
@@ -822,3 +845,4 @@
 
 </body>
 </html>
+```
